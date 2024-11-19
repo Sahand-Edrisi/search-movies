@@ -45,7 +45,7 @@ const MoviesShow = () => {
       {/* search box */}
       <div className="search-box">
         <input id="search" type="text" />
-        <Link className="btnSearchLink" to={"/"}>
+        <Link className="btnSearchLink" to={"/search-movies"}>
           <button className="btnSearch" onClick={search}>
             search
           </button>
