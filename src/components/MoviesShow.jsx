@@ -45,7 +45,7 @@ const MoviesShow = () => {
       {/* search box */}
       <div className="search-box">
         <input id="search" type="text" />
-        <Link className="btnSearchLink" to={"/search-movies/"}>
+        <Link className="btnSearchLink" to={"/"}>
           <button className="btnSearch" onClick={search}>
             search
           </button>
@@ -76,9 +76,9 @@ const MoviesShow = () => {
                     summary : <span>{summaryData(i.id)}...</span>
                   </p>
                 </div>
-                <Link className="seeMovie" to={`/search-movies/${index}`}>
+                <Link className="seeMovie" to={`/${index}`}>
                   <button>
-                    <i class="fa fa-eye" aria-hidden="true"></i>
+                    <i className="fa fa-eye" aria-hidden="true"></i>
                   </button>
                 </Link>
               </div>
