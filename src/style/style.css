@@ -1,0 +1,223 @@
+* {
+  background-color: rgb(8, 8, 8);
+}
+
+#MovieShow {
+  width: 100%;
+  justify-items: center;
+  align-items: center;
+  padding-top: 100px;
+  display: grid;
+  grid-template-columns: auto;
+}
+#MoviesShow {
+  width: 100%;
+  justify-items: center;
+  align-items: center;
+  padding-top: 100px;
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+.active{
+  width: 100%;
+  justify-items: center;
+  align-items: center;
+  padding-top: 100px;
+  display: grid;
+  grid-template-columns: auto auto auto}
+#root {
+  margin: -8px;
+}
+
+.search-box {
+  width: 100%;
+  height: 90px;
+  background-color: rgb(157, 161, 140);
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  margin: 0px;
+  z-index: 100;
+}
+#search {
+  width: 400px;
+  height: 50px;
+  border: 0;
+  border-radius: 50px;
+  padding: 10px;
+  font-size: 30px;
+  color: aliceblue;
+}
+.btnSearchLink {
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(157, 161, 140);
+}
+a{
+  text-decoration: none;
+}
+.btnSearchLink .btnSearch {
+  color: aliceblue;
+  border: 0;
+  margin: 10px;
+  border-radius: 20px;
+  padding: 15px;
+  font-size: 20px;
+  cursor: pointer;
+}
+.mainNotShow {
+  display: none;
+}
+
+.movies {
+  border: 5px solid rgb(226, 230, 4);
+  background-color: rgb(29, 27, 27);
+  border-radius: 50px;
+  width: 350px;
+  height: 450px;
+  text-align: center;
+  margin: 25px;
+  padding: 10px;
+}
+
+.noneDisplay {
+  display: none;
+}
+img {
+  border-radius: 10px;
+  width: 150px;
+  height: 200px;
+  object-fit: cover;
+}
+.link {
+  display: block;
+  padding-top: 10px;
+  font-size: 25px;
+  text-decoration: none;
+  color: rgb(240, 181, 6);
+  background-color: rgb(29, 27, 27);
+}
+h1 {
+  font-size: 25px;
+  color: rgb(0, 0, 0);
+}
+.titles {
+ background-color: rgb(29, 27, 27);
+width: 360px;
+height: 145px;
+
+}
+.title {
+  display: grid;
+  grid-template-columns: auto auto;
+  background-color: rgb(29, 27, 27);
+  color: rgb(240, 181, 6);
+  padding: 0px;
+  height: 18px;
+  align-items: start;
+  justify-content: start;
+}
+
+.title span {
+  background-color: rgb(29, 27, 27);
+  color: rgb(184, 189, 173);
+  display: flex;
+  width: 280px;
+  padding-left: 5px;
+}
+
+.showItem {
+  display: flex;
+  justify-content: center;
+}
+.item {
+  background-color: rgb(29, 27, 27);
+  border: 2px solid rgb(199, 212, 18);
+  border-radius: 20px;
+  width: 450px;
+  height: 550px;
+  display: grid;
+  justify-items: center;
+}
+.item img {
+  width: 350px;
+  height: 250px;
+  border-radius: 10%;
+  border: 2px solid rgb(199, 212, 18);
+  object-fit: cover;
+}
+
+.item,
+.Home,
+.url,
+h1 {
+  background-color: rgb(29, 27, 27);
+  color: rgb(184, 189, 173);
+}
+
+.Home {
+  display: grid;
+  margin: 35px;
+  border-radius: 50%;
+}
+.Home .btnHome {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-size: 20px;
+  background-color: rgb(199, 212, 18);
+}
+.btnHome i {
+  background-color: rgb(199, 212, 18);
+}
+.item .information {
+  display: grid;
+  grid-template-columns: auto;
+  background-color: inherit;
+  justify-items: start;
+  width: 350px;
+}
+.item .information p {
+  background-color: inherit;
+  font-size: 15px;
+  margin: 2px;
+  padding: 1px;
+  border-radius: 20px;
+}
+.item .information p span {
+  background-color: inherit;
+  font-size: 15px;
+  color: rgb(240, 181, 6);
+}
+.seeMovie{
+position: relative;
+background-color: inherit;
+border-radius: 50%;
+margin-top: 15px;
+}
+.seeMovie button{
+  position: absolute;
+  border: 0;
+  cursor: pointer;
+  width: 380px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  top: -5px;
+  font-size: 20px;
+  background-color: rgb(199, 212, 18);
+  right: -190px;
+}
+.seeMovie button i{
+  font-size: 30px;
+  background-color: rgb(199, 212, 18);
+}
