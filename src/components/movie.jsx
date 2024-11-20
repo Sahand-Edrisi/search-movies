@@ -29,7 +29,7 @@ const Movie = ({
             <Link className="link" to={visitSite} target="_blank">visitSite</Link>
             <Link className="link" to={officialSite} target="_blank">officialSite</Link>
           </div>
-          <Link className="Home" to={"/search-movies"}>
+          <Link className="Home" to={"/search-movies/"}>
             <button className="btnHome">
               <i className="fa-solid fa-house"></i>
             </button>
