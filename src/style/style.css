@@ -22,7 +22,7 @@ a {
   height: 50px;
   background-color: var(--background-Header);
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   position: fixed;
   z-index: 100;
@@ -114,7 +114,6 @@ a {
   height: 480px;
   text-align: center;
   margin: 25px;
-  /* padding: 10px; */
 }
 .movies h1 {
   font-size: 18px;
@@ -202,9 +201,10 @@ a {
 }
 
 .item {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto;
   width: 100%;
-  height: 500px;
+  height: 600px;
   border-radius: 50px;
   width: 80%;
 }
@@ -222,8 +222,8 @@ a {
   grid-template-columns: auto;
   background-color: inherit;
   justify-items: start;
-  border-radius: 10%;
   align-items: center;
+  height: 600px;
 }
 .information #names {
   width: 98%;
@@ -238,10 +238,9 @@ a {
 .information p {
   background-color: inherit;
   font-size: 20px;
-  margin: 2px;
   color: var(--color-span-text);
-  height: 5px;
   cursor: context-menu;
+  
 }
 .information p span {
   background-color: inherit;
@@ -279,5 +278,22 @@ a {
   color: var(--color-span-text);
 }
 .vpn .text span {
+  color: var(--color-span-yellow);
+}
+
+/* notMovie */
+
+.notMovie {
+  padding-top: 150px;
+  display: flex;
+  justify-content: center;
+}
+.notMovie .text {
+  border: 5px solid var(--color-span-yellow);
+  padding: 20px;
+  border-radius: 40px;
+  color: var(--color-span-text);
+}
+.notMovie .text span {
   color: var(--color-span-yellow);
 }
