@@ -1,223 +1,283 @@
 * {
-  background-color: rgb(8, 8, 8);
+  background-color: var(--background-black);
+}
+:root {
+  --background--: rgb(58, 45, 37);
+  --background-black: rgb(43, 40, 38);
+  --background-Header: rgb(114, 103, 103);
+  --color-span-yellow: rgb(240, 181, 6);
+  --color-span-text: rgb(223, 212, 212);
 }
 
-#MovieShow {
-  width: 100%;
-  justify-items: center;
-  align-items: center;
-  padding-top: 100px;
-  display: grid;
-  grid-template-columns: auto;
+a {
+  text-decoration: none;
 }
-#MoviesShow {
-  width: 100%;
-  justify-items: center;
-  align-items: center;
-  padding-top: 100px;
-  display: grid;
-  grid-template-columns: auto auto auto;
-}
-.active{
-  width: 100%;
-  justify-items: center;
-  align-items: center;
-  padding-top: 100px;
-  display: grid;
-  grid-template-columns: auto auto auto}
+
 #root {
   margin: -8px;
 }
-
-.search-box {
+/* Header */
+.header {
   width: 100%;
-  height: 90px;
-  background-color: rgb(157, 161, 140);
-  display: grid;
-  grid-template-columns: auto auto;
+  height: 50px;
+  background-color: var(--background-Header);
+  display: flex;
+  justify-content: flex-end;
   align-items: center;
-  justify-content: center;
   position: fixed;
-  margin: 0px;
   z-index: 100;
 }
+/* search-box */
+.search-box {
+  display: contents;
+}
 #search {
-  width: 400px;
-  height: 50px;
+  margin: 10px;
+  width: 200px;
+  height: 25px;
   border: 0;
   border-radius: 50px;
-  padding: 10px;
-  font-size: 30px;
-  color: aliceblue;
+  padding: 5px;
+  font-size: 15px;
+  color: var(--color-span-text);
+}
+#search :focus {
+  background-color: var(--background-black);
+  color: var(--color-span-text);
+}
+/* search Icon */
+.searchIcon {
+  display: contents;
 }
 .btnSearchLink {
   justify-content: center;
   align-items: center;
-  background-color: rgb(157, 161, 140);
+  border-radius: 50%;
 }
-a{
-  text-decoration: none;
-}
-.btnSearchLink .btnSearch {
-  color: aliceblue;
+.btnSearch {
+  color: var(--color-span-text);
   border: 0;
-  margin: 10px;
-  border-radius: 20px;
-  padding: 15px;
-  font-size: 20px;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 15px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.mainNotShow {
-  display: none;
+.btnSearch i {
+  color: var(--color-span-yellow);
 }
 
+/* btn home */
+
+.homeIcon {
+  display: grid;
+  border-radius: 50%;
+  margin: 5px;
+}
+
+.homeIcon .btnHome {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: var(--background-black);
+  border: 0;
+}
+
+.btnHome i {
+  background-color: var(--background-black);
+  color: var(--color-span-yellow);
+  font-size: 15px;
+}
+
+/* Movies Show */
+
+#MoviesShow {
+  width: 100%;
+  justify-items: center;
+  align-items: center;
+  padding-top: 50px;
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
 .movies {
-  border: 5px solid rgb(226, 230, 4);
-  background-color: rgb(29, 27, 27);
+  border: 5px solid var(--color-span-yellow);
+  background-color: var(--background--);
   border-radius: 50px;
   width: 350px;
-  height: 450px;
+  height: 480px;
   text-align: center;
   margin: 25px;
-  padding: 10px;
+  /* padding: 10px; */
 }
-
-.noneDisplay {
-  display: none;
+.movies h1 {
+  font-size: 18px;
+  color: var(--color-span-yellow);
+  background-color: inherit;
+  display: block;
+  margin: 20px;
 }
-img {
+.movies img {
   border-radius: 10px;
   width: 150px;
   height: 200px;
   object-fit: cover;
 }
-.link {
-  display: block;
-  padding-top: 10px;
-  font-size: 25px;
-  text-decoration: none;
-  color: rgb(240, 181, 6);
-  background-color: rgb(29, 27, 27);
-}
-h1 {
-  font-size: 25px;
-  color: rgb(0, 0, 0);
-}
 .titles {
- background-color: rgb(29, 27, 27);
-width: 360px;
-height: 145px;
-
+  background-color: var(--background--);
+  width: 350px;
+  height: 145px;
+  display: grid;
 }
 .title {
-  display: grid;
-  grid-template-columns: auto auto;
-  background-color: rgb(29, 27, 27);
-  color: rgb(240, 181, 6);
-  padding: 0px;
-  height: 18px;
-  align-items: start;
-  justify-content: start;
-}
-
-.title span {
-  background-color: rgb(29, 27, 27);
-  color: rgb(184, 189, 173);
+  width: 340px;
+  height: 10px;
   display: flex;
-  width: 280px;
-  padding-left: 5px;
+  margin: 10px;
+  align-items: flex-start;
+  background-color: inherit;
 }
-
-.showItem {
+.title .titleName {
+  width: 75px;
+  color: var(--color-span-yellow);
+  background-color: inherit;
   display: flex;
-  justify-content: center;
 }
-.item {
-  background-color: rgb(29, 27, 27);
-  border: 2px solid rgb(199, 212, 18);
-  border-radius: 20px;
-  width: 450px;
-  height: 550px;
-  display: grid;
-  justify-items: center;
-}
-.item img {
-  width: 350px;
-  height: 250px;
-  border-radius: 10%;
-  border: 2px solid rgb(199, 212, 18);
-  object-fit: cover;
+.title .text {
+  width: 240px;
+  display: flex;
+  background-color: inherit;
+  color: var(--color-span-text);
 }
 
-.item,
-.Home,
-.url,
-h1 {
-  background-color: rgb(29, 27, 27);
-  color: rgb(184, 189, 173);
-}
-
-.Home {
-  display: grid;
-  margin: 35px;
+.seeMovie {
+  background-color: inherit;
   border-radius: 50%;
+  position: relative;
 }
-.Home .btnHome {
+.seeMovie button {
+  border: 0;
   cursor: pointer;
-  width: 40px;
-  height: 40px;
+  font-size: 20px;
+  background-color: inherit;
+  border: 5px solid var(--color-span-yellow);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: -30px;
+  top: 40px;
+  width: 60px;
+  height: 60px;
+  position: absolute;
+}
+.seeMovie button i {
+  width: 30px;
+  height: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 18px;
+  background-color: var(--color-span-yellow);
   border-radius: 50%;
-  font-size: 20px;
-  background-color: rgb(199, 212, 18);
 }
-.btnHome i {
-  background-color: rgb(199, 212, 18);
+
+/* Movie show */
+
+#MovieShow {
+  width: 100%;
+  height: 100%;
+  justify-items: center;
+  align-items: center;
+  padding-top: 60px;
+  display: grid;
+  grid-template-columns: auto;
+  background-color: var(--background-black);
 }
-.item .information {
+
+.item {
+  display: flex;
+  width: 100%;
+  height: 500px;
+  border-radius: 50px;
+  width: 80%;
+}
+
+.item img {
+  width: 450px;
+  height: 500px;
+  border-radius: 10%;
+  object-fit: cover;
+  margin: 20px;
+}
+
+.information {
   display: grid;
   grid-template-columns: auto;
   background-color: inherit;
   justify-items: start;
-  width: 350px;
+  border-radius: 10%;
+  align-items: center;
 }
-.item .information p {
-  background-color: inherit;
-  font-size: 15px;
-  margin: 2px;
-  padding: 1px;
-  border-radius: 20px;
+.information #names {
+  width: 98%;
 }
-.item .information p span {
-  background-color: inherit;
-  font-size: 15px;
-  color: rgb(240, 181, 6);
-}
-.seeMovie{
-position: relative;
-background-color: inherit;
-border-radius: 50%;
-margin-top: 15px;
-}
-.seeMovie button{
-  position: absolute;
-  border: 0;
-  cursor: pointer;
-  width: 380px;
-  height: 50px;
+.information .names span {
   display: flex;
   justify-content: center;
-  align-items: center;
-  border-bottom-left-radius: 50px;
-  border-bottom-right-radius: 50px;
-  top: -5px;
-  font-size: 20px;
-  background-color: rgb(199, 212, 18);
-  right: -190px;
+  background-color: inherit;
+  color: var(--color-span-yellow);
+  font-size: 25px;
 }
-.seeMovie button i{
-  font-size: 30px;
-  background-color: rgb(199, 212, 18);
+.information p {
+  background-color: inherit;
+  font-size: 20px;
+  margin: 2px;
+  color: var(--color-span-text);
+  height: 5px;
+  cursor: context-menu;
+}
+.information p span {
+  background-color: inherit;
+  font-size: 25px;
+  color: var(--color-span-yellow);
+}
+.information .links {
+  display: flex;
+  justify-content: space-evenly;
+  width: 98%;
+  background-color: inherit;
+  padding-top: 40px;
+}
+.link {
+  border: 3px solid var(--color-span-yellow);
+  padding: 5px;
+  border-radius: 20px;
+  font-size: 15px;
+  text-decoration: none;
+  color: var(--color-span-yellow);
+  background-color: var(--background--);
+}
+
+/* vpn */
+
+.vpn {
+  padding-top: 150px;
+  display: flex;
+  justify-content: center;
+}
+.vpn .text {
+  border: 5px solid var(--color-span-yellow);
+  padding: 20px;
+  border-radius: 40px;
+  color: var(--color-span-text);
+}
+.vpn .text span {
+  color: var(--color-span-yellow);
 }

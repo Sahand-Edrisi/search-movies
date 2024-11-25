@@ -1,31 +1,18 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import MoviesShow from "./MoviesShow";
+import MoviesShow from "./moviesShow";
 import { Link, useParams } from "react-router-dom";
 import Movie from "./movie";
-const GetDataMovie = () => {
-  const [Movies, setMovieData] = useState([]);
-  useEffect(() => {
-    fetch("https://api.tvmaze.com/search/shows?q=dark").then((res) => {
-      return data(res);
-    });
-    async function data(res) {
-      const response = await axios.get(res.url);
-      setMovieData(response.data);
-    }
-  }, []);
-  let params = useParams();
-  async function search() {
-    let url = "https://api.tvmaze.com/search/shows?q=";
-    let input = document.getElementById("search");
-    let finalUrl = (url += input.value);
-    input.value = "";
-    const response = await axios.get(`${finalUrl}`);
-    setMovieData(response.data);
-    console.log(response);
-  }
+import NotFound from "./notFound";
+import NotMovie from "./notMovie";
 
-  let data = Movies.map((f, index) => ({
+const GetDataMovie = () => {
+  const params = useParams();
+  const [Movies, setMovieData] = useState([]);
+  const [vpn, setVpn] = useState(false);
+  const [notMovie, setNotMovie] = useState(true);
+
+  const data = Movies.map((f, index) => ({
     name: f.show.name,
     image: f.show.image ? f.show.image.medium : undefined,
     imageOriginal: f.show.image ? f.show.image.original : undefined,
@@ -37,47 +24,107 @@ const GetDataMovie = () => {
     summary: f.show.summary ? f.show.summary : undefined,
     id: index,
   }));
+
+  useEffect(() => {
+    let url = fetch("https://api.tvmaze.com/search/shows?q=breaking");
+    url
+      .then(async (res) => {
+        const response = await axios.get(res.url);
+        setMovieData(response.data);
+        setVpn(true);
+      })
+      .catch((e) => {
+        setTimeout(() => {
+          setVpn(false);
+        }, 1000);
+        console.log(e.message);
+      });
+  }, []);
+
+  function search() {
+    let input = document.getElementById("search");
+    let url = fetch("https://api.tvmaze.com/search/shows?q=" + input.value);
+    input.value = "";
+    url
+      .then(async (res) => {
+        const response = await axios.get(res.url);
+        setNotMovie(true);
+        if (response.data.length === 0) {
+          setNotMovie(false);
+        } else {
+          setMovieData(response.data);
+          setVpn(true);
+        }
+      })
+      .catch((e) => {
+        setTimeout(() => {
+          setVpn(false);
+        }, 1000);
+        console.log(e.message);
+      });
+  }
+
   return (
     <>
-      <div className="search-box">
-        <input id="search" type="text" />
-        <Link className="btnSearchLink" to={"/search-movies"}>
+      <div className="header" id="header">
+        <div className="search-box">
+          <input id="search" type="text" />
+        </div>
+        <Link className="searchIcon" to={"/search-movies/"}>
           <button className="btnSearch" onClick={search}>
-            search
+            <i className="fas fa-search"></i>
+          </button>
+        </Link>
+        <Link className="homeIcon" to={"/search-movies/"}>
+          <button className="btnHome" id="btnHome">
+            <i className="fa-solid fa-house" id="HomeICon"></i>
           </button>
         </Link>
       </div>
-        {params.id === undefined ? (
-          <div id="MoviesShow">
-          {data.map((i, index) => (
-            <MoviesShow
-              key={index}
-              name={i.name}
-              image={i.imageOriginal ? i.imageOriginal : i.image}
-              genres={i.genres}
-              visitSite={i.visitSite}
-              officialSite={i.officialSite}
-              language={i.language}
-              rating={i.rating}
-              id={i.id}
-              summary={i.summary}
-            />
-          ))}
-          </div>
+
+      {notMovie === true ? (
+        vpn === true ? (
+          params.id === undefined ? (
+            <div id="MoviesShow">
+              {data.map((i, index) => (
+                <MoviesShow
+                  key={index}
+                  name={i.name}
+                  image={i.imageOriginal ? i.imageOriginal : i.image}
+                  genres={i.genres}
+                  visitSite={i.visitSite}
+                  officialSite={i.officialSite}
+                  language={i.language}
+                  rating={i.rating}
+                  id={i.id}
+                  summary={i.summary}
+                />
+              ))}
+            </div>
+          ) : (
+            <div id="MovieShow">
+              <Movie
+                name={data[params.id].name}
+                image={
+                  data[params.id].imageOriginal
+                    ? data[params.id].imageOriginal
+                    : data[params.id].image
+                }
+                genres={data[params.id].genres}
+                visitSite={data[params.id].visitSite}
+                officialSite={data[params.id].officialSite}
+                language={data[params.id].language}
+                rating={data[params.id].rating}
+                summary={data[params.id].summary}
+              />
+            </div>
+          )
         ) : (
-          <div id="MovieShow">
-          <Movie  
-            name={data[params.id].name}
-            image={data[params.id].imageOriginal ? data[params.id].imageOriginal : data[params.id].image}
-            genres={data[params.id].genres}
-            visitSite={data[params.id].visitSite}
-            officialSite={data[params.id].officialSite}
-            language={data[params.id].language}
-            rating={data[params.id].rating}
-            id={data[params.id].id}
-          />
-          </div>
-        )}
+          <NotFound />
+        )
+      ) : (
+        <NotMovie />
+      )}
     </>
   );
 };
