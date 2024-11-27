@@ -7,6 +7,7 @@ const App = () => {
       <Routes>
         <Route path="/search-movies/" Component={getData} />
         <Route path="/search-movies/:id" Component={getData} />
+        <Route path="/search-movies/:id/pages" Component={getData} />
       </Routes>
     </>
   );

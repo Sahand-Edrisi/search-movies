@@ -104,9 +104,12 @@ a {
   align-items: center;
   padding-top: 50px;
   display: grid;
-  grid-template-columns: auto auto auto;
 }
-.movies {
+
+#notShow{
+display: none;
+}
+#seeMAc{
   border: 5px solid var(--color-span-yellow);
   background-color: var(--background--);
   border-radius: 50px;
@@ -114,6 +117,11 @@ a {
   height: 480px;
   text-align: center;
   margin: 25px;
+}
+
+.movies {
+  background-color: var(--background--);
+  border-radius: 50px;
 }
 .movies h1 {
   font-size: 18px;
@@ -153,38 +161,6 @@ a {
   display: flex;
   background-color: inherit;
   color: var(--color-span-text);
-}
-
-.seeMovie {
-  background-color: inherit;
-  border-radius: 50%;
-  position: relative;
-}
-.seeMovie button {
-  border: 0;
-  cursor: pointer;
-  font-size: 20px;
-  background-color: inherit;
-  border: 5px solid var(--color-span-yellow);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  right: -30px;
-  top: 40px;
-  width: 60px;
-  height: 60px;
-  position: absolute;
-}
-.seeMovie button i {
-  width: 30px;
-  height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 18px;
-  background-color: var(--color-span-yellow);
-  border-radius: 50%;
 }
 
 /* Movie show */
@@ -240,7 +216,6 @@ a {
   font-size: 20px;
   color: var(--color-span-text);
   cursor: context-menu;
-  
 }
 .information p span {
   background-color: inherit;
@@ -297,3 +272,50 @@ a {
 .notMovie .text span {
   color: var(--color-span-yellow);
 }
+
+/* pagination */
+/* .LinkNumbers{
+  background-color: aqua;
+  width: 150px;
+  height: 150px;
+} */
+
+.containerPagination{
+display: grid;
+grid-template-columns: auto;
+align-items: center;
+justify-items: center;
+margin-bottom: 20px;
+}
+.titlePagination{
+  display: flex;
+  align-items: center;
+  color: var(--color-span-text);
+  font-size: 30px;
+  height: 55px;
+}
+.paginationShow {
+  display: flex;
+  justify-content: center;
+}
+.paginationShow #next {
+  padding: 0 8px;
+  color: aliceblue;
+  cursor: pointer;
+}
+.paginationShow #previous {
+  cursor: pointer;
+  padding: 0 8px;
+  color: aliceblue;
+}
+.numbers{
+  color: rgb(200, 207, 212);
+  cursor: pointer;
+  padding: 0 6px;
+}
+.active{
+  cursor: pointer;
+  padding: 0 6px;
+  color: aqua;
+}
+

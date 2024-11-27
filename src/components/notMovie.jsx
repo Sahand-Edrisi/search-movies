@@ -4,7 +4,6 @@ const NotMovie = () => {
   function refresh() {
     window.location.reload();
   }
-  console.log(btn);
   return (
     <>
       <div className="vpn">
