@@ -1,17 +1,12 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import MoviesShow from "./moviesShow";
-import { Link, useParams } from "react-router-dom";
-import Movie from "./movie";
 import NotFound from "./notFound";
-import NotMovie from "./notMovie";
+import BestMovies from "./bestMovies";
 
 const GetDataMovie = () => {
-  const params = useParams();
   const [Movies, setMovieData] = useState([]);
   const [vpn, setVpn] = useState(false);
-  const [notMovie, setNotMovie] = useState(true);
-
   const data = Movies.map((f, index) => ({
     name: f.show.name,
     image: f.show.image ? f.show.image.medium : undefined,
@@ -34,130 +29,106 @@ const GetDataMovie = () => {
         setVpn(true);
       })
       .catch((e) => {
-          setVpn(false);
+        setVpn(false);
         console.log(e.message);
       });
   }, []);
 
   function search() {
-    let input = document.getElementById("search");
+    let input = document.getElementById("input");
     let url = fetch("https://api.tvmaze.com/search/shows?q=" + input.value);
     input.value = "";
     url
       .then(async (res) => {
         const response = await axios.get(res.url);
-        setNotMovie(true);
         if (response.data.length === 0) {
-          setNotMovie(false);
+          notFindMovieDisplayOn()
         } else {
+          notFindMovieDisplayOff()
           setMovieData(response.data);
           setVpn(true);
+          paginationReload();
         }
       })
       .catch((e) => {
-     
-          setVpn(false);
-
+        setVpn(false);
         console.log(e.message);
       });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
   function searchWithWord(e) {
     let input = e.currentTarget;
-    console.log(input.value);
     let url = fetch("https://api.tvmaze.com/search/shows?q=" + input.value);
     url
       .then(async (res) => {
         const response = await axios.get(res.url);
-        setNotMovie(true);
         if (response.data.length === 0) {
-          setNotMovie(false);
+          notFindMovieDisplayOn()
         } else {
+          notFindMovieDisplayOff()
           setMovieData(response.data);
           setVpn(true);
+          paginationReload();
         }
       })
       .catch((e) => {
-          setVpn(false);
+        setVpn(false);
         console.log(e.message);
       });
-  }
-  function pressEnter(e) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      console.log(input.value === "");
+      if(input.value === ""){
+     setTimeout(()=>{
+       let notFindMovieDisplayOn = document.getElementById("notFindMovieDisplayOn")
+       console.log(notFindMovieDisplayOn);
+       notFindMovieDisplayOn.setAttribute("id","notFindMovieDisplayOff")
+     },20)
+      }
+    }
+    function pressEnter(e) {
     let enter = e.key;
     if (enter === "Enter") {
       search();
     }
   }
-  function reloadPage(){
-   setTimeout(()=>{
-    window.location.reload()
-   },0.1)
+
+  function refresh() {
+    window.location.reload();
   }
+
   return (
     <>
       <div className="header" id="header">
+      <div className="buttons">
+   <div className="searchIcon">
+          <button className="btnSearch" onClick={search}>
+            <i className="fas fa-search"></i>
+          </button>
+        </div>
+        <div id="homeIcon">
+          <button id="btnHome" onClick={refresh}>
+            <i className="fa-solid fa-house" id="HomeICon"></i>
+          </button>
+        </div>
+   </div>
         <div className="search-box">
           <input
-            id="search"
+            id="input"
             type="text"
             onKeyDown={pressEnter}
             onChange={searchWithWord}
           />
+          <div id="notFindMovieDisplayOff">
+            <span>No movie found with this name</span>
+          </div>
         </div>
-        <Link className="searchIcon" to={"/search-movies/"}>
-          <button className="btnSearch" onClick={search}>
-            <i className="fas fa-search"></i>
-          </button>
-        </Link>
-        <Link className="homeIcon"   to={"/search-movies"}>
-          <button className="btnHome" id="btnHome" >
-            <i className="fa-solid fa-house" id="HomeICon"></i>
-          </button>
-        </Link>
-      </div>
 
-      {notMovie === true ? (
-        vpn === true ? (
-          params.id === undefined ? (
-            data.length >= 3 ? (
-              <>
-                <div id="MoviesShow">
-                  <>
-                    {data.map((i, index) => (
-                      <MoviesShow
-                        key={index}
-                        name={i.name}
-                        image={i.imageOriginal ? i.imageOriginal : i.image}
-                        genres={i.genres}
-                        visitSite={i.visitSite}
-                        officialSite={i.officialSite}
-                        language={i.language}
-                        rating={i.rating}
-                        id={i.id}
-                        summary={i.summary}
-                      />
-                    ))}
-                  </>
-                </div>
- <div className="containerPagination">
-  <div className="titlePagination">
-    <p>Movies pages</p>
-  </div>
- <div className="paginationShow">
-                  <button id="previous" onClick={previousPage}>
-                    Previous
-                  </button>
-                  <div id="pages">
-                    {setTimeout(() => {
-                      createPages();
-                    },1000)}
-                  </div>
-                  <button id="next" onClick={nextPage}>
-                    Next
-                  </button>
-                </div>
- </div>
-              </>
-            ) : (
+      </div>
+   
+{vpn === true ? (
+          data.length >= 3 ? (
+            <>
+              <BestMovies />
               <div id="MoviesShow">
                 {data.map((i, index) => (
                   <MoviesShow
@@ -174,62 +145,105 @@ const GetDataMovie = () => {
                   />
                 ))}
               </div>
-            )
+              <div className="containerPagination">
+                <div className="titlePagination">
+                  <p>Movies pages</p>
+                </div>
+                <div className="paginationShow">
+                  <button id="previous" onClick={previousPage}>
+                    Previous
+                  </button>
+                  <div id="pages">{createPages()}</div>
+                  <button id="next" onClick={nextPage}>
+                    Next
+                  </button>
+                </div>
+              </div>
+            </>
           ) : (
-            <div id="MovieShow">
-              <Movie
-                name={data[params.id].name}
-                image={
-                  data[params.id].imageOriginal
-                    ? data[params.id].imageOriginal
-                    : data[params.id].image
-                }
-                genres={data[params.id].genres}
-                visitSite={data[params.id].visitSite}
-                officialSite={data[params.id].officialSite}
-                language={data[params.id].language}
-                rating={data[params.id].rating}
-                summary={data[params.id].summary}
-              />
+            <div id="MoviesShow">
+              {data.map((i, index) => (
+                <MoviesShow
+                  key={index}
+                  name={i.name}
+                  image={i.imageOriginal ? i.imageOriginal : i.image}
+                  genres={i.genres}
+                  visitSite={i.visitSite}
+                  officialSite={i.officialSite}
+                  language={i.language}
+                  rating={i.rating}
+                  id={i.id}
+                  summary={i.summary}
+                />
+              ))}
             </div>
           )
         ) : (
-          setTimeout(()=>{
-            <NotFound />
-          },20)
-        )
-      ) : (
-        setTimeout(()=>{
-        <NotMovie />
+          <NotFound />
+        )}
 
-        },20)
-)}
     </>
   );
-
-  function createPages() {
-    let dataLength = data.length;
-    let result = dataLength / 2;
-    let round = Math.round(result);
-    let pages = document.getElementById("pages");
-    pages.innerHTML = "";
-    for (let i = 0; i < round; i++) {
-      let createSpan = document.createElement("span");
-      createSpan.setAttribute("class", "numbers");
-      createSpan.addEventListener("click", showPages);
-      createSpan.setAttribute("id", i + 1);
-      createSpan.innerText += [i + 1];
-      pages.appendChild(createSpan);
+function notFindMovieDisplayOff(){
+  let notFindMovieDisplayOn = document.getElementById("notFindMovieDisplayOn")
+  setTimeout(()=>{
+    if(notFindMovieDisplayOn !== null){
+      notFindMovieDisplayOn.setAttribute("id" , "notFindMovieDisplayOff")
     }
-    let numbers = document.querySelectorAll(".numbers");
-    numbers[0].setAttribute("class", "numbers active");
+  },1)
+}
+function notFindMovieDisplayOn(){
+  let notFindMovieDisplayOff = document.getElementById("notFindMovieDisplayOff")
+  setTimeout(()=>{
+    if(notFindMovieDisplayOff !== null){
+      notFindMovieDisplayOff.setAttribute("id" , "notFindMovieDisplayOn")
+    }
+  },1)
+}
+  function createPages() {
+    setTimeout(() => {
+      let numbers = document.querySelectorAll(".numbers");
+      if (numbers.length === 0) {
+        let dataLength = data.length;
+        let result = dataLength / 2;
+        let round = Math.round(result);
+        let pages = document.getElementById("pages");
+        for (let i = 0; i < round; i++) {
+          let createSpan = document.createElement("span");
+          createSpan.setAttribute("class", "numbers");
+          createSpan.addEventListener("click", showPages);
+          createSpan.setAttribute("id", i + 1);
+          createSpan.innerText += [i + 1];
+          pages.appendChild(createSpan);
+        }
+        let numbers = document.querySelectorAll(".numbers");
+        numbers[0].setAttribute("class", "numbers active");
+      }
+    });
   }
-
+  function paginationReload() {
+    let numbers = document.querySelectorAll(".numbers");
+    let moviesShow = document.querySelectorAll("#displayOn");
+    let movie = document.querySelectorAll(".movie");
+    setTimeout(() => {
+      if (numbers[0] !== undefined) {
+        if (numbers[0].className !== "numbers active") {
+          for (let j = 1; j < numbers.length; j++) {
+            numbers[j].setAttribute("class", "numbers");
+          }
+          numbers[0].setAttribute("class", "numbers active");
+          moviesShow[0].setAttribute("id", "displayOff");
+          moviesShow[1].setAttribute("id", "displayOff");
+          movie[0].setAttribute("id", "displayOn");
+          movie[1].setAttribute("id", "displayOn");
+        }
+      }
+    }, 1000);
+  }
   function nextPage() {
     let numbers = document.querySelectorAll(".numbers");
-    let moviesShow = document.querySelectorAll("#seeMAc");
+    let moviesShow = document.querySelectorAll("#displayOn");
     let movie = document.querySelectorAll(".movie");
-
     for (let i = 0; i < numbers.length; i++) {
       if (
         i + 1 === numbers.length &&
@@ -246,25 +260,26 @@ const GetDataMovie = () => {
     for (let j = 0; j < numbers.length; j++) {
       if (numbers[j].className === "numbers active") {
         for (let i = 0; i < moviesShow.length; i++) {
-          moviesShow[i].setAttribute("id", "notShow");
+          moviesShow[i].setAttribute("id", "displayOff");
         }
 
         for (let i = j - 1; i < numbers[j].id; i++) {
           let index = i;
           let id = Number(numbers[j].id);
           let result = index + id;
-        if( movie[result] === undefined){
-          break
-        }
-           movie[result].setAttribute("id", "seeMAc") 
+          if (movie[result] === undefined) {
+            break;
+          }
+          movie[result].setAttribute("id", "displayOn");
         }
       }
     }
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function previousPage() {
     let numbers = document.querySelectorAll(".numbers");
-    let moviesShow = document.querySelectorAll("#seeMAc");
+    let moviesShow = document.querySelectorAll("#displayOn");
     let movie = document.querySelectorAll(".movie");
     for (let i = 0; i < numbers.length; i++) {
       if (i === 0 && numbers[i].className === "numbers active") {
@@ -280,23 +295,24 @@ const GetDataMovie = () => {
     for (let j = 0; j < numbers.length; j++) {
       if (numbers[j].className === "numbers active") {
         for (let i = 0; i < moviesShow.length; i++) {
-          moviesShow[i].setAttribute("id", "notShow");
+          moviesShow[i].setAttribute("id", "displayOff");
         }
 
         for (let i = j - 1; i < numbers[j].id; i++) {
           let index = i;
           let id = Number(numbers[j].id);
           let result = index + id;
-          movie[result].setAttribute("id", "seeMAc");
+          movie[result].setAttribute("id", "displayOn");
         }
       }
     }
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function showPages(e) {
     let page = e.currentTarget;
     let numbers = document.querySelectorAll(".numbers");
-    let moviesShow = document.querySelectorAll("#seeMAc");
+    let moviesShow = document.querySelectorAll("#displayOn");
     let movie = document.querySelectorAll(".movie");
 
     for (let i = 0; i < numbers.length; i++) {
@@ -309,16 +325,17 @@ const GetDataMovie = () => {
     for (let j = 0; j < numbers.length; j++) {
       if (numbers[j].className === "numbers active") {
         for (let i = 0; i < moviesShow.length; i++) {
-          moviesShow[i].setAttribute("id", "notShow");
+          moviesShow[i].setAttribute("id", "displayOff");
         }
         for (let i = j - 1; i < numbers[j].id; i++) {
           let index = i;
           let id = Number(numbers[j].id);
           let result = index + id;
-          movie[result].setAttribute("id", "seeMAc");
+          movie[result].setAttribute("id", "displayOn");
         }
       }
     }
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 };
 

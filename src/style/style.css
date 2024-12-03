@@ -1,11 +1,11 @@
 * {
-  background-color: var(--background-black);
+  background-color: var(--background);
 }
 :root {
-  --background--: rgb(58, 45, 37);
-  --background-black: rgb(43, 40, 38);
+  --background-items: rgb(131, 122, 116);
+  --background: rgb(211, 208, 205);
   --background-Header: rgb(114, 103, 103);
-  --color-span-yellow: rgb(240, 181, 6);
+  --color-span-green: rgb(255, 145, 0);
   --color-span-text: rgb(223, 212, 212);
 }
 
@@ -22,39 +22,66 @@ a {
   height: 50px;
   background-color: var(--background-Header);
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   position: fixed;
   z-index: 100;
+  padding: 0px 50px;
 }
 /* search-box */
 .search-box {
-  display: contents;
+  display: grid;
+  justify-content: center;
+  background-color: inherit;
+  margin-top: 0px;
+  position: relative;
 }
-#search {
-  margin: 10px;
+#input {
   width: 200px;
-  height: 25px;
-  border: 0;
+  height: 30px;
+  border: 1px solid black;
   border-radius: 50px;
   padding: 5px;
   font-size: 15px;
-  color: var(--color-span-text);
+  color: var(--background-Header);
 }
-#search :focus {
-  background-color: var(--background-black);
-  color: var(--color-span-text);
+#notFindMovieDisplayOff{
+  display: none;
 }
+#notFindMovieDisplayOn{
+display: flex;
+align-items: center; 
+position: absolute;
+width: 210px;
+height: 30px;
+margin: 48px 0;
+background-color: var(--color-span-green);
+border-radius: 50px;
+}
+#notFindMovie span{
+border-radius: 50px;
+display: flex;
+justify-content: center;
+width: 210px;
+font-size: 14px;
+background-color: var(--color-span-green);
+}
+
 /* search Icon */
-.searchIcon {
+.buttons{
+display: flex;
+background-color: var(--background-Header);
+align-items: center;
+}
+.buttons .searchIcon {
   display: contents;
 }
-.btnSearchLink {
+.buttons .btnSearchLink {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
 }
-.btnSearch {
+.buttons .btnSearch {
   color: var(--color-span-text);
   border: 0;
   border-radius: 50%;
@@ -66,19 +93,20 @@ a {
   justify-content: center;
   align-items: center;
 }
-.btnSearch i {
-  color: var(--color-span-yellow);
+.buttons .btnSearch i {
+  color: var(--color-span-green);
 }
 
 /* btn home */
 
-.homeIcon {
+
+#homeIcon {
   display: grid;
   border-radius: 50%;
   margin: 5px;
 }
 
-.homeIcon .btnHome {
+#homeIcon #btnHome {
   cursor: pointer;
   width: 30px;
   height: 30px;
@@ -86,15 +114,92 @@ a {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  background-color: var(--background-black);
+  background-color: var(--background);
   border: 0;
 }
 
-.btnHome i {
-  background-color: var(--background-black);
-  color: var(--color-span-yellow);
+#homeIcon #btnHome i {
+  background-color: var(--background);
+  color: var(--color-span-green);
   font-size: 15px;
 }
+
+
+#newHomeIcon {
+  display: grid;
+  border-radius: 50%;
+  margin: 5px;
+}
+
+#NewHomeIcon #btnHome {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: var(--background);
+  border: 0;
+}
+
+#NewHomeIcon #btnHome i {
+  background-color: var(--background);
+  color: var(--color-span-green);
+  font-size: 15px;
+}
+
+
+/* bestMovies */
+
+.bestMovies{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 65px;
+}
+.bestMovies .images{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bestMovies .btnLeft{
+  margin: 0 10px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+}
+.bestMovies .btnRight{
+  width: 35px;
+  height: 35px;
+  margin: 0 10px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+}
+.displayOffBestMovie{
+  display: none;
+}
+.bestMovies .images .imgNotShow{
+  width: 300px;
+  height: 450px;
+  display: none;
+}
+.bestMovies .images .imgShow{
+  width: 300px;
+  height: 450px;
+  display: block;
+  margin: 0 10px;
+}
+
+.bestMovies .images .imgShowCenter{
+  width: 350px;
+  height: 500px;
+  display: block;
+}
+
 
 /* Movies Show */
 
@@ -106,86 +211,88 @@ a {
   display: grid;
 }
 
-#notShow{
-display: none;
+#displayOff {
+  display: none;
 }
-#seeMAc{
-  border: 5px solid var(--color-span-yellow);
-  background-color: var(--background--);
-  border-radius: 50px;
-  width: 350px;
+
+#displayOn {
+  width: 800px;
   height: 480px;
-  text-align: center;
   margin: 25px;
 }
 
-.movies {
-  background-color: var(--background--);
+.movieShow {
+  background-color: var(--background-items);
   border-radius: 50px;
+  padding: 15px;
+  display: grid;
+  grid-template-columns: auto auto;
 }
-.movies h1 {
-  font-size: 18px;
-  color: var(--color-span-yellow);
-  background-color: inherit;
-  display: block;
-  margin: 20px;
+.movieShow .Picture {
+  background-color: var(--background-items);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.movies img {
+
+.movieShow .Picture img{
   border-radius: 10px;
-  width: 150px;
-  height: 200px;
+  width: 250px;
+  height: 350px;
   object-fit: cover;
 }
-.titles {
-  background-color: var(--background--);
-  width: 350px;
-  height: 145px;
+.information {
+  background-color: var(--background-items);
   display: grid;
 }
-.title {
-  width: 340px;
-  height: 10px;
+.information .item-name{
   display: flex;
-  margin: 10px;
+  font-size: 20px;
+  color: var(--color-span-green);
+  background-color: inherit;
+  justify-content: center;
+}
+.information .item-name .name{
+  color: var(--color-span-green);
+  background-color: inherit;
+}
+.item {
+  display: flex;
+  background-color: inherit;
+  justify-content: flex-start;
   align-items: flex-start;
-  background-color: inherit;
 }
-.title .titleName {
-  width: 75px;
-  color: var(--color-span-yellow);
+
+.information .item .itemName {
+  color: var(--color-span-green);
   background-color: inherit;
   display: flex;
+  font-size: 20px;
 }
-.title .text {
+.information .item .text {
   width: 240px;
   display: flex;
   background-color: inherit;
   color: var(--color-span-text);
+  font-size: 18px;
+  width: 350px;
+  height: 50px;
 }
 
 /* Movie show */
 
-#MovieShow {
+/* #Show .movieShow {
   width: 100%;
-  height: 100%;
-  justify-items: center;
+  padding-top: 10px;
+  display: grid;
   align-items: center;
-  padding-top: 60px;
-  display: grid;
-  grid-template-columns: auto;
-  background-color: var(--background-black);
-}
-
-.item {
-  display: grid;
-  grid-template-columns: auto auto;
-  width: 100%;
+  justify-items: center;
+  background-color: var(--background);
   height: 600px;
   border-radius: 50px;
-  width: 80%;
 }
 
-.item img {
+#Show .movieShow img {
   width: 450px;
   height: 500px;
   border-radius: 10%;
@@ -193,14 +300,15 @@ display: none;
   margin: 20px;
 }
 
-.information {
+#Show .movieShow .information {
   display: grid;
   grid-template-columns: auto;
   background-color: inherit;
   justify-items: start;
   align-items: center;
   height: 600px;
-}
+  background-color: var(--background-Header);
+} 
 .information #names {
   width: 98%;
 }
@@ -208,7 +316,7 @@ display: none;
   display: flex;
   justify-content: center;
   background-color: inherit;
-  color: var(--color-span-yellow);
+  color: var(--color-span-green);
   font-size: 25px;
 }
 .information p {
@@ -220,7 +328,7 @@ display: none;
 .information p span {
   background-color: inherit;
   font-size: 25px;
-  color: var(--color-span-yellow);
+  color: var(--color-span-green);
 }
 .information .links {
   display: flex;
@@ -230,14 +338,14 @@ display: none;
   padding-top: 40px;
 }
 .link {
-  border: 3px solid var(--color-span-yellow);
+  border: 3px solid var(--color-span-green);
   padding: 5px;
   border-radius: 20px;
   font-size: 15px;
   text-decoration: none;
-  color: var(--color-span-yellow);
-  background-color: var(--background--);
-}
+  color: var(--color-span-green);
+  background-color: var(--background-items);
+} */
 
 /* vpn */
 
@@ -247,13 +355,13 @@ display: none;
   justify-content: center;
 }
 .vpn .text {
-  border: 5px solid var(--color-span-yellow);
+  border: 5px solid var(--color-span-green);
   padding: 20px;
   border-radius: 40px;
-  color: var(--color-span-text);
+  color: var(--background-Header);
 }
 .vpn .text span {
-  color: var(--color-span-yellow);
+  color: var(--color-span-green);
 }
 
 /* notMovie */
@@ -264,58 +372,74 @@ display: none;
   justify-content: center;
 }
 .notMovie .text {
-  border: 5px solid var(--color-span-yellow);
+  border: 5px solid var(--color-span-green);
   padding: 20px;
   border-radius: 40px;
-  color: var(--color-span-text);
+  color: var(--background-Header);
 }
 .notMovie .text span {
-  color: var(--color-span-yellow);
+  color: var(--color-span-green);
 }
 
 /* pagination */
-/* .LinkNumbers{
-  background-color: aqua;
-  width: 150px;
-  height: 150px;
-} */
-
-.containerPagination{
-display: grid;
-grid-template-columns: auto;
-align-items: center;
-justify-items: center;
-margin-bottom: 20px;
+.containerPaginationDisplayOff{
+  display: none;
 }
-.titlePagination{
+.containerPagination {
+  display: grid;
+  grid-template-columns: auto;
+  align-items: center;
+  justify-items: center;
+  padding: 10px 0px;
+  background-color: var(--background-Header);
+}
+.titlePagination {
   display: flex;
   align-items: center;
-  color: var(--color-span-text);
-  font-size: 30px;
-  height: 55px;
+  background-color: var(--background-Header);
+  color: var(--color-span-green);
+  font-size: 20px;
+  height: 30px;
+}
+.titlePagination p{
+  background-color: var(--background-Header);
 }
 .paginationShow {
+  background-color: var(--background-Header);
   display: flex;
   justify-content: center;
 }
 .paginationShow #next {
   padding: 0 8px;
-  color: aliceblue;
+  background-color: var(--background-Header);
+  color:var(--color-span-green);
+  border: 0px;
   cursor: pointer;
 }
 .paginationShow #previous {
+  background-color: var(--background-Header);
   cursor: pointer;
   padding: 0 8px;
-  color: aliceblue;
+  color: var(--color-span-green);
+  border: 0px;
 }
-.numbers{
-  color: rgb(200, 207, 212);
+#pages{
+background-color: var(--background-Header);
+margin: 10px;
+}
+.numbers {
+  background-color: var(--background-Header);
+  color: var(--color-span-text);
   cursor: pointer;
   padding: 0 6px;
+  border: 1px solid var(--color-span-text);
+  border-radius: 50%;
+  margin: 0px 10px;
 }
-.active{
+.active {
+  background-color: var(--background-Header);
   cursor: pointer;
   padding: 0 6px;
-  color: aqua;
+  color: var(--color-span-green);
+  border: 1px solid var(--color-span-green);
 }
-
