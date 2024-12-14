@@ -6,6 +6,7 @@ const BestMovies = () => {
   const MoviesData = bestMovies.map((i, index) => ({
     key: { index },
     imageOriginal: i.show.image ? i.show.image.original : undefined,
+    id : index
   }));
   const element = useRef();
   useEffect(() => {
@@ -21,12 +22,12 @@ const BestMovies = () => {
   if (bestMovies.length > 0) {
     return (
       <>
-        <div className="bestMovies">
+        <div id="bestMovies">
           <button className="btnLeft" onClick={btnLeft}>
             <i className="fa-solid fa-arrow-left"></i>
           </button>
           <div className="images" ref={element}>
-            {edit()}
+            {createBestMovies()}
           </div>
           <button className="btnRight" onClick={btnRight}>
             <i className="fa-solid fa-arrow-right"></i>
@@ -35,16 +36,20 @@ const BestMovies = () => {
       </>
     );
   }
-  function edit() {
+  function createBestMovies() {
     let img = document.querySelectorAll(".imgShow");
     if (img.length === 0) {
       setTimeout(() => {
+        let Data = MoviesData;
         for (let i = 0; i < 3; i++) {
-          let Data = MoviesData;
           let images = element.current;
+          // let createTagA = document.createElement("a");
           let createImg = document.createElement("img");
+          // createTagA.setAttribute("href", `best-movie`);
+          // createTagA.setAttribute("id", `${i}`);
           createImg.setAttribute("src", Data[i].imageOriginal);
           createImg.setAttribute("class", "imgShow");
+          // createTagA.appendChild(createImg)
           images.appendChild(createImg);
         }
         let img = document.querySelectorAll(".imgShow");
