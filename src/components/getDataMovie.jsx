@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import MoviesShow from "./moviesShow";
 import Movie from "./movie";
@@ -9,7 +9,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 const GetDataMovie = () => {
   const params = useParams();
   const nav = useNavigate();
-  const BestMovieParentElement = useRef();
+
 
   // Movie Data
   const [Movies, setMovieData] = useState([]);
@@ -30,7 +30,7 @@ const GetDataMovie = () => {
       f.show.externals.imdb !== null ? f.show.externals.imdb : undefined,
     id: index,
   }));
-
+  
   // best Movies data
   const [bestMovies, setBestMovies] = useState([]);
   const [showBestMovies, setShowBestMovies] = useState(undefined);
@@ -161,7 +161,7 @@ const GetDataMovie = () => {
                     <button className="btnLeft" onClick={btnLeft}>
                       <i className="fa-solid fa-arrow-left"></i>
                     </button>
-                    <div id="images" ref={BestMovieParentElement}>
+                    <div id="images" >
                       {createBestMovies()}
                     </div>
                     <button className="btnRight" onClick={btnRight}>
@@ -206,7 +206,7 @@ const GetDataMovie = () => {
                     <button className="btnLeft" onClick={btnLeft}>
                       <i className="fa-solid fa-arrow-left"></i>
                     </button>
-                    <div id="images" ref={BestMovieParentElement}>
+                    <div id="images">
                       {createBestMovies()}
                     </div>
                     <button className="btnRight" onClick={btnRight}>
@@ -298,7 +298,6 @@ const GetDataMovie = () => {
       )}
     </>
   );
-  // show Movies
 
   function refresh() {
     let movies = document.querySelectorAll(".movie");
@@ -323,11 +322,11 @@ const GetDataMovie = () => {
   function search() {
     let input = document.getElementById("input");
     let url = fetch("https://api.tvmaze.com/search/shows?q=" + input.value);
-    if(showBestMovies !== undefined){
-      setShowBestMovies(undefined)
-    }
     if (input.value !== "") {
       input.value = "";
+      if(showBestMovies !== undefined){
+        setShowBestMovies(undefined)
+      }
       if (showSearchMoviesItem !== undefined) {
         setShowSearchMoviesItem(undefined);
       }
@@ -342,16 +341,7 @@ const GetDataMovie = () => {
             setVpn(true);
             paginationReload();
             if (input.value === "") {
-              setTimeout(() => {
-                let notFindMovieDisplayOn =
-                  document.getElementById("ShowSearchMoviesOn");
-                if (notFindMovieDisplayOn !== null) {
-                  notFindMovieDisplayOn.setAttribute(
-                    "id",
-                    "ShowSearchMoviesOff"
-                  );
-                }
-              }, 20);
+              ShowSearchMoviesOff() 
             }
           }
         })
@@ -359,8 +349,9 @@ const GetDataMovie = () => {
           setVpn(false);
           console.log(e.message);
         });
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
+        nav("/search-movies/");
+      }
+      window.scrollTo({ top: 600, behavior: "smooth" });
   }
   function searchWithWord(e) {
     let input = e.currentTarget;
@@ -381,7 +372,6 @@ const GetDataMovie = () => {
         setVpn(false);
         console.log(e.message);
       });
-    window.scrollTo({ top: 0, behavior: "smooth" });
     if (input.value === "") {
       ShowSearchMoviesOff();
     }
@@ -395,6 +385,7 @@ const GetDataMovie = () => {
       if (showSearchMoviesItem !== undefined) {
         setShowSearchMoviesItem(undefined);
       }
+      window.scrollTo({ top: 600, behavior: "smooth" });
     }
   }
   function ShowSearchMoviesOff() {
@@ -416,7 +407,6 @@ const GetDataMovie = () => {
       }
     }, 1);
   }
-
   function showItem(e) {
     if (showSearchMoviesItem !== undefined) {
       setShowSearchMoviesItem(undefined);
@@ -587,15 +577,21 @@ const GetDataMovie = () => {
   // best Movie
   function createBestMovies() {
     let bestMoviesCount = document.querySelectorAll("#itemBestMovies");
+   if(bestMoviesCount.length > 3){
+    for(let i = 0 ; i<bestMoviesCount.length ; i++ ){
+      bestMoviesCount[i].remove()
+    }
+   }
     setTimeout(() => {
-      if (bestMoviesCount.length === 0) {
+      if (bestMoviesCount.length === 0 || bestMoviesCount.length < 3) {
         let Data = bestMoviesData;
         for (let i = 0; i < 3; i++) {
-          let images = BestMovieParentElement.current;
+          let images =  document.getElementById('images')
           let createTagA = document.createElement("a");
           let createImg = document.createElement("img");
           createTagA.setAttribute("id", "itemBestMovies");
           createImg.addEventListener("click", bestMovieShow);
+          console.log(Data[i].imageOriginal);
           createImg.setAttribute("src", Data[i].imageOriginal);
           createImg.setAttribute("id", Data[i].id);
           createImg.setAttribute("class", "imgShow");
@@ -604,15 +600,15 @@ const GetDataMovie = () => {
         }
         let img = document.querySelectorAll(".imgShow");
         img[1].setAttribute("class", "imgShowCenter");
+      }else{
+        return undefined
       }
-    }, 100);
+    }, 10);
   }
-
   function bestMovieShow(e) {
     let item = e.currentTarget;
     setShowBestMovies(item.id);
   }
-
   function btnRight() {
     let Data = bestMoviesData;
     let imgShow = document.querySelectorAll(".imgShow");
@@ -653,7 +649,6 @@ const GetDataMovie = () => {
       }
     }
   }
-
   function btnLeft() {
     let Data = bestMoviesData;
     let imgShow = document.querySelectorAll(".imgShow");
