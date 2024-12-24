@@ -1,18 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import MoviesShow from "./moviesShow";
 import Movie from "./movie";
 import NotFound from "./notFound";
-import BestMovies from "./bestMovies";
 import notPicture from "../image/notPicture.jpg";
 import { useParams, useNavigate } from "react-router-dom";
 
 const GetDataMovie = () => {
   const params = useParams();
   const nav = useNavigate();
+  const BestMovieParentElement = useRef();
+
+  // Movie Data
   const [Movies, setMovieData] = useState([]);
   const [vpn, setVpn] = useState(false);
-  const [ShowSearchMovies, setShowSearchMovies] = useState([]);
   const data = Movies.map((f, index) => ({
     name: f.show.name,
     image: f.show.image ? f.show.image.medium : notPicture,
@@ -29,13 +30,39 @@ const GetDataMovie = () => {
       f.show.externals.imdb !== null ? f.show.externals.imdb : undefined,
     id: index,
   }));
+
+  // best Movies data
+  const [bestMovies, setBestMovies] = useState([]);
+  const [ShowBestMovies, setShowBestMovies] = useState(undefined);
+  const BestMoviesData = bestMovies.map((i, index) => ({
+    name: i.show.name,
+    image: i.show.image ? i.show.image.medium : notPicture,
+    imageOriginal: i.show.image ? i.show.image.original : notPicture,
+    genres: i.show.genres ? i.show.genres.join(",") : undefined,
+    visitSite: i.show.url,
+    officialSite: i.show.officialSite,
+    language: i.show.language,
+    rating: i.show.rating.average ? i.show.rating.average : undefined,
+    summary: i.show.summary ? i.show.summary : undefined,
+    country: i.show.network !== null ? i.show.network.country.name : undefined,
+    status: i.show.status !== null ? i.show.status : undefined,
+    externals:
+      i.show.externals.imdb !== null ? i.show.externals.imdb : undefined,
+    id: index,
+  }));
+
+  // search Movies data
+  const [ShowSearchMovies, setShowSearchMovies] = useState([]);
   const showMoviesInSearch = ShowSearchMovies.map((f, index) => ({
     key: index,
     name: f.show.name,
     imageOriginal: f.show.image ? f.show.image.medium : notPicture,
   }));
+
   useEffect(() => {
     let url = fetch("https://api.tvmaze.com/search/shows?q=breking");
+    let BestMovieUrl = fetch("https://api.tvmaze.com/search/shows?q=dark");
+
     url
       .then(async (res) => {
         const response = await axios.get(res.url);
@@ -46,6 +73,11 @@ const GetDataMovie = () => {
         setVpn(false);
         console.log(e.message);
       });
+
+    BestMovieUrl.then(async (res) => {
+      const response = await axios.get(res.url);
+      setBestMovies(response.data);
+    }).catch();
   }, []);
 
   return (
@@ -83,10 +115,57 @@ const GetDataMovie = () => {
         </div>
       </div>
       {vpn === true ? (
-        params.id === undefined ? (
-          data.length >= 3 ? (
-            <>
-              <BestMovies />
+        ShowBestMovies === undefined ? (
+          params.id === undefined ? (
+            data.length >= 3 ? (
+              <>
+                {/* bestMovies */}
+                <div id="bestMovies">
+                  <button className="btnLeft" onClick={btnLeft}>
+                    <i className="fa-solid fa-arrow-left"></i>
+                  </button>
+                  <div id="images" ref={BestMovieParentElement}>
+                    {createBestMovies()}
+                  </div>
+                  <button className="btnRight" onClick={btnRight}>
+                    <i className="fa-solid fa-arrow-right"></i>
+                  </button>
+                </div>
+
+                {/* MoviesShow */}
+                <div id="MoviesShow">
+                  {data.map((i, index) => (
+                    <MoviesShow
+                      key={index}
+                      name={i.name}
+                      image={i.imageOriginal ? i.imageOriginal : i.image}
+                      genres={i.genres}
+                      visitSite={i.visitSite}
+                      officialSite={i.officialSite}
+                      language={i.language}
+                      rating={i.rating}
+                      id={i.id}
+                      summary={i.summary}
+                    />
+                  ))}
+                </div>
+                {/* Pagination */}
+                <div className="containerPagination">
+                  <div className="titlePagination">
+                    <p>Movies pages</p>
+                  </div>
+                  <div className="paginationShow">
+                    <button id="previous" onClick={previousPage}>
+                      Previous
+                    </button>
+                    <div id="pages">{createPagination()}</div>
+                    <button id="next" onClick={nextPage}>
+                      Next
+                    </button>
+                  </div>
+                </div>
+              </>
+            ) : (
               <div id="MoviesShow">
                 {data.map((i, index) => (
                   <MoviesShow
@@ -94,8 +173,6 @@ const GetDataMovie = () => {
                     name={i.name}
                     image={i.imageOriginal ? i.imageOriginal : i.image}
                     genres={i.genres}
-                    visitSite={i.visitSite}
-                    officialSite={i.officialSite}
                     language={i.language}
                     rating={i.rating}
                     id={i.id}
@@ -103,40 +180,31 @@ const GetDataMovie = () => {
                   />
                 ))}
               </div>
-              <div className="containerPagination">
-                <div className="titlePagination">
-                  <p>Movies pages</p>
-                </div>
-                <div className="paginationShow">
-                  <button id="previous" onClick={previousPage}>
-                    Previous
-                  </button>
-                  <div id="pages">{createPagination()}</div>
-                  <button id="next" onClick={nextPage}>
-                    Next
-                  </button>
-                </div>
-              </div>
-            </>
+            )
           ) : (
-            <div id="MoviesShow">
-              {data.map((i, index) => (
-                <MoviesShow
+            data.map((i, index) =>
+              `'${params.id}'` === `'${i.id}'` ? (
+                <Movie
                   key={index}
                   name={i.name}
                   image={i.imageOriginal ? i.imageOriginal : i.image}
                   genres={i.genres}
+                  visitSite={i.visitSite}
+                  officialSite={i.officialSite}
                   language={i.language}
                   rating={i.rating}
                   id={i.id}
                   summary={i.summary}
+                  country={i.country}
+                  status={i.status}
+                  IMDb={i.externals}
                 />
-              ))}
-            </div>
+              ) : undefined
+            )
           )
         ) : (
-          data.map((i, index) =>
-            `'${params.id}'` === `'${i.id}'` ? (
+          BestMoviesData.map((i, index) =>
+            `"${ShowBestMovies}"` === `"${i.id}"` ? (
               <Movie
                 key={index}
                 name={i.name}
@@ -163,6 +231,9 @@ const GetDataMovie = () => {
 
   function refresh() {
     let movies = document.querySelectorAll(".movie");
+    if (ShowBestMovies !== undefined) {
+      setShowBestMovies(undefined);
+    }
     if (movies.length > 0) {
       for (let i = 0; i < movies.length; i++) {
         movies[i].setAttribute("id", "displayOff");
@@ -419,6 +490,117 @@ const GetDataMovie = () => {
       return add;
     } else {
       return name;
+    }
+  }
+
+  // best Movie
+  function createBestMovies() {
+    let bestMoviesCount = document.querySelectorAll("#itemBestMovies");
+    setTimeout(() => {
+      if (bestMoviesCount.length === 0) {
+        let Data = BestMoviesData;
+        for (let i = 0; i < 3; i++) {
+          let images = BestMovieParentElement.current;
+          let createTagA = document.createElement("a");
+          let createImg = document.createElement("img");
+          createTagA.setAttribute("id", "itemBestMovies");
+          createImg.addEventListener("click", test);
+          createImg.setAttribute("src", Data[i].imageOriginal);
+          createImg.setAttribute("id", Data[i].id);
+          createImg.setAttribute("class", "imgShow");
+          createTagA.appendChild(createImg);
+          images.appendChild(createTagA);
+        }
+        let img = document.querySelectorAll(".imgShow");
+        img[1].setAttribute("class", "imgShowCenter");
+      }
+    }, 10);
+  }
+
+  function test(e) {
+    let item = e.currentTarget;
+    setShowBestMovies(item.id);
+  }
+
+  function btnRight() {
+    let Data = BestMoviesData;
+    let imgShow = document.querySelectorAll(".imgShow");
+    let imgShowCenter = document.querySelectorAll(".imgShowCenter");
+    for (let i = 0; i <= 6; i++) {
+      if (imgShow[0].currentSrc === Data[i].imageOriginal) {
+        imgShow[0].setAttribute("src", Data[i + 1].imageOriginal);
+        imgShowCenter[0].setAttribute("src", Data[i + 2].imageOriginal);
+        imgShow[1].setAttribute("src", Data[i + 3].imageOriginal);
+        imgShow[0].setAttribute("id", Data[i + 1].id);
+        imgShowCenter[0].setAttribute("id", Data[i + 2].id);
+        imgShow[1].setAttribute("id", Data[i + 3].id);
+        break;
+      } else if (imgShow[1].currentSrc === Data[9].imageOriginal) {
+        imgShow[0].setAttribute("src", Data[8].imageOriginal);
+        imgShowCenter[0].setAttribute("src", Data[9].imageOriginal);
+        imgShow[1].setAttribute("src", Data[0].imageOriginal);
+        imgShow[0].setAttribute("id", Data[8].id);
+        imgShowCenter[0].setAttribute("id", Data[9].id);
+        imgShow[1].setAttribute("id", Data[0].id);
+        break;
+      } else if (imgShow[1].currentSrc === Data[0].imageOriginal) {
+        imgShow[0].setAttribute("src", Data[9].imageOriginal);
+        imgShowCenter[0].setAttribute("src", Data[0].imageOriginal);
+        imgShow[1].setAttribute("src", Data[1].imageOriginal);
+        imgShow[0].setAttribute("id", Data[9].id);
+        imgShowCenter[0].setAttribute("id", Data[0].id);
+        imgShow[1].setAttribute("id", Data[1].id);
+        break;
+      } else if (imgShow[1].currentSrc === Data[1].imageOriginal) {
+        imgShow[0].setAttribute("src", Data[0].imageOriginal);
+        imgShowCenter[0].setAttribute("src", Data[1].imageOriginal);
+        imgShow[1].setAttribute("src", Data[2].imageOriginal);
+        imgShow[0].setAttribute("id", Data[0].id);
+        imgShowCenter[0].setAttribute("id", Data[1].id);
+        imgShow[1].setAttribute("id", Data[2].id);
+        break;
+      }
+    }
+  }
+
+  function btnLeft() {
+    let Data = BestMoviesData;
+    let imgShow = document.querySelectorAll(".imgShow");
+    let imgShowCenter = document.querySelectorAll(".imgShowCenter");
+    for (let i = 7; i >= 0; i--) {
+      if (imgShow[0].currentSrc === Data[0].imageOriginal) {
+        imgShow[0].setAttribute("src", Data[9].imageOriginal);
+        imgShowCenter[0].setAttribute("src", Data[0].imageOriginal);
+        imgShow[1].setAttribute("src", Data[1].imageOriginal);
+        imgShow[0].setAttribute("id", Data[9].id);
+        imgShowCenter[0].setAttribute("id", Data[0].id);
+        imgShow[1].setAttribute("id", Data[1].id);
+        break;
+      } else if (imgShow[0].currentSrc === Data[9].imageOriginal) {
+        imgShow[0].setAttribute("src", Data[8].imageOriginal);
+        imgShowCenter[0].setAttribute("src", Data[9].imageOriginal);
+        imgShow[1].setAttribute("src", Data[0].imageOriginal);
+        imgShow[0].setAttribute("id", Data[8].id);
+        imgShowCenter[0].setAttribute("id", Data[9].id);
+        imgShow[1].setAttribute("id", Data[0].id);
+        break;
+      } else if (imgShow[0].currentSrc === Data[8].imageOriginal) {
+        imgShow[0].setAttribute("src", Data[7].imageOriginal);
+        imgShowCenter[0].setAttribute("src", Data[8].imageOriginal);
+        imgShow[1].setAttribute("src", Data[9].imageOriginal);
+        imgShow[0].setAttribute("id", Data[7].id);
+        imgShowCenter[0].setAttribute("id", Data[8].id);
+        imgShow[1].setAttribute("id", Data[9].id);
+        break;
+      } else if (imgShow[0].currentSrc === Data[i].imageOriginal) {
+        imgShow[0].setAttribute("src", Data[i - 1].imageOriginal);
+        imgShowCenter[0].setAttribute("src", Data[i].imageOriginal);
+        imgShow[1].setAttribute("src", Data[i + 1].imageOriginal);
+        imgShow[0].setAttribute("id", Data[i - 1].id);
+        imgShowCenter[0].setAttribute("id", Data[i].id);
+        imgShow[1].setAttribute("id", Data[i + 1].id);
+        break;
+      }
     }
   }
 };

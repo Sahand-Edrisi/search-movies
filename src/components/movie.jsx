@@ -58,13 +58,13 @@ const Movie = ({
             <div className="col1">
               <p className="summary">{summaryDataSlice()}</p>
               <div className="links">
-                <Link className="link" to={visitSite}>
+                <Link className="link" target="_blank" to={visitSite}>
                   visitSite
                 </Link>
-                <Link className="link" to={IMDbWebSite}>
+                <Link className="link" target="_blank" to={IMDbWebSite}>
                   IMDb
                 </Link>
-                <Link className="link" to={officialSite}>
+                <Link className="link" target="_blank" to={officialSite}>
                   officialSite
                 </Link>
               </div>

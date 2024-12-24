@@ -8,7 +8,7 @@ const MoviesShow = ({ name, image, genres, language, rating, id, summary }) => {
   return (
     <>
       {id === 0 || id === 1 ? (
-        <Link id="displayOn" className="movie" to={`Movie/${id}`}>
+        <Link id="displayOn" className="movie" to={`/Movie/${id}`}>
           <div className="movieShow">
             <div className="Picture">
               <img src={image ? image : imageNotFound} alt="" />
@@ -37,7 +37,7 @@ const MoviesShow = ({ name, image, genres, language, rating, id, summary }) => {
           </div>
         </Link>
       ) : (
-        <Link id="displayOff" className="movie" to={`Movie/${id}`} >
+        <Link id="displayOff" className="movie" to={`/Movie/${id}`} >
              <div className="movieShow">
             <div className="Picture">
               <img src={image ? image : imageNotFound} alt="" />

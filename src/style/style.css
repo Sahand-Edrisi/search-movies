@@ -173,6 +173,7 @@ a {
 }
 
 /* bestMovies */
+
 #bestMoviesDisplayOff {
   display: none;
 }
@@ -182,7 +183,7 @@ a {
   align-items: center;
   padding-top: 65px;
 }
-#bestMovies .images {
+#bestMovies #images {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -205,10 +206,8 @@ a {
   cursor: pointer;
 }
 
-#bestMovies .images .imgNotShow {
-  display: none;
-}
-#bestMovies .images .imgShow {
+
+#bestMovies #images .imgShow {
   width: 300px;
   height: 450px;
   margin: 0 10px;
@@ -216,7 +215,8 @@ a {
   box-shadow: 0px 6px 20px 1px;
 }
 
-#bestMovies .images .imgShowCenter {
+
+#bestMovies #images .imgShowCenter {
   width: 350px;
   height: 500px;
   box-shadow: 0px 6px 20px 1px;
@@ -238,8 +238,7 @@ a {
 
 #displayOn {
   width: 800px;
-  height: 480px;
-  margin: 25px;
+  margin: 50px;
 }
 
 .movieShow {

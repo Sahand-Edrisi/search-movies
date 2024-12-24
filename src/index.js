@@ -6,9 +6,7 @@ const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
 
 root.render(
-    <BrowserRouter future={{
-    v7_startTransition: true,
-  }}>
+    <BrowserRouter >
       <App />
     </BrowserRouter>
 );
