@@ -92,7 +92,6 @@ const GetDataMovie = () => {
   useEffect(() => {
     let url = fetch("https://api.tvmaze.com/search/shows?q=breking");
     let BestMovieUrl = fetch("https://api.tvmaze.com/search/shows?q=dark");
-
     url
       .then(async (res) => {
         const response = await axios.get(res.url);
@@ -123,7 +122,7 @@ const GetDataMovie = () => {
             />
             <div id="ShowSearchMoviesOff">
               {showMoviesInSearch.map((i, index) => (
-                <Link>
+                <Link key={index}>
                   <div
                     key={index}
                     className="items"
@@ -169,7 +168,6 @@ const GetDataMovie = () => {
                       <i className="fa-solid fa-arrow-right"></i>
                     </button>
                   </div>
-
                   {/* MoviesShow */}
                   <div id="MoviesShow">
                     {data.map((i, index) => (
@@ -178,8 +176,6 @@ const GetDataMovie = () => {
                         name={i.name}
                         image={i.imageOriginal ? i.imageOriginal : i.image}
                         genres={i.genres}
-                        visitSite={i.visitSite}
-                        officialSite={i.officialSite}
                         language={i.language}
                         rating={i.rating}
                         id={i.id}
@@ -204,20 +200,35 @@ const GetDataMovie = () => {
                   </div>
                 </>
               ) : (
-                <div id="MoviesShow">
-                  {data.map((i, index) => (
-                    <MoviesShow
-                      key={index}
-                      name={i.name}
-                      image={i.imageOriginal ? i.imageOriginal : i.image}
-                      genres={i.genres}
-                      language={i.language}
-                      rating={i.rating}
-                      id={i.id}
-                      summary={i.summary}
-                    />
-                  ))}
-                </div>
+                <>
+                  {/* bestMovies */}
+                  <div id="bestMovies">
+                    <button className="btnLeft" onClick={btnLeft}>
+                      <i className="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <div id="images" ref={BestMovieParentElement}>
+                      {createBestMovies()}
+                    </div>
+                    <button className="btnRight" onClick={btnRight}>
+                      <i className="fa-solid fa-arrow-right"></i>
+                    </button>
+                  </div>
+                  {/* MoviesShow */}
+                  <div id="MoviesShow">
+                    {data.map((i, index) => (
+                      <MoviesShow
+                        key={index}
+                        name={i.name}
+                        image={i.imageOriginal ? i.imageOriginal : i.image}
+                        genres={i.genres}
+                        language={i.language}
+                        rating={i.rating}
+                        id={i.id}
+                        summary={i.summary}
+                      />
+                    ))}
+                  </div>
+                </>
               )
             ) : (
               data.map((i, index) =>
@@ -287,6 +298,7 @@ const GetDataMovie = () => {
       )}
     </>
   );
+  // show Movies
 
   function refresh() {
     let movies = document.querySelectorAll(".movie");
@@ -311,36 +323,44 @@ const GetDataMovie = () => {
   function search() {
     let input = document.getElementById("input");
     let url = fetch("https://api.tvmaze.com/search/shows?q=" + input.value);
-    input.value = "";
-    if (showSearchMoviesItem !== undefined) {
-      setShowSearchMoviesItem(undefined);
+    if(showBestMovies !== undefined){
+      setShowBestMovies(undefined)
     }
-    url
-      .then(async (res) => {
-        const response = await axios.get(res.url);
-        if (response.data.length === 0) {
-          ShowSearchMoviesOff();
-        } else {
-          ShowSearchMoviesOn();
-          setMovieData(response.data);
-          setVpn(true);
-          paginationReload();
-          if (input.value === "") {
-            setTimeout(() => {
-              let notFindMovieDisplayOn =
-                document.getElementById("ShowSearchMoviesOn");
-              if (notFindMovieDisplayOn !== null) {
-                notFindMovieDisplayOn.setAttribute("id", "ShowSearchMoviesOff");
-              }
-            }, 20);
+    if (input.value !== "") {
+      input.value = "";
+      if (showSearchMoviesItem !== undefined) {
+        setShowSearchMoviesItem(undefined);
+      }
+      url
+        .then(async (res) => {
+          const response = await axios.get(res.url);
+          if (response.data.length === 0) {
+            ShowSearchMoviesOff();
+          } else {
+            ShowSearchMoviesOn();
+            setMovieData(response.data);
+            setVpn(true);
+            paginationReload();
+            if (input.value === "") {
+              setTimeout(() => {
+                let notFindMovieDisplayOn =
+                  document.getElementById("ShowSearchMoviesOn");
+                if (notFindMovieDisplayOn !== null) {
+                  notFindMovieDisplayOn.setAttribute(
+                    "id",
+                    "ShowSearchMoviesOff"
+                  );
+                }
+              }, 20);
+            }
           }
-        }
-      })
-      .catch((e) => {
-        setVpn(false);
-        console.log(e.message);
-      });
-    window.scrollTo({ top: 0, behavior: "smooth" });
+        })
+        .catch((e) => {
+          setVpn(false);
+          console.log(e.message);
+        });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   }
   function searchWithWord(e) {
     let input = e.currentTarget;
@@ -585,7 +605,7 @@ const GetDataMovie = () => {
         let img = document.querySelectorAll(".imgShow");
         img[1].setAttribute("class", "imgShowCenter");
       }
-    }, 10);
+    }, 100);
   }
 
   function bestMovieShow(e) {
