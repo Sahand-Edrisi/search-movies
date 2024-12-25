@@ -6,6 +6,16 @@ import NotFound from "./notFound";
 import Background from "../image/Tommy-Shelby.avif";
 import notPicture from "../image/notPicture.jpg";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import {
+  ShowSearchMoviesOff,
+  nameDataSlice,
+  ShowSearchMoviesOn,
+  paginationReload,
+  nextPage,
+  previousPage,
+  showPages,
+  scrollTo,
+} from "./functionality";
 
 const GetDataMovie = () => {
   const params = useParams();
@@ -112,11 +122,12 @@ const GetDataMovie = () => {
   return (
     <>
       <div className="body">
-        <img className="bac" src={Background} alt="" />
+      <img className="bac" src={Background} alt="" />
         <div className="header" id="header">
           <div className="search">
             <div className="search-box">
               <input
+                autocomplete="off"
                 id="input"
                 type="text"
                 onKeyDown={pressEnter}
@@ -145,11 +156,11 @@ const GetDataMovie = () => {
                 <i className="fas fa-search"></i>
               </button>
             </div>
-          </div>
-          <div id="homeIcon">
-            <button id="btnHome" onClick={refresh}>
-              <i className="fa-solid fa-house" id="HomeICon"></i>
-            </button>
+            <div id="homeIcon">
+              <button id="btnHome" onClick={refresh}>
+                <i className="fa-solid fa-house" id="HomeICon"></i>
+              </button>
+            </div>
           </div>
         </div>
         {vpn === true ? (
@@ -298,6 +309,7 @@ const GetDataMovie = () => {
     </>
   );
 
+  // refresh
   function refresh() {
     let movies = document.querySelectorAll(".movie");
     if (showBestMovies !== undefined) {
@@ -350,7 +362,7 @@ const GetDataMovie = () => {
         });
       nav("/search-movies/");
     }
-    window.scrollTo({ top: 600, behavior: "smooth" });
+    scrollTo();
   }
   function searchWithWord(e) {
     let input = e.currentTarget;
@@ -384,27 +396,8 @@ const GetDataMovie = () => {
       if (showSearchMoviesItem !== undefined) {
         setShowSearchMoviesItem(undefined);
       }
-      window.scrollTo({ top: 600, behavior: "smooth" });
+      scrollTo();
     }
-  }
-  function ShowSearchMoviesOff() {
-    setTimeout(() => {
-      let notFindMovieDisplayOn = document.getElementById("ShowSearchMoviesOn");
-      if (notFindMovieDisplayOn !== null) {
-        notFindMovieDisplayOn.setAttribute("id", "ShowSearchMoviesOff");
-      }
-    }, 1);
-  }
-  function ShowSearchMoviesOn() {
-    setTimeout(() => {
-      let notFindMovieDisplayOff = document.getElementById(
-        "ShowSearchMoviesOff"
-      );
-      if (notFindMovieDisplayOff !== null) {
-        notFindMovieDisplayOff.setAttribute("id", "ShowSearchMoviesOn");
-        notFindMovieDisplayOff.scrollTo({ top: 0, behavior: "smooth" });
-      }
-    }, 1);
   }
   function showItem(e) {
     if (showSearchMoviesItem !== undefined) {
@@ -418,8 +411,10 @@ const GetDataMovie = () => {
     let saveData = [...showSearchMovies];
     setShowSearchMoviesItemData(saveData);
   }
+  // other function in js file
 
   // Pagination
+
   function createPagination() {
     setTimeout(() => {
       let pages = document.getElementById("pages");
@@ -444,136 +439,6 @@ const GetDataMovie = () => {
       numbersActive[0].setAttribute("class", "numbers active");
     }, 10);
   }
-  function paginationReload() {
-    let numbers = document.querySelectorAll(".numbers");
-    let moviesShow = document.querySelectorAll("#displayOn");
-    let movie = document.querySelectorAll(".movie");
-    setTimeout(() => {
-      if (numbers[0] !== undefined) {
-        if (numbers[0].className !== "numbers active") {
-          for (let j = 1; j < numbers.length; j++) {
-            numbers[j].setAttribute("class", "numbers");
-          }
-          numbers[0].setAttribute("class", "numbers active");
-          moviesShow[0].setAttribute("id", "displayOff");
-          moviesShow[1].setAttribute("id", "displayOff");
-          movie[0].setAttribute("id", "displayOn");
-          movie[1].setAttribute("id", "displayOn");
-        }
-      }
-    }, 1000);
-  }
-  function nextPage() {
-    let numbers = document.querySelectorAll(".numbers");
-    let moviesShow = document.querySelectorAll("#displayOn");
-    let movie = document.querySelectorAll(".movie");
-    for (let i = 0; i < numbers.length; i++) {
-      if (
-        i + 1 === numbers.length &&
-        numbers[i].className === "numbers active"
-      ) {
-        break;
-      }
-      if (numbers[i].className === "numbers active") {
-        numbers[i].setAttribute("class", "numbers");
-        numbers[i + 1].setAttribute("class", "numbers active");
-        break;
-      }
-    }
-    for (let j = 0; j < numbers.length; j++) {
-      if (numbers[j].className === "numbers active") {
-        for (let i = 0; i < moviesShow.length; i++) {
-          moviesShow[i].setAttribute("id", "displayOff");
-        }
-
-        for (let i = j - 1; i < numbers[j].id; i++) {
-          let index = i;
-          let id = Number(numbers[j].id);
-          let result = index + id;
-          if (movie[result] === undefined) {
-            break;
-          }
-          movie[result].setAttribute("id", "displayOn");
-        }
-      }
-    }
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-  function previousPage() {
-    let numbers = document.querySelectorAll(".numbers");
-    let moviesShow = document.querySelectorAll("#displayOn");
-    let movie = document.querySelectorAll(".movie");
-    for (let i = 0; i < numbers.length; i++) {
-      if (i === 0 && numbers[i].className === "numbers active") {
-        break;
-      }
-      if (numbers[i].className === "numbers active") {
-        numbers[i].setAttribute("class", "numbers");
-        numbers[i - 1].setAttribute("class", "numbers active");
-        break;
-      }
-    }
-
-    for (let j = 0; j < numbers.length; j++) {
-      if (numbers[j].className === "numbers active") {
-        for (let i = 0; i < moviesShow.length; i++) {
-          moviesShow[i].setAttribute("id", "displayOff");
-        }
-
-        for (let i = j - 1; i < numbers[j].id; i++) {
-          let index = i;
-          let id = Number(numbers[j].id);
-          let result = index + id;
-          movie[result].setAttribute("id", "displayOn");
-        }
-      }
-    }
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-  function showPages(e) {
-    let page = e.currentTarget;
-    let numbers = document.querySelectorAll(".numbers");
-    let moviesShow = document.querySelectorAll("#displayOn");
-    let movie = document.querySelectorAll(".movie");
-
-    for (let i = 0; i < numbers.length; i++) {
-      if (numbers[i].className === "numbers active") {
-        numbers[i].setAttribute("class", "numbers");
-        page.setAttribute("class", "numbers active");
-        break;
-      }
-    }
-    for (let j = 0; j < numbers.length; j++) {
-      if (numbers[j].className === "numbers active") {
-        for (let i = 0; i < moviesShow.length; i++) {
-          moviesShow[i].setAttribute("id", "displayOff");
-        }
-        for (let i = j - 1; i < numbers[j].id; i++) {
-          let index = i;
-          let id = Number(numbers[j].id);
-          let result = index + id;
-          if (movie[result] === undefined) {
-            break;
-          }
-          movie[result].setAttribute("id", "displayOn");
-        }
-      }
-    }
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
-  // Slice name
-  function nameDataSlice(name) {
-    if (name.length > 35) {
-      let slice = name.slice(0, 35);
-      let add = (slice += "...");
-      return add;
-    } else {
-      return name;
-    }
-  }
-
-  // best Movie
   function createBestMovies() {
     let bestMoviesCount = document.querySelectorAll("#itemBestMovies");
     if (bestMoviesCount.length > 3) {
@@ -606,21 +471,23 @@ const GetDataMovie = () => {
       }
     }, 50);
   }
+  // other function in js file
+
+  // best Movie
   function bestMovieShow(e) {
     let item = e.currentTarget;
     setShowBestMovies(item.id);
   }
-  // btnRight
 
+  // btn for best movie
   function disableBtn() {
-    document.getElementById("btnLeft").style.display = "none";
-    document.getElementById("btnRight").style.display = "none";
+    document.getElementById("btnLeft").disabled  = true;
+    document.getElementById("btnRight").disabled  = true;
   }
   function enableBtn() {
-    document.getElementById("btnLeft").style.display = "block";
-    document.getElementById("btnRight").style.display = "block";
+    document.getElementById("btnLeft").disabled = false;
+    document.getElementById("btnRight").disabled = false;
   }
-
   function btnRight() {
     let Data = bestMoviesData;
     let imgShow = document.querySelectorAll(".imgShow");
@@ -766,9 +633,6 @@ const GetDataMovie = () => {
       }
     }
   }
-
-  // btnLeft
-
   function btnLeft() {
     let Data = bestMoviesData;
     let imgShow = document.querySelectorAll(".imgShow");
@@ -927,7 +791,6 @@ const GetDataMovie = () => {
         break;
       }
     }
-
   }
 };
 

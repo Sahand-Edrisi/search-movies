@@ -3,6 +3,7 @@ import "../style/responsive.css";
 import { Link } from "react-router-dom";
 import "../fontAwesome-free-6.2.1-web/css/all.min.css";
 import imageNotFound from "../image/notPicture.jpg";
+import backgroundImage from "../image/images (2).jpg"
 
 const MoviesShow = ({ name, image, genres, language, rating, id, summary }) => {
   return (
@@ -10,59 +11,69 @@ const MoviesShow = ({ name, image, genres, language, rating, id, summary }) => {
       {id === 0 || id === 1 ? (
         <Link id="displayOn" className="movie" to={`/Movie/${id}`}>
           <div className="movieShow">
+            <img id="backgroundImage" src={backgroundImage} alt="" />
+       <div className="name">
+            <h1 className="name" >{nameDataSlice()}</h1>
+       </div>
+            <div className="information">
+      
+            <div className="items">
+              <p className="item">
+                <span className="itemName"> Genre :  <span className="text">{genres ? genres : "..."}</span></span>{" "}
+               
+              </p>
+              <p className="item">
+                <span className="itemName"> language : <span className="text">{language ? language : "..."}</span></span>{" "}
+                
+              </p>
+              <p className="item">
+                <span className="itemName"> rating :  <span className="text">{rating ? rating : "..."} </span></span>
+               
+              </p>
+              <p className="item">
+                <span className="itemName"> summary :  <span className="text">{summaryDataSlice()}...</span></span>{" "}
+               
+              </p>
+            </div>
             <div className="Picture">
               <img src={image ? image : imageNotFound} alt="" />
             </div>
-            <div className="information">
-            <div className="item-name">
-            <h1 className="name" >{nameDataSlice()}</h1>
             </div>
-              <p className="item">
-                <span className="itemName"> Genre : </span>{" "}
-                <span className="text">{genres ? genres : "..."}</span>
-              </p>
-              <p className="item">
-                <span className="itemName"> language : </span>{" "}
-                <span className="text">{language ? language : "..."}</span>
-              </p>
-              <p className="item">
-                <span className="itemName"> rating : </span>
-                <span className="text">{rating ? rating : "..."} </span>
-              </p>
-              <p className="item">
-                <span className="itemName"> summary : </span>{" "}
-                <span className="text">{summaryDataSlice()}...</span>
-              </p>
-            </div>
+      
           </div>
         </Link>
       ) : (
         <Link id="displayOff" className="movie" to={`/Movie/${id}`} >
-             <div className="movieShow">
+          <div className="movieShow">
+            <img id="backgroundImage" src={backgroundImage} alt="" />
+       <div className="name">
+            <h1 className="name" >{nameDataSlice()}</h1>
+       </div>
+            <div className="information">
+      
+            <div className="items">
+              <p className="item">
+                <span className="itemName"> Genre :  <span className="text">{genres ? genres : "..."}</span></span>{" "}
+               
+              </p>
+              <p className="item">
+                <span className="itemName"> language : <span className="text">{language ? language : "..."}</span></span>{" "}
+                
+              </p>
+              <p className="item">
+                <span className="itemName"> rating :  <span className="text">{rating ? rating : "..."} </span></span>
+               
+              </p>
+              <p className="item">
+                <span className="itemName"> summary :  <span className="text">{summaryDataSlice()}...</span></span>{" "}
+               
+              </p>
+            </div>
             <div className="Picture">
               <img src={image ? image : imageNotFound} alt="" />
             </div>
-            <div className="information">
-            <div className="item-name">
-            <h1 className="name" >{nameDataSlice()}</h1>
             </div>
-              <p className="item">
-                <span className="itemName"> Genre : </span>{" "}
-                <span className="text">{genres ? genres : "..."}</span>
-              </p>
-              <p className="item">
-                <span className="itemName"> language : </span>{" "}
-                <span className="text">{language ? language : "..."}</span>
-              </p>
-              <p className="item">
-                <span className="itemName"> rating : </span>
-                <span className="text">{rating ? rating : "..."} </span>
-              </p>
-              <p className="item">
-                <span className="itemName"> summary : </span>{" "}
-                <span className="text">{summaryDataSlice()}...</span>
-              </p>
-            </div>
+      
           </div>
         </Link>
       )}

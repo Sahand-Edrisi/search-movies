@@ -3,11 +3,12 @@
 
 }
 :root {
-  --background-items: rgb(131, 122, 116);
+  --background-items: rgb(61, 28, 22);
   --background: rgb(211, 208, 205);
   --background-Header: rgb(114, 103, 103);
-  --color-red: rgb(139, 19, 19);
-  --color-white: rgb(223, 212, 212);
+  --color-orange: rgb(250, 165, 7);
+  --color-orange-light: rgb(206, 158, 70);
+  --color-white: rgb(255, 255, 255);
   --color-black: rgb(17, 16, 16);
 }
 
@@ -15,87 +16,122 @@ a {
   text-decoration: none;
 }
 
-#root {
+
+.body{
   margin: -8px;
   height: fit-content;
   position: absolute;
+  display: grid;
+  align-items: center;
+  justify-content: center; 
   width: 100%;
+  align-items:center;
   overflow-x: hidden;
   overflow-y: hidden;
-  
 }
 .body .bac{
   position: fixed;
   width: 100%;
+  top: 0;
   height: max-content;
-  object-fit: fill;
+  object-fit: cover;
   z-index: -10;
 }
-/* Header */
-.header {
-  width: 100%;
-  height: 50px;
-  background-color: var(--background-Header);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: fixed;
-  z-index: 101;
-}
+
 /* search-box */
+
 .search {
   display: flex;
-  background-color: var(--background-Header);
+  align-items: center;
+  margin-top: 10px;
 }
 .search-box {
   background-color: inherit;
   position: relative;
 }
 #input {
-  margin: 0 10px;
+  margin: 0 15px;
   width: 200px;
   height: 30px;
   border: 0;
   border-radius: 50px;
   padding: 5px;
-  font-size: 15px;
-  color: var(--background-Header);
+  font-size: 20px;
+  color: var(--color-black);
+  background-color: var(--color-orange);
+}
+#input:focus{
+  background-color: var(--color-orange-light);
+  /* border: 0; */
+  outline: none;
 }
 
+#input:active{
+  background-color: var(--color-orange-light);
+  border: 0;
+}
 #notFindMovie span {
   border-radius: 50px;
   display: flex;
   justify-content: center;
   width: 210px;
   font-size: 14px;
-  background-color: var(--color-red);
+  background-color: var(--color-orange);
 }
 #ShowSearchMoviesOff {
   display: none;
 }
 #ShowSearchMoviesOn {
-  position: fixed;
-  width: 220px;
+  position: absolute;
+  width: 210px;
   height: 260px;
   margin-top: 5px;
-  background-color: var(--background-Header);
-  overflow: auto;
+  margin-left: 10px;
+  background-color:var(--color-orange);
+  overflow: scroll;
+  overflow-x: hidden; 
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  z-index: 100;
+}
+#ShowSearchMoviesOn::-webkit-scrollbar{
+  width: 10px;  
+}
+#ShowSearchMoviesOn::-webkit-scrollbar-track {
+margin: 15px ;
+border-radius: 10px;
+padding: 10px 0;
+}
+#ShowSearchMoviesOn::-webkit-scrollbar-thumb{
+  border-radius: 50px;
+  background: var(--color-white);
+}
+#ShowSearchMoviesOn::-webkit-scrollbar-thumb:hover {
+  background:var(--color-orange-light);
 }
 
+
+#ShowSearchMoviesOn a{
+ display: grid; 
+ background-color: var(--color-orange);
+}
 #ShowSearchMoviesOn .items {
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-  margin: 5px 5px;
-  width: 95%;
-  background-color: var(--background-Header);
+  margin: 5px 4px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+#ShowSearchMoviesOn .items:hover {
+background-color: var(--color-orange-light);
 }
 #ShowSearchMoviesOn .items .names {
-  padding: 0 5px;
-  font-size: 17px;
-  background-color: var(--background-Header);
-  color: var(--color-red);
-  width: 100%;
+  margin: 0 5px;
+  font-size: 20px;
+  color: var(--color-black);
+/* width: 250px; */
 }
 #ShowSearchMoviesOn .items img {
   width: 60px;
@@ -117,19 +153,19 @@ a {
   border-radius: 50%;
 }
 .btnSearch {
-  color: var(--color-white);
-  border: 0;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  font-size: 15px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+background-color: inherit;
+border-radius: 50%;
+width: 35px;
+height: 35px;
+font-size: 20px;
+cursor: pointer;
+display: flex;
+justify-content: center;
+align-items: center;
+border: 1px solid var(--color-orange);
 }
 .btnSearch i {
-  color: var(--color-red);
+  color: var(--color-orange);
 }
 
 /* btn home */
@@ -142,19 +178,19 @@ a {
 
 #homeIcon #btnHome {
   cursor: pointer;
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  background-color: var(--background);
-  border: 0;
+  background-color: inherit;
+  border: 1px solid var(--color-orange);
 }
 
 #homeIcon #btnHome i {
-  background-color: var(--background);
-  color: var(--color-red);
+  background-color: inherit;
+  color: var(--color-orange);
   font-size: 15px;
 }
 
@@ -178,7 +214,7 @@ a {
 
 #NewHomeIcon #btnHome i {
   background-color: var(--background);
-  color: var(--color-red);
+  color: var(--color-orange);
   font-size: 15px;
 }
 
@@ -189,9 +225,9 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 65px;
+  
   width: 100%;
-  height: 500px;
+  height: 600px;
 }
 
 #bestMovies #images {
@@ -207,6 +243,9 @@ a {
   border-radius: 50%;
   font-size: 20px;
   cursor: pointer;
+  background-color: inherit;
+  color: var(--color-orange);
+  border: 2px solid var(--color-orange);
 }
 #bestMovies #btnRight {
   width: 35px;
@@ -215,6 +254,9 @@ a {
   border-radius: 50%;
   font-size: 20px;
   cursor: pointer;
+  background-color: inherit;
+  color: var(--color-orange);
+  border: 2px solid var(--color-orange);
 }
 
 
@@ -247,7 +289,6 @@ a {
   align-items: center;
   padding-top: 50px;
   display: grid;
-  opacity: .8;
 }
 
 #displayOff {
@@ -255,19 +296,27 @@ a {
 }
 
 #displayOn {
-  width: 800px;
-  margin: 50px;
+  width: 1000px;
+  margin: 20px;
 }
 
 .movieShow {
-  background-color: var(--background-items);
   border-radius: 50px;
   padding: 15px;
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto;
+}
+.movieShow #backgroundImage{
+position: absolute;
+z-index: -1;
+object-fit: cover;
+width: 1000px;
+height: 450px;
+opacity: .8;
+border-radius: 20px;
 }
 .movieShow .Picture {
-  background-color: var(--background-items);
+  background-color: none;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -280,19 +329,21 @@ a {
   object-fit: cover;
 }
 .movieShow .information {
-  background-color: var(--background-items);
   display: grid;
+  grid-template-columns: auto auto;
 }
-.movieShow .information .item-name {
-  display: flex;
+.movieShow .item-name {
+  display: grid;
   font-size: 15px;
-  color: var(--color-red);
+  color: var(--color-orange);
   background-color: inherit;
   justify-content: center;
 }
-.movieShow .information .item-name .name {
-  color: var(--color-red);
+.movieShow .name {
+  color: var(--color-orange);
   background-color: inherit;
+  display: flex;
+  justify-content: center;
 }
 .movieShow .item {
   display: flex;
@@ -302,19 +353,13 @@ a {
 }
 
 .movieShow .information .item .itemName {
-  color: var(--color-red);
-  background-color: inherit;
-  display: flex;
-  font-size: 20px;
+  color: var(--color-orange);
+  font-size: 30px;
+  padding: 10px;
 }
-.movieShow .information .item .text {
-  width: 240px;
-  display: flex;
-  background-color: inherit;
+.movieShow .information .item .itemName .text {
   color: var(--color-white);
-  font-size: 18px;
-  width: 350px;
-  height: 50px;
+  font-size: 28px;
 }
 
 /* Movie show */
@@ -383,7 +428,7 @@ a {
 #movie .main .column2 .col2 p {
   background-color: inherit;
   font-size: 20px;
-  color: var(--color-red);
+  color: var(--color-orange);
   cursor: context-menu;
   padding: 0 10px;
 }
@@ -401,12 +446,12 @@ a {
 }
 #movie .main .column2 .link {
   margin: 0px 15px;
-  border: 3px solid var(--color-red);
+  border: 3px solid var(--color-orange);
   padding: 5px;
   border-radius: 20px;
   font-size: 15px;
   text-decoration: none;
-  color: var(--color-red);
+  color: var(--color-orange);
   background-color: inherit;
   width: 100px;
   display: flex;
@@ -422,13 +467,13 @@ a {
   justify-content: center;
 }
 .vpn .text {
-  border: 5px solid var(--color-red);
+  border: 5px solid var(--color-orange);
   padding: 20px;
   border-radius: 40px;
   color: var(--background-Header);
 }
 .vpn .text span {
-  color: var(--color-red);
+  color: var(--color-orange);
 }
 
 /* pagination */
@@ -441,44 +486,37 @@ a {
   align-items: center;
   justify-items: center;
   padding: 10px 0px;
-  background-color: var(--background-Header);
 }
 .titlePagination {
   display: flex;
   align-items: center;
-  background-color: var(--background-Header);
-  color: var(--color-red);
+  color: var(--color-orange);
   font-size: 20px;
   height: 30px;
 }
-.titlePagination p {
-  background-color: var(--background-Header);
-}
+
 .paginationShow {
-  background-color: var(--background-Header);
   display: flex;
   justify-content: center;
 }
 .paginationShow #next {
   padding: 0 8px;
-  background-color: var(--background-Header);
-  color: var(--color-red);
+  background-color: inherit;
+  color: var(--color-orange);
   border: 0px;
   cursor: pointer;
 }
 .paginationShow #previous {
-  background-color: var(--background-Header);
+  background-color: inherit;
   cursor: pointer;
   padding: 0 8px;
-  color: var(--color-red);
+  color: var(--color-orange);
   border: 0px;
 }
 #pages {
-  background-color: var(--background-Header);
   margin: 10px;
 }
 .numbers {
-  background-color: var(--background-Header);
   color: var(--color-white);
   cursor: pointer;
   padding: 0 6px;
@@ -487,9 +525,9 @@ a {
   margin: 0px 10px;
 }
 .active {
-  background-color: var(--background-Header);
+  background-color: inherit;
   cursor: pointer;
   padding: 0 6px;
-  color: var(--color-red);
-  border: 1px solid var(--color-red);
+  color: var(--color-orange);
+  border: 1px solid var(--color-orange);
 }
