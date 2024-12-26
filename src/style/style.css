@@ -1,6 +1,5 @@
 * {
-  font-family: Arial, Helvetica, sans-serif;
-
+  /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
 }
 :root {
   --background-items: rgb(61, 28, 22);
@@ -15,25 +14,23 @@
 a {
   text-decoration: none;
 }
-
-
-.body{
-  margin: -8px;
-  height: fit-content;
-  position: absolute;
-  display: grid;
-  align-items: center;
-  justify-content: center; 
+.body {
   width: 100%;
-  align-items:center;
+  display: flex;
+  justify-content: center;
+}
+.container {
+  width: 1260px;
+  max-width: 1260px;
   overflow-x: hidden;
   overflow-y: hidden;
 }
-.body .bac{
+.bac {
   position: fixed;
   width: 100%;
+  height: 100%;
   top: 0;
-  height: max-content;
+  right: 0;
   object-fit: cover;
   z-index: -10;
 }
@@ -44,6 +41,7 @@ a {
   display: flex;
   align-items: center;
   margin-top: 10px;
+  width: 100%;
 }
 .search-box {
   background-color: inherit;
@@ -60,13 +58,12 @@ a {
   color: var(--color-black);
   background-color: var(--color-orange);
 }
-#input:focus{
+#input:focus {
   background-color: var(--color-orange-light);
-  /* border: 0; */
   outline: none;
 }
 
-#input:active{
+#input:active {
   background-color: var(--color-orange-light);
   border: 0;
 }
@@ -87,35 +84,34 @@ a {
   height: 260px;
   margin-top: 5px;
   margin-left: 10px;
-  background-color:var(--color-orange);
+  background-color: var(--color-orange);
   overflow: scroll;
-  overflow-x: hidden; 
+  overflow-x: hidden;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   z-index: 100;
 }
-#ShowSearchMoviesOn::-webkit-scrollbar{
-  width: 10px;  
+#ShowSearchMoviesOn::-webkit-scrollbar {
+  width: 10px;
 }
 #ShowSearchMoviesOn::-webkit-scrollbar-track {
-margin: 15px ;
-border-radius: 10px;
-padding: 10px 0;
+  margin: 15px;
+  border-radius: 10px;
+  padding: 10px 0;
 }
-#ShowSearchMoviesOn::-webkit-scrollbar-thumb{
+#ShowSearchMoviesOn::-webkit-scrollbar-thumb {
   border-radius: 50px;
   background: var(--color-white);
 }
 #ShowSearchMoviesOn::-webkit-scrollbar-thumb:hover {
-  background:var(--color-orange-light);
+  background: var(--color-orange-light);
 }
 
-
-#ShowSearchMoviesOn a{
- display: grid; 
- background-color: var(--color-orange);
+#ShowSearchMoviesOn a {
+  display: grid;
+  background-color: var(--color-orange);
 }
 #ShowSearchMoviesOn .items {
   display: flex;
@@ -125,13 +121,12 @@ padding: 10px 0;
   overflow: hidden;
 }
 #ShowSearchMoviesOn .items:hover {
-background-color: var(--color-orange-light);
+  background-color: var(--color-orange-light);
 }
 #ShowSearchMoviesOn .items .names {
   margin: 0 5px;
   font-size: 20px;
   color: var(--color-black);
-/* width: 250px; */
 }
 #ShowSearchMoviesOn .items img {
   width: 60px;
@@ -153,16 +148,16 @@ background-color: var(--color-orange-light);
   border-radius: 50%;
 }
 .btnSearch {
-background-color: inherit;
-border-radius: 50%;
-width: 35px;
-height: 35px;
-font-size: 20px;
-cursor: pointer;
-display: flex;
-justify-content: center;
-align-items: center;
-border: 1px solid var(--color-orange);
+  background-color: inherit;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--color-orange);
 }
 .btnSearch i {
   color: var(--color-orange);
@@ -220,12 +215,10 @@ border: 1px solid var(--color-orange);
 
 /* bestMovies */
 
-
 #bestMovies {
   display: flex;
   justify-content: center;
   align-items: center;
-  
   width: 100%;
   height: 600px;
 }
@@ -259,36 +252,31 @@ border: 1px solid var(--color-orange);
   border: 2px solid var(--color-orange);
 }
 
-
-#bestMovies #images .imgShow{
+#bestMovies #images .imgShow {
   width: 300px;
   height: 450px;
   margin: 0 50px;
   opacity: 0.6;
   box-shadow: 0px 6px 20px 1px;
   position: static;
-
-  
 }
 
-
 #bestMovies #images .imgShowCenter {
-  width: 350px ;
+  width: 350px;
   height: 500px;
   box-shadow: 0px 6px 20px 1px;
   position: static;
 }
 
-
-
 /* Movies Show */
 
 #MoviesShow {
-  width: 100%;
-  justify-items: center;
-  align-items: center;
-  padding-top: 50px;
-  display: grid;
+  display: flex;
+  width: 1260px;
+  max-width: 1260px;
+  height: 550px;
+  align-items: flex-start;
+  justify-content: space-evenly;
 }
 
 #displayOff {
@@ -296,25 +284,74 @@ border: 1px solid var(--color-orange);
 }
 
 #displayOn {
-  width: 1000px;
+  width: 500px;
   margin: 20px;
 }
-
 .movieShow {
   border-radius: 50px;
   padding: 15px;
   display: grid;
   grid-template-columns: auto;
 }
-.movieShow #backgroundImage{
-position: absolute;
-z-index: -1;
-object-fit: cover;
-width: 1000px;
-height: 450px;
-opacity: .8;
-border-radius: 20px;
+.movieShow #backgroundImage {
+  position: absolute;
+  z-index: -1;
+  object-fit: cover;
+  width: 500px;
+  height: 450px;
+  opacity: 0.8;
+  border-radius: 20px;
 }
+
+.movieShow .name {
+  color: var(--color-orange);
+  background-color: inherit;
+  display: flex;
+  justify-content: center;
+  font-family: cursive;
+}
+.movieShow .information {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+.movieShow .information .col1 .item-lan-rat {
+  font-size: 30px;
+  margin: 10px;
+  color: var(--color-orange);
+  height: 70px;
+}
+.movieShow .information .col1 .item-lan-rat i {
+  padding: 10px 10px;
+}
+.movieShow .information .col1 .item-lan-rat span {
+  font-family: fantasy;
+}
+.movieShow .information .col1 .genres-summary {
+  padding-top: 20px;
+  margin: 10px 20px;
+}
+.movieShow .information .col1 .genres-summary .item {
+  padding: 20px 0;
+}
+
+.movieShow .information .col1 .genres-summary .item .title {
+  color: var(--color-orange);
+  font-size: 20px;
+  font-family: monospace;
+  font-weight: 900;
+}
+.movieShow .information .col1 .genres-summary .item .line {
+  border: 2px solid var(--color-orange-light);
+  border-radius: 20px;
+  width: 80%;
+  margin: 5px 0;
+}
+.movieShow .information .col1 .genres-summary .item .text {
+  color: var(--color-white);
+  font-size: 18px;
+  font-family: monospace;
+}
+
 .movieShow .Picture {
   background-color: none;
   display: flex;
@@ -324,44 +361,10 @@ border-radius: 20px;
 
 .movieShow .Picture img {
   border-radius: 10px;
-  width: 250px;
-  height: 350px;
+  width: 200px;
+  height: 300px;
   object-fit: cover;
 }
-.movieShow .information {
-  display: grid;
-  grid-template-columns: auto auto;
-}
-.movieShow .item-name {
-  display: grid;
-  font-size: 15px;
-  color: var(--color-orange);
-  background-color: inherit;
-  justify-content: center;
-}
-.movieShow .name {
-  color: var(--color-orange);
-  background-color: inherit;
-  display: flex;
-  justify-content: center;
-}
-.movieShow .item {
-  display: flex;
-  background-color: inherit;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-
-.movieShow .information .item .itemName {
-  color: var(--color-orange);
-  font-size: 30px;
-  padding: 10px;
-}
-.movieShow .information .item .itemName .text {
-  color: var(--color-white);
-  font-size: 28px;
-}
-
 /* Movie show */
 
 #movie {
@@ -374,7 +377,6 @@ border-radius: 20px;
   display: flex;
 }
 
-
 #movie #name {
   display: flex;
   justify-content: flex-start;
@@ -382,7 +384,7 @@ border-radius: 20px;
   color: var(--color-black);
   width: 100%;
 }
-#movie #name span{
+#movie #name span {
   color: var(--color-black);
   font-size: 25px;
   font-weight: 900;

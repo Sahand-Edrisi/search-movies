@@ -3,77 +3,159 @@ import "../style/responsive.css";
 import { Link } from "react-router-dom";
 import "../fontAwesome-free-6.2.1-web/css/all.min.css";
 import imageNotFound from "../image/notPicture.jpg";
-import backgroundImage from "../image/images (2).jpg"
+import backgroundImageMovies from "../image/backgroundImageMovies.jpg";
+import { useEffect, useState } from "react";
+import { faCircleRight } from "@fortawesome/free-solid-svg-icons";
 
 const MoviesShow = ({ name, image, genres, language, rating, id, summary }) => {
+  const [genresTypeOf, setGenres] = useState(true);
+  const [languageTypeOf, setLanguage] = useState(true);
+  const [ratingTypeOf, setRating] = useState(true);
+  const [summaryTypeOf, setSummary] = useState(true);
+
+  useEffect(() => {
+    let data = [genres, language, rating];
+    for (let i = 0; i < data.length; i++) {
+      if (data[i] === undefined || data[i] === null || data[i] === "") {
+        if (i === 0) {
+          setGenres(false);
+        } else if (i === 1) {
+          setLanguage(false);
+        } else if (i === 2) {
+          setRating(false);
+        }
+      }
+    }
+  }, []);
+
   return (
     <>
       {id === 0 || id === 1 ? (
         <Link id="displayOn" className="movie" to={`/Movie/${id}`}>
           <div className="movieShow">
-            <img id="backgroundImage" src={backgroundImage} alt="" />
-       <div className="name">
-            <h1 className="name" >{nameDataSlice()}</h1>
-       </div>
+            <img id="backgroundImage" src={backgroundImageMovies} alt="" />
+            <div className="name">
+              <h1>{nameDataSlice()}</h1>
+            </div>
             <div className="information">
-      
-            <div className="items">
-              <p className="item">
-                <span className="itemName"> Genre :  <span className="text">{genres ? genres : "..."}</span></span>{" "}
-               
-              </p>
-              <p className="item">
-                <span className="itemName"> language : <span className="text">{language ? language : "..."}</span></span>{" "}
-                
-              </p>
-              <p className="item">
-                <span className="itemName"> rating :  <span className="text">{rating ? rating : "..."} </span></span>
-               
-              </p>
-              <p className="item">
-                <span className="itemName"> summary :  <span className="text">{summaryDataSlice()}...</span></span>{" "}
-               
-              </p>
+              <div className="col1">
+                <div className="item-lan-rat">
+                  <div className="itemOne">
+                    {ratingTypeOf === true ? (
+                      <>
+                        <i className="fa fa-star" aria-hidden="true"></i>
+                        <span>{rating}</span>
+                      </>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  <div className="itemTwo">
+                    {languageTypeOf === true ? (
+                      <>
+                        <i className="fa-solid fa-language"></i>
+                        <span>{language}</span>
+                      </>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </div>
+                <div className="genres-summary">
+                  <div className="item">
+                    {genresTypeOf === true ? (
+                      <>
+                        <span className="title">Genres</span>
+                        <div className="line"></div>
+                        <span className="text">{genres}</span>
+                      </>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  <div className="item">
+                    {summaryTypeOf === true ? (
+                      <>
+                        <span className="title">summary</span>
+                        <div className="line"></div>
+                        <span className="text">{summaryDataSlice()}</span>
+                      </>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div className="col2">
+                <div className="Picture">
+                  <img src={image ? image : imageNotFound} alt="" />
+                </div>
+              </div>
             </div>
-            <div className="Picture">
-              <img src={image ? image : imageNotFound} alt="" />
-            </div>
-            </div>
-      
           </div>
         </Link>
       ) : (
-        <Link id="displayOff" className="movie" to={`/Movie/${id}`} >
+        <Link id="displayOff" className="movie" to={`/Movie/${id}`}>
           <div className="movieShow">
-            <img id="backgroundImage" src={backgroundImage} alt="" />
-       <div className="name">
-            <h1 className="name" >{nameDataSlice()}</h1>
-       </div>
+            <img id="backgroundImage" src={backgroundImageMovies} alt="" />
+            <div className="name">
+              <h1>{nameDataSlice()}</h1>
+            </div>
             <div className="information">
-      
-            <div className="items">
-              <p className="item">
-                <span className="itemName"> Genre :  <span className="text">{genres ? genres : "..."}</span></span>{" "}
-               
-              </p>
-              <p className="item">
-                <span className="itemName"> language : <span className="text">{language ? language : "..."}</span></span>{" "}
-                
-              </p>
-              <p className="item">
-                <span className="itemName"> rating :  <span className="text">{rating ? rating : "..."} </span></span>
-               
-              </p>
-              <p className="item">
-                <span className="itemName"> summary :  <span className="text">{summaryDataSlice()}...</span></span>{" "}
-               
-              </p>
+              <div className="col1">
+                <div className="item-lan-rat">
+                  <div className="itemOne">
+                    {ratingTypeOf === true ? (
+                      <>
+                        <i className="fa fa-star" aria-hidden="true"></i>
+                        <span>{rating}</span>
+                      </>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  <div className="itemTwo">
+                    {languageTypeOf === true ? (
+                      <>
+                        <i className="fa-solid fa-language"></i>
+                        <span>{language}</span>
+                      </>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </div>
+                <div className="genres-summary">
+                  <div className="item">
+                    {genresTypeOf === true ? (
+                      <>
+                        <span className="title">Genres</span>
+                        <div className="line"></div>
+                        <span className="text">{genres}</span>
+                      </>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  <div className="item">
+                    {summaryTypeOf === true ? (
+                      <>
+                        <span className="title">summary</span>
+                        <div className="line"></div>
+                        <span className="text">{summaryDataSlice()}</span>
+                      </>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div className="col2">
+                <div className="Picture">
+                  <img src={image ? image : imageNotFound} alt="" />
+                </div>
+              </div>
             </div>
-            <div className="Picture">
-              <img src={image ? image : imageNotFound} alt="" />
-            </div>
-            </div>
-      
           </div>
         </Link>
       )}
@@ -81,17 +163,20 @@ const MoviesShow = ({ name, image, genres, language, rating, id, summary }) => {
   );
 
   function summaryDataSlice() {
-    if (summary !== undefined) {
+    if(summary === undefined || summary === null || summary === "" ){
+      setSummary(false)
+    }else{
       let removeTPFirst = summary.replace("<p>", "");
       let removeTPLast = removeTPFirst.replace("</p>", "");
       let removeTBFirst = removeTPLast.replace("<b>", "");
       let removeTBlast = removeTBFirst.replace("</b>", "");
       let removeTIFirst = removeTBlast.replace("<i>", "");
       let removeTILast = removeTIFirst.replace("</i>", "");
-      let slice = removeTILast.slice(0, 80);
+      let slice = removeTILast.slice(0, 60);
       return slice;
     }
   }
+
   function nameDataSlice() {
     if (name.length > 25) {
       let slice = name.slice(0, 25);

@@ -40,7 +40,7 @@ const Movie = ({
         }
       }
     }
-  },[]);
+  },[genres, language, rating, country, status]);
 
 
 
