@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/search-movies/static/css/main.cb46b427.css",
-    "main.js": "/search-movies/static/js/main.2acee16c.js",
+    "main.css": "/search-movies/static/css/main.2f8a792f.css",
+    "main.js": "/search-movies/static/js/main.1cbd71ae.js",
     "static/media/fa-solid-900.ttf": "/search-movies/static/media/fa-solid-900.b1a653db79258eeccc5d.ttf",
     "static/media/fa-brands-400.ttf": "/search-movies/static/media/fa-brands-400.450a5c898f0b184b968b.ttf",
     "static/media/fa-solid-900.woff2": "/search-movies/static/media/fa-solid-900.41c0f706d8ce93933771.woff2",
-    "static/media/images (2).jpg": "/search-movies/static/media/images (2).96e2cbbec121615493c1.jpg",
     "static/media/fa-brands-400.woff2": "/search-movies/static/media/fa-brands-400.3ac6859b28be946745f9.woff2",
-    "static/media/Tommy-Shelby.avif": "/search-movies/static/media/Tommy-Shelby.b6d9d550ed9d8bf5c7a4.avif",
+    "static/media/Background.jpg": "/search-movies/static/media/Background.b7ce155f8f1cb96a03ea.jpg",
     "static/media/fa-regular-400.ttf": "/search-movies/static/media/fa-regular-400.3cd9fb8fcec4ad0f99d4.ttf",
     "static/media/notPicture.jpg": "/search-movies/static/media/notPicture.391fa3ca85b7ed49df31.jpg",
     "static/media/fa-regular-400.woff2": "/search-movies/static/media/fa-regular-400.1f3772178d9e5bed38a6.woff2",
+    "static/media/cinema-background-wlaz2mnpctje2d9l.jpg": "/search-movies/static/media/cinema-background-wlaz2mnpctje2d9l.f18585717068a3a4c283.jpg",
     "static/media/fa-v4compatibility.ttf": "/search-movies/static/media/fa-v4compatibility.e314b618134d5be20996.ttf",
     "static/media/fa-v4compatibility.woff2": "/search-movies/static/media/fa-v4compatibility.4ee7f902d88f819e251c.woff2",
     "index.html": "/search-movies/index.html",
-    "main.cb46b427.css.map": "/search-movies/static/css/main.cb46b427.css.map",
-    "main.2acee16c.js.map": "/search-movies/static/js/main.2acee16c.js.map"
+    "main.2f8a792f.css.map": "/search-movies/static/css/main.2f8a792f.css.map",
+    "main.1cbd71ae.js.map": "/search-movies/static/js/main.1cbd71ae.js.map"
   },
   "entrypoints": [
-    "static/css/main.cb46b427.css",
-    "static/js/main.2acee16c.js"
+    "static/css/main.2f8a792f.css",
+    "static/js/main.1cbd71ae.js"
   ]
 }
