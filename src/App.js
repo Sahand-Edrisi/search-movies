@@ -6,7 +6,6 @@ const App = () => {
     <>
       <Routes>
         <Route path="/search-movies/" Component={getData} />
-        <Route path="/Movie/:id" Component={getData} />
       </Routes>
     </>
   );

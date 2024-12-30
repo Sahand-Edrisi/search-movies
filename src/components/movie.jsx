@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import background from "../image/cinema-background-wlaz2mnpctje2d9l.jpg"
 const Movie = ({
   name,
   image,
@@ -22,6 +22,9 @@ const Movie = ({
   let IMDbWebSite = `https://www.imdb.com/title/${IMDb}/`
     ? `https://www.imdb.com/title/${IMDb}/`
     : undefined;
+
+    let bac = document.querySelector(".bac")
+    bac.src = background
     
     useEffect(() => {
     let data = [genres, language, rating, country, status];
@@ -46,6 +49,7 @@ const Movie = ({
 
   return (
     <>
+      <div className="body-movie">
       <div id="movie">
         <div id="name">
           <span>{name}</span>
@@ -57,17 +61,6 @@ const Movie = ({
           <div className="column2">
             <div className="col1">
               <p className="summary">{summaryDataSlice()}</p>
-              <div className="links">
-                <Link className="link" target="_blank" to={visitSite}>
-                  visitSite
-                </Link>
-                <Link className="link" target="_blank" to={IMDbWebSite}>
-                  IMDb
-                </Link>
-                <Link className="link" target="_blank" to={officialSite}>
-                  officialSite
-                </Link>
-              </div>
             </div>
             <div className="col2">
               {languageTypeOf === true ? (
@@ -105,9 +98,21 @@ const Movie = ({
               ) : (
                 ""
               )}
+                        <div className="links">
+                <Link className="link" target="_blank" to={visitSite}>
+                  visitSite
+                </Link>
+                <Link className="link" target="_blank" to={IMDbWebSite}>
+                  IMDb
+                </Link>
+                <Link className="link" target="_blank" to={officialSite}>
+                  officialSite
+                </Link>
+              </div>
             </div>
           </div>
         </div>
+      </div>
       </div>
     </>
   );

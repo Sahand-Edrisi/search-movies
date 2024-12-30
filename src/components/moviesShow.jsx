@@ -1,11 +1,10 @@
 import "../style/style.css";
 import "../style/responsive.css";
-import { Link } from "react-router-dom";
 import "../fontAwesome-free-6.2.1-web/css/all.min.css";
 import imageNotFound from "../image/notPicture.jpg";
-import backgroundImageMovies from "../image/backgroundImageMovies.jpg";
+import backgroundImageMovies from "../image/cinema-background-csjrmkuhfvvumb2q.jpg";
+import background from "../image/Background.jpg";
 import { useEffect, useState } from "react";
-import { faCircleRight } from "@fortawesome/free-solid-svg-icons";
 
 const MoviesShow = ({ name, image, genres, language, rating, id, summary }) => {
   const [genresTypeOf, setGenres] = useState(true);
@@ -28,11 +27,13 @@ const MoviesShow = ({ name, image, genres, language, rating, id, summary }) => {
     }
   }, []);
 
+  let bac = document.querySelector(".bac");
+  bac.src = background;
   return (
     <>
       {id === 0 || id === 1 ? (
-        <Link id="displayOn" className="movie" to={`/Movie/${id}`}>
-          <div className="movieShow">
+        <div id="displayOn" className="movie">
+          <div className="movieShow" id={id}>
             <img id="backgroundImage" src={backgroundImageMovies} alt="" />
             <div className="name">
               <h1>{nameDataSlice()}</h1>
@@ -62,28 +63,28 @@ const MoviesShow = ({ name, image, genres, language, rating, id, summary }) => {
                   </div>
                 </div>
                 <div className="genres-summary">
-                  <div className="item">
-                    {genresTypeOf === true ? (
-                      <>
+                  {genresTypeOf === true ? (
+                    <>
+                      <div className="item">
                         <span className="title">Genres</span>
                         <div className="line"></div>
                         <span className="text">{genres}</span>
-                      </>
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                  <div className="item">
-                    {summaryTypeOf === true ? (
-                      <>
+                      </div>
+                    </>
+                  ) : (
+                    ""
+                  )}
+                  {summaryTypeOf === true ? (
+                    <>
+                      <div className="item">
                         <span className="title">summary</span>
                         <div className="line"></div>
                         <span className="text">{summaryDataSlice()}</span>
-                      </>
-                    ) : (
-                      ""
-                    )}
-                  </div>
+                      </div>
+                    </>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
               <div className="col2">
@@ -93,10 +94,10 @@ const MoviesShow = ({ name, image, genres, language, rating, id, summary }) => {
               </div>
             </div>
           </div>
-        </Link>
+        </div>
       ) : (
-        <Link id="displayOff" className="movie" to={`/Movie/${id}`}>
-          <div className="movieShow">
+        <div id="displayOff" className="movie">
+          <div className="movieShow" id={id}>
             <img id="backgroundImage" src={backgroundImageMovies} alt="" />
             <div className="name">
               <h1>{nameDataSlice()}</h1>
@@ -126,28 +127,28 @@ const MoviesShow = ({ name, image, genres, language, rating, id, summary }) => {
                   </div>
                 </div>
                 <div className="genres-summary">
-                  <div className="item">
                     {genresTypeOf === true ? (
                       <>
+                  <div className="item">
                         <span className="title">Genres</span>
                         <div className="line"></div>
                         <span className="text">{genres}</span>
+                  </div>
                       </>
                     ) : (
                       ""
                     )}
-                  </div>
-                  <div className="item">
                     {summaryTypeOf === true ? (
                       <>
+                  <div className="item">
                         <span className="title">summary</span>
                         <div className="line"></div>
                         <span className="text">{summaryDataSlice()}</span>
+                  </div>
                       </>
                     ) : (
                       ""
                     )}
-                  </div>
                 </div>
               </div>
               <div className="col2">
@@ -157,15 +158,15 @@ const MoviesShow = ({ name, image, genres, language, rating, id, summary }) => {
               </div>
             </div>
           </div>
-        </Link>
+        </div>
       )}
     </>
   );
 
   function summaryDataSlice() {
-    if(summary === undefined || summary === null || summary === "" ){
-      setSummary(false)
-    }else{
+    if (summary === undefined || summary === null || summary === "") {
+      setSummary(false);
+    } else {
       let removeTPFirst = summary.replace("<p>", "");
       let removeTPLast = removeTPFirst.replace("</p>", "");
       let removeTBFirst = removeTPLast.replace("<b>", "");
@@ -187,5 +188,4 @@ const MoviesShow = ({ name, image, genres, language, rating, id, summary }) => {
     }
   }
 };
-
 export default MoviesShow;

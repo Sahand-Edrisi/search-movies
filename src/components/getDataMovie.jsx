@@ -1,11 +1,11 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import MoviesShow from "./moviesShow";
 import Movie from "./movie";
 import NotFound from "./notFound";
 import Background from "../image/Background.jpg";
 import notPicture from "../image/notPicture.jpg";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   ShowSearchMoviesOff,
   nameDataSlice,
@@ -19,13 +19,12 @@ import {
   visibleBtn,
 } from "./functionality";
 
-const GetDataMovie = () => {
-  const params = useParams();
-  const nav = useNavigate();
 
+const GetDataMovie = () => {
   // Movie Data
   const [Movies, setMovieData] = useState([]);
   const [vpn, setVpn] = useState(false);
+  const [showMovie, setShowMovie] = useState(undefined);
   const data = Movies.map((f, index) => ({
     name: f.show.name,
     image: f.show.image ? f.show.image.medium : notPicture,
@@ -105,153 +104,226 @@ const GetDataMovie = () => {
     id: index,
   }));
 
-  useEffect(()=>{
+  useEffect(() => {
     let BestMovieUrl = fetch("https://api.tvmaze.com/search/shows?q=dark");
     BestMovieUrl.then(async (res) => {
       const response = await axios.get(res.url);
       setBestMovies(response.data);
-    }).catch();
-  },[])
+      setVpn(true);
+    }).catch((e) => {
+      setVpn(false);
+      console.log(e.message);
+    });
+  }, []);
   useEffect(() => {
     let url = fetch("https://api.tvmaze.com/search/shows?q=breking");
     url
       .then(async (res) => {
         const response = await axios.get(res.url);
         setMovieData(response.data);
-        console.log(response);
         setVpn(true);
       })
       .catch((e) => {
         setVpn(false);
         console.log(e.message);
       });
-
-    
   }, []);
 
-  return (
-    <>
-      <img className="bac" src={Background} alt="" />
-      <div className="body">
-        <div className="container">
-          <div className="search">
-            <div className="search-box">
-              <input
-                autoComplete="off"
-                id="input"
-                type="search"
-                onKeyDown={pressEnter}
-                onChange={searchWithWord}
-              />
-              <div id="ShowSearchMoviesOff">
-                {showMoviesInSearch.map((i, index) => (
-                  <Link key={index}>
-                    <div
-                      key={index}
-                      className="items"
-                      onClick={showItem}
-                      id={index}
-                    >
-                      <img src={i.imageOriginal} alt="" />
-                      <p className="names" key={index}>
-                        {nameDataSlice(i.name)}
-                      </p>
-                    </div>
-                  </Link>
-                ))}
+  if (Movies.length > 0 || vpn === false || vpn === true) {
+    return (
+      <>
+        <img className="bac" src={Background} alt="" />
+        <div className="body">
+          <div className="container">
+            <div className="search">
+              <div className="search-box">
+                <input
+                  autoComplete="off"
+                  id="input"
+                  type="search"
+                  onKeyDown={pressEnter}
+                  onChange={searchWithWord}
+                />
+                <div id="ShowSearchMoviesOff">
+                  {showMoviesInSearch.map((i, index) => (
+                    <Link key={index} id="hover">
+                      <div
+                        key={index}
+                        className="items"
+                        onClick={showItem}
+                        id={index}
+                      >
+                        <img src={i.imageOriginal} alt="" />
+                        <p className="names" key={index}>
+                          {nameDataSlice(i.name)}
+                        </p>
+                      </div>
+                    </Link>
+                  ))}
+                  <button>ssasasss</button>
+                </div>
+              </div>
+              <div className="searchIcon">
+                <button className="btnSearch" onClick={search}>
+                  <i className="fas fa-search"></i>
+                </button>
+              </div>
+              <div id="homeIcon">
+                <button id="btnHome" onClick={refresh}>
+                  <i className="fa-solid fa-house" id="HomeICon"></i>
+                </button>
               </div>
             </div>
-            <div className="searchIcon">
-              <button className="btnSearch" onClick={search}>
-                <i className="fas fa-search"></i>
-              </button>
-            </div>
-            <div id="homeIcon">
-              <button id="btnHome" onClick={refresh}>
-                <i className="fa-solid fa-house" id="HomeICon"></i>
-              </button>
-            </div>
-          </div>
-          {vpn === true ? (
-            showSearchMoviesItem === undefined ? (
-              showBestMovies === undefined ? (
-                params.id === undefined ? (
-                  data.length >= 3 ? (
-                    <>
-                      {/* bestMovies */}
-                      <div id="bestMovies">
-                        <button id="btnLeft" onClick={btnLeft}>
-                          <i className="fa-solid fa-arrow-left"></i>
-                        </button>
-                        {console.log("object")}
-                        <div id="images">{createBestMovies()}</div>
-                        <button id="btnRight" onClick={btnRight}>
-                          <i className="fa-solid fa-arrow-right"></i>
-                        </button>
-                      </div>
-                      {/* MoviesShow */}
-                      <div id="MoviesShow">
-                        {data.map((i, index) => (
-                          <MoviesShow
-                            key={index}
-                            name={i.name}
-                            image={i.imageOriginal ? i.imageOriginal : i.image}
-                            genres={i.genres}
-                            language={i.language}
-                            rating={i.rating}
-                            id={i.id}
-                            summary={i.summary}
-                          />
-                        ))}
-                      </div>
-                      {/* Pagination */}
-                      <div className="containerPagination">
-                        <div className="titlePagination">
-                          <p>Movies pages</p>
-                        </div>
-                        <div className="paginationShow">
-                          <button id="previous" onClick={previousPage}>
-                            Previous
+            {vpn === true ? (
+              showSearchMoviesItem === undefined ? (
+                showBestMovies === undefined ? (
+                  showMovie === undefined ? (
+                    data.length >= 3 ? (
+                      <>
+                        {/* bestMovies */}
+                        <div id="bestMovies">
+                          <button id="btnLeft" onClick={btnLeft}>
+                            <i className="fa-solid fa-arrow-left"></i>
                           </button>
-                          <div id="pages">{createPagination()}</div>
-                          <button id="next" onClick={nextPage}>
-                            Next
+                          <div id="images">
+                            <img
+                              src={bestMoviesData[0].imageOriginal}
+                              id={bestMoviesData[0].id}
+                              className="imgShow"
+                              alt=""
+                              onClick={bestMovieShow}
+                            />
+                            <img
+                              src={bestMoviesData[1].imageOriginal}
+                              id={bestMoviesData[1].id}
+                              className="imgShowCenter"
+                              alt=""
+                              onClick={bestMovieShow}
+                            />
+                            <img
+                              src={bestMoviesData[2].imageOriginal}
+                              id={bestMoviesData[2].id}
+                              className="imgShow"
+                              alt=""
+                              onClick={bestMovieShow}
+                            />
+                          </div>
+                          <button id="btnRight" onClick={btnRight}>
+                            <i className="fa-solid fa-arrow-right"></i>
                           </button>
                         </div>
-                      </div>
-                    </>
+                        {/* MoviesShow */}
+                        <div id="MoviesShow">
+                          {data.map((i, index) => (
+                            <MoviesShow
+                              key={index}
+                              name={i.name}
+                              image={
+                                i.imageOriginal ? i.imageOriginal : i.image
+                              }
+                              genres={i.genres}
+                              language={i.language}
+                              rating={i.rating}
+                              id={i.id}
+                              summary={i.summary}
+                            />
+                          ))}
+                          {addListener()}
+                        </div>
+                        {/* Pagination */}
+                        <div className="containerPagination">
+                          <div className="titlePagination">
+                            <p>Movies pages</p>
+                          </div>
+                          <div className="paginationShow">
+                            <button id="previous" onClick={previousPage}>
+                              Previous
+                            </button>
+                            <div id="pages">{createPagination()}</div>
+                            <button id="next" onClick={nextPage}>
+                              Next
+                            </button>
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        {/* bestMovies */}
+                        <div id="bestMovies">
+                          <button id="btnLeft" onClick={btnLeft}>
+                            <i className="fa-solid fa-arrow-left"></i>
+                          </button>
+                          <div id="images">
+                            <img
+                              src={bestMoviesData[0].imageOriginal}
+                              id={bestMoviesData[1].id}
+                              className="imgShow"
+                              alt=""
+                              onClick={bestMovieShow}
+                            />
+                            <img
+                              src={bestMoviesData[1].imageOriginal}
+                              id={bestMoviesData[1].id}
+                              className="imgShowCenter"
+                              alt=""
+                              onClick={bestMovieShow}
+                            />
+                            <img
+                              src={bestMoviesData[2].imageOriginal}
+                              id={bestMoviesData[1].id}
+                              className="imgShow"
+                              alt=""
+                              onClick={bestMovieShow}
+                            />
+                          </div>
+                          <button id="btnRight" onClick={btnRight}>
+                            <i className="fa-solid fa-arrow-right"></i>
+                          </button>
+                        </div>
+                        {/* MoviesShow */}
+                        <div id="MoviesShow">
+                          {data.map((i, index) => (
+                            <MoviesShow
+                              key={index}
+                              name={i.name}
+                              image={
+                                i.imageOriginal ? i.imageOriginal : i.image
+                              }
+                              genres={i.genres}
+                              language={i.language}
+                              rating={i.rating}
+                              id={i.id}
+                              summary={i.summary}
+                            />
+                          ))}
+                          {addListener()}
+                        </div>
+                      </>
+                    )
                   ) : (
-                    <>
-                      {/* bestMovies */}
-                      <div id="bestMovies">
-                        <button id="btnLeft" onClick={btnLeft}>
-                          <i className="fa-solid fa-arrow-left"></i>
-                        </button>
-                        <div id="images">{createBestMovies()}</div>
-                        <button id="btnRight" onClick={btnRight}>
-                          <i className="fa-solid fa-arrow-right"></i>
-                        </button>
-                      </div>
-                      {/* MoviesShow */}
-                      <div id="MoviesShow">
-                        {data.map((i, index) => (
-                          <MoviesShow
-                            key={index}
-                            name={i.name}
-                            image={i.imageOriginal ? i.imageOriginal : i.image}
-                            genres={i.genres}
-                            language={i.language}
-                            rating={i.rating}
-                            id={i.id}
-                            summary={i.summary}
-                          />
-                        ))}
-                      </div>
-                    </>
+                    data.map((i, index) =>
+                      `'${showMovie}'` === `'${i.id}'` ? (
+                        <Movie
+                          key={index}
+                          name={i.name}
+                          image={i.imageOriginal ? i.imageOriginal : i.image}
+                          genres={i.genres}
+                          visitSite={i.visitSite}
+                          officialSite={i.officialSite}
+                          language={i.language}
+                          rating={i.rating}
+                          id={i.id}
+                          summary={i.summary}
+                          country={i.country}
+                          status={i.status}
+                          IMDb={i.externals}
+                        />
+                      ) : undefined
+                    )
                   )
                 ) : (
-                  data.map((i, index) =>
-                    `'${params.id}'` === `'${i.id}'` ? (
+                  bestMoviesData.map((i, index) =>
+                    `"${showBestMovies}"` === `"${i.id}"` ? (
                       <Movie
                         key={index}
                         name={i.name}
@@ -271,8 +343,8 @@ const GetDataMovie = () => {
                   )
                 )
               ) : (
-                bestMoviesData.map((i, index) =>
-                  `"${showBestMovies}"` === `"${i.id}"` ? (
+                SaveSearchMoviesItemData.map((i, index) =>
+                  `"${showSearchMoviesItem}"` === `"${i.id}"` ? (
                     <Movie
                       key={index}
                       name={i.name}
@@ -292,39 +364,22 @@ const GetDataMovie = () => {
                 )
               )
             ) : (
-              SaveSearchMoviesItemData.map((i, index) =>
-                `"${showSearchMoviesItem}"` === `"${i.id}"` ? (
-                  <Movie
-                    key={index}
-                    name={i.name}
-                    image={i.imageOriginal ? i.imageOriginal : i.image}
-                    genres={i.genres}
-                    visitSite={i.visitSite}
-                    officialSite={i.officialSite}
-                    language={i.language}
-                    rating={i.rating}
-                    id={i.id}
-                    summary={i.summary}
-                    country={i.country}
-                    status={i.status}
-                    IMDb={i.externals}
-                  />
-                ) : undefined
-              )
-            )
-          ) : (
-            <NotFound />
-          )}
+              <NotFound />
+            )}
+          </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  }
 
   // refresh
   function refresh() {
     let movies = document.querySelectorAll(".movie");
     if (showBestMovies !== undefined) {
       setShowBestMovies(undefined);
+    }
+    if (showMovie !== undefined) {
+      setShowMovie(undefined);
     }
     if (showSearchMoviesItem !== undefined) {
       setShowSearchMoviesItem(undefined);
@@ -335,14 +390,10 @@ const GetDataMovie = () => {
       }
       movies[0].setAttribute("id", "displayOn");
       movies[1].setAttribute("id", "displayOn");
-      movies[0].style = "translate: 0px 0px ; transition:all .8s ease-in-out"
-      movies[1].style = "translate: 0px 0px ; transition:all .8s ease-in-out"
+      movies[0].style = "translate: 0px 0px ; transition:all .8s ease-in-out";
+      movies[1].style = "translate: 0px 0px ; transition:all .8s ease-in-out";
     }
-    paginationReload()
-    if(params.id !== undefined || showSearchMoviesItem !== undefined){
-      console.log("reload")
-      nav("/search-movies/");
-     }
+    paginationReload();
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
@@ -377,9 +428,6 @@ const GetDataMovie = () => {
           setVpn(false);
           console.log(e.message);
         });
-     if(params.id !== undefined || showSearchMoviesItem !== undefined){
-      nav("/search-movies/");
-     }
     }
     scrollTo();
   }
@@ -398,18 +446,87 @@ const GetDataMovie = () => {
         }
       })
       .catch((e) => {
-        setVpn(false);
-        console.log(e.message);
+        if (Movies.length === 0) {
+          setVpn(false);
+          console.log(e.message);
+        }
       });
     if (input.value === "") {
       ShowSearchMoviesOff();
+      setShowSearchMovies([]);
     }
   }
   function pressEnter(e) {
-    let enter = e.key;
-    if (enter === "Enter") {
+    let key = e.key;
+    let hover = document.querySelectorAll("#hover");
+    let ShowSearchMoviesOn = document.getElementById("ShowSearchMoviesOn");
+    if (key === "ArrowDown") {
+      if (showSearchMovies.length > 1) {
+        for (let i = 0; i <= hover.length - 1; i++) {
+          if (hover[i].lastChild.className === "items") {
+            if (i === hover.length - 1) {
+              hover[0].lastChild.className = "items-active";
+            }
+          }
+          if (hover[i].lastChild.className === "items-active") {
+            if (hover[i + 1] !== undefined) {
+              hover[i].lastChild.className = "items";
+              hover[i + 1].lastChild.className = "items-active";
+              // console.log(i);
+              if(i === 2){
+              ShowSearchMoviesOn.scrollTo(0,240);
+              }
+              if(i === 5){
+              ShowSearchMoviesOn.scrollTo(0,480);
+              }
+              if(i === 8){
+              ShowSearchMoviesOn.scrollTo(0,720);
+              }
+            }
+            break;
+          }
+        }
+      }
+    }
+
+    if (key === "ArrowUp") {
+      if (showSearchMovies.length > 1) {
+        for (let i = 0; i <= hover.length - 1; i++) {
+          if (hover[i].lastChild.className === "items") {
+            if (i === hover.length - 1) {
+              break;
+            }
+          }
+          if (hover[0].lastChild.className === "items-active") {
+            break
+          }
+          if (hover[i + 1].lastChild.className === "items-active") {
+            hover[i].lastChild.className = "items-active";
+            hover[i+1].lastChild.className = "items";
+            console.log(i);
+            if(i === 0){
+              ShowSearchMoviesOn.scrollTo(0,0);
+              }
+              if(i === 2){
+                ShowSearchMoviesOn.scrollTo(0,0);
+                }
+            if(i === 3){
+              ShowSearchMoviesOn.scrollTo(0,80);
+              }
+            if(i === 5){
+              ShowSearchMoviesOn.scrollTo(0,80);
+              }
+              if(i === 6){
+              ShowSearchMoviesOn.scrollTo(0,320);
+              }
+          }
+        }
+      }
+    }
+
+    if (key === "Enter") {
       search();
-      nav("/search-movies/");
+      refresh();
       ShowSearchMoviesOff();
       if (showSearchMoviesItem !== undefined) {
         setShowSearchMoviesItem(undefined);
@@ -417,6 +534,7 @@ const GetDataMovie = () => {
       scrollTo();
     }
   }
+
   function showItem(e) {
     if (showSearchMoviesItem !== undefined) {
       setShowSearchMoviesItem(undefined);
@@ -459,54 +577,38 @@ const GetDataMovie = () => {
   // other function in js file
 
   // best Movie
-  function createBestMovies() {
-    let bestMoviesCount = document.querySelectorAll("#itemBestMovies");
-    // if (bestMoviesCount.length > 3) {
-    //   for (let i = 0; i < bestMoviesCount.length; i++) {
-    //     bestMoviesCount[i].remove();
-    //   }
-    // }
-
-    // if (bestMoviesCount.length === 0 || bestMoviesCount.length < 3) {
-    setTimeout(() => {
-      let Data = bestMoviesData;
-      for (let i = 0; i < 3; i++) {
-        let images = document.getElementById("images");
-        let createTagA = document.createElement("a");
-        let createImg = document.createElement("img");
-        createTagA.setAttribute("id", "itemBestMovies");
-        createImg.addEventListener("click", bestMovieShow);
-        createImg.setAttribute("src", Data[i].imageOriginal);
-        createImg.setAttribute("id", Data[i].id);
-        createImg.setAttribute("class", "imgShow");
-        createTagA.appendChild(createImg);
-        images.appendChild(createTagA);
-      }
-      let img = document.querySelectorAll(".imgShow");
-      img[1].setAttribute("class", "imgShowCenter");
-    }, 20);
-    //   } else {
-    //     return undefined;
-    //   }
-  }
   function bestMovieShow(e) {
     let item = e.currentTarget;
     setShowBestMovies(item.id);
   }
 
+  function addListener() {
+    setTimeout(() => {
+      let movieShow = document.querySelectorAll(".movieShow");
+      for (let i = 0; i < movieShow.length; i++) {
+        movieShow[i].addEventListener("click", MovieShow);
+      }
+    }, 10);
+  }
+
+  function MovieShow(e) {
+    let movie = e.currentTarget;
+    setShowMovie(movie.id);
+  }
   // btn for best movie
 
   function btnRight() {
     let Data = bestMoviesData;
     let imgShow = document.querySelectorAll(".imgShow");
     let imgShowCenter = document.querySelectorAll(".imgShowCenter");
+
     function translate() {
       imgShow[0].style =
-        "  translate: -3000px 0px;transition: all 1s ease-in-out;";
+        "  translate: -3000px 0px;transition: all .5s  ease-in-out;";
       imgShowCenter[0].style =
-        "  translate: -400px 0px;transition: all 1s ease-in-out;";
+        "  translate: -400px 0px;transition: all .5s  ease-in-out;";
       imgShow[1].style =
-        " translate: -400px 0px;transition: all 1s ease-in-out;";
+        " translate: -400px 0px;transition: all .5s  ease-in-out;";
     }
     for (let i = 0; i <= 6; i++) {
       if (imgShow[0].currentSrc === Data[i].imageOriginal) {
@@ -520,11 +622,11 @@ const GetDataMovie = () => {
             imgShow[0].setAttribute("src", Data[i + 3].imageOriginal);
             setTimeout(() => {
               imgShow[0].style =
-                "translate: 750px 0px ;transition: all 1s ease-in-out";
+                "translate: 750px 0px ;transition: all .5s  ease-in-out";
               imgShow[0].setAttribute("id", Data[i + 3].id);
-            }, 200);
+            }, 150);
           }, 200);
-        }, 500);
+        }, 300);
 
         setTimeout(() => {
           imgShow[0].style = "translate: 0px 0px";
@@ -539,7 +641,7 @@ const GetDataMovie = () => {
           imgShowCenter[0].setAttribute("id", Data[i + 2].id);
           imgShow[1].setAttribute("id", Data[i + 3].id);
           visibleBtn();
-        }, 2000);
+        }, 1500);
         break;
       } else if (imgShow[1].currentSrc === Data[9].imageOriginal) {
         hiddenBtn();
@@ -552,11 +654,11 @@ const GetDataMovie = () => {
             imgShow[0].setAttribute("src", Data[0].imageOriginal);
             setTimeout(() => {
               imgShow[0].style =
-                "translate: 750px 0px ;transition: all 0.8s ease-in-out";
+                "translate: 750px 0px ;transition: all .5s ease-in-out";
               imgShow[0].setAttribute("id", Data[0].id);
-            }, 200);
+            }, 150);
           }, 200);
-        }, 500);
+        }, 300);
 
         setTimeout(() => {
           imgShow[0].style = "translate: 0px 0px";
@@ -570,8 +672,9 @@ const GetDataMovie = () => {
           imgShow[0].setAttribute("id", Data[8].id);
           imgShowCenter[0].setAttribute("id", Data[9].id);
           imgShow[1].setAttribute("id", Data[0].id);
+
           visibleBtn();
-        }, 2000);
+        }, 1500);
         break;
       } else if (imgShow[1].currentSrc === Data[0].imageOriginal) {
         hiddenBtn();
@@ -584,11 +687,11 @@ const GetDataMovie = () => {
             imgShow[0].setAttribute("src", Data[1].imageOriginal);
             setTimeout(() => {
               imgShow[0].style =
-                "translate: 750px 0px ;transition: all 0.8s ease-in-out";
+                "translate: 750px 0px ;transition: all .5s ease-in-out";
               imgShow[0].setAttribute("id", Data[1].id);
-            }, 200);
+            }, 150);
           }, 200);
-        }, 500);
+        }, 300);
 
         setTimeout(() => {
           imgShow[0].style = "translate: 0px 0px";
@@ -603,7 +706,7 @@ const GetDataMovie = () => {
           imgShowCenter[0].setAttribute("id", Data[0].id);
           imgShow[1].setAttribute("id", Data[1].id);
           visibleBtn();
-        }, 2000);
+        }, 1500);
 
         break;
       } else if (imgShow[1].currentSrc === Data[1].imageOriginal) {
@@ -617,11 +720,11 @@ const GetDataMovie = () => {
             imgShow[0].setAttribute("src", Data[2].imageOriginal);
             setTimeout(() => {
               imgShow[0].style =
-                "translate: 750px 0px ;transition: all 0.8s ease-in-out";
+                "translate: 750px 0px ;transition: all .5s ease-in-out";
               imgShow[0].setAttribute("id", Data[2].id);
-            }, 200);
+            }, 150);
           }, 200);
-        }, 500);
+        }, 300);
 
         setTimeout(() => {
           imgShow[0].style = "translate: 0px 0px";
@@ -635,8 +738,9 @@ const GetDataMovie = () => {
           imgShow[0].setAttribute("id", Data[0].id);
           imgShowCenter[0].setAttribute("id", Data[1].id);
           imgShow[1].setAttribute("id", Data[2].id);
+
           visibleBtn();
-        }, 2000);
+        }, 1500);
         break;
       }
     }
@@ -647,11 +751,11 @@ const GetDataMovie = () => {
     let imgShowCenter = document.querySelectorAll(".imgShowCenter");
     function translate() {
       imgShow[1].style =
-        "  translate: +3000px 0px;transition: all 1s ease-in-out;";
+        "  translate: +3000px 0px;transition: all .5s  ease-in-out;";
       imgShowCenter[0].style =
-        "  translate: +400px 0px;transition: all 1s ease-in-out;";
+        "  translate: +400px 0px;transition: all .5s  ease-in-out;";
       imgShow[0].style =
-        " translate: +400px 0px;transition: all 1s ease-in-out;";
+        " translate: +400px 0px;transition: all .5s  ease-in-out;";
     }
     for (let i = 7; i >= 0; i--) {
       if (imgShow[0].currentSrc === Data[i].imageOriginal) {
@@ -665,11 +769,11 @@ const GetDataMovie = () => {
             imgShow[1].setAttribute("src", Data[i - 1].imageOriginal);
             setTimeout(() => {
               imgShow[1].style =
-                "translate: -750px 0px ;transition: all .8s ease-in-out";
+                "translate: -750px 0px ;transition: all .5s ease-in-out";
               imgShow[1].setAttribute("id", Data[i - 1].id);
             }, 200);
           }, 200);
-        }, 500);
+        }, 300);
 
         setTimeout(() => {
           imgShow[0].style = "translate: 0px 0px";
@@ -688,7 +792,7 @@ const GetDataMovie = () => {
           imgShowCenter[0].setAttribute("id", Data[i].id);
           imgShow[1].setAttribute("id", Data[i + 1].id);
           visibleBtn();
-        }, 2000);
+        }, 1500);
         break;
       } else if (imgShow[0].currentSrc === Data[8].imageOriginal) {
         hiddenBtn();
@@ -701,11 +805,11 @@ const GetDataMovie = () => {
             imgShow[1].setAttribute("src", Data[7].imageOriginal);
             setTimeout(() => {
               imgShow[1].style =
-                "translate: -750px 0px ;transition: all .8s ease-in-out";
+                "translate: -750px 0px ;transition: all .5s ease-in-out";
               imgShow[1].setAttribute("id", Data[7].id);
             }, 200);
           }, 200);
-        }, 500);
+        }, 300);
 
         setTimeout(() => {
           imgShow[0].style = "translate: 0px 0px";
@@ -724,7 +828,7 @@ const GetDataMovie = () => {
           imgShowCenter[0].setAttribute("id", Data[8].id);
           imgShow[1].setAttribute("id", Data[9].id);
           visibleBtn();
-        }, 2000);
+        }, 1500);
         break;
       } else if (imgShow[0].currentSrc === Data[9].imageOriginal) {
         hiddenBtn();
@@ -737,11 +841,11 @@ const GetDataMovie = () => {
             imgShow[1].setAttribute("src", Data[8].imageOriginal);
             setTimeout(() => {
               imgShow[1].style =
-                "translate: -750px 0px ;transition: all .8s ease-in-out";
+                "translate: -750px 0px ;transition: all .5s ease-in-out";
               imgShow[1].setAttribute("id", Data[8].id);
             }, 200);
           }, 200);
-        }, 500);
+        }, 300);
         setTimeout(() => {
           imgShow[0].style = "translate: 0px 0px";
           imgShowCenter[0].style = "translate: 0px 0px";
@@ -759,7 +863,7 @@ const GetDataMovie = () => {
           imgShowCenter[0].setAttribute("id", Data[9].id);
           imgShow[1].setAttribute("id", Data[0].id);
           visibleBtn();
-        }, 2000);
+        }, 1500);
         break;
       } else if (imgShow[0].currentSrc === Data[0].imageOriginal) {
         hiddenBtn();
@@ -772,11 +876,11 @@ const GetDataMovie = () => {
             imgShow[1].setAttribute("src", Data[9].imageOriginal);
             setTimeout(() => {
               imgShow[1].style =
-                "translate: -750px 0px ;transition: all .8s ease-in-out";
+                "translate: -750px 0px ;transition: all .5s ease-in-out";
               imgShow[1].setAttribute("id", Data[9].id);
-            }, 200);
+            }, 150);
           }, 200);
-        }, 500);
+        }, 300);
 
         setTimeout(() => {
           imgShow[0].style = "translate: 0px 0px";
@@ -795,7 +899,7 @@ const GetDataMovie = () => {
           imgShowCenter[0].setAttribute("id", Data[0].id);
           imgShow[1].setAttribute("id", Data[1].id);
           visibleBtn();
-        }, 2000);
+        }, 1500);
         break;
       }
     }

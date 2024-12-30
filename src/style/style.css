@@ -20,8 +20,7 @@ a {
   justify-content: center;
 }
 .container {
-  width: 1260px;
-  max-width: 1260px;
+  width: 100%;
   overflow-x: hidden;
   overflow-y: hidden;
 }
@@ -31,7 +30,7 @@ a {
   height: 100%;
   top: 0;
   right: 0;
-  object-fit: cover;
+  object-fit: fill;
   z-index: -10;
 }
 
@@ -39,7 +38,8 @@ a {
 
 .search {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  justify-content: center;
   margin-top: 10px;
   width: 100%;
 }
@@ -77,22 +77,25 @@ a {
 }
 #ShowSearchMoviesOff {
   display: none;
+  transition: all .8s ease-in-out;
 }
 #ShowSearchMoviesOn {
-  position: absolute;
   width: 210px;
-  height: 260px;
+  height: 240px;
   margin-top: 5px;
   margin-left: 10px;
-  background-color: var(--color-orange);
-  overflow: scroll;
+  overflow: hidden;
   overflow-x: hidden;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   z-index: 100;
+  background-color: var(--background-Header);
+  opacity: .9;
+  transition: width .8s ease-in-out;
 }
+
 #ShowSearchMoviesOn::-webkit-scrollbar {
   width: 10px;
 }
@@ -111,26 +114,46 @@ a {
 
 #ShowSearchMoviesOn a {
   display: grid;
-  background-color: var(--color-orange);
 }
 #ShowSearchMoviesOn .items {
   display: flex;
   align-items: center;
-  margin: 5px 4px;
-  border-radius: 20px;
+  margin: 10px 10px;
+  border-radius: 10px;
   overflow: hidden;
 }
 #ShowSearchMoviesOn .items:hover {
   background-color: var(--color-orange-light);
 }
+
 #ShowSearchMoviesOn .items .names {
   margin: 0 5px;
   font-size: 20px;
-  color: var(--color-black);
+  color: var(--color-orange);
 }
+
 #ShowSearchMoviesOn .items img {
-  width: 60px;
-  height: 80px;
+  width: 50px;
+  height: 60px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+#ShowSearchMoviesOn .items-active{
+  display: flex;
+  align-items: center;
+  margin: 10px 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: var(--color-orange-light);
+}
+#ShowSearchMoviesOn .items-active .names {
+  margin: 0 5px;
+  font-size: 20px;
+  color: var(--color-white);
+}
+#ShowSearchMoviesOn .items-active img {
+  width: 50px;
+  height: 60px;
   border-radius: 10px;
   object-fit: cover;
 }
@@ -258,25 +281,23 @@ a {
   margin: 0 50px;
   opacity: 0.6;
   box-shadow: 0px 6px 20px 1px;
-  position: static;
+  cursor: pointer;
 }
 
 #bestMovies #images .imgShowCenter {
   width: 350px;
   height: 500px;
   box-shadow: 0px 6px 20px 1px;
-  position: static;
+  cursor: pointer;
 }
 
 /* Movies Show */
 
 #MoviesShow {
   display: flex;
-  width: 1260px;
-  max-width: 1260px;
-  height: 550px;
-  align-items: flex-start;
-  justify-content: space-evenly;
+  width: 100%;
+  height: 500px;
+  justify-content: center;
 }
 
 #displayOff {
@@ -285,21 +306,23 @@ a {
 
 #displayOn {
   width: 500px;
-  margin: 20px;
+  cursor: pointer;
+  margin: 10px;
 }
 .movieShow {
   border-radius: 50px;
   padding: 15px;
+  margin: 10px;
   display: grid;
   grid-template-columns: auto;
 }
 .movieShow #backgroundImage {
+  box-shadow: 0px 0px 50px 10px;
   position: absolute;
   z-index: -1;
   object-fit: cover;
-  width: 500px;
+  width: 480px;
   height: 450px;
-  opacity: 0.8;
   border-radius: 20px;
 }
 
@@ -311,12 +334,19 @@ a {
   font-family: cursive;
 }
 .movieShow .information {
+  width: 500px;
   display: grid;
   grid-template-columns: auto auto;
 }
+.movieShow .information .col1{
+  width: 250px;
+}
+.movieShow .information .col2{
+  width: 250px;
+}
 .movieShow .information .col1 .item-lan-rat {
   font-size: 30px;
-  margin: 10px;
+  margin: 5px;
   color: var(--color-orange);
   height: 70px;
 }
@@ -331,7 +361,15 @@ a {
   margin: 10px 20px;
 }
 .movieShow .information .col1 .genres-summary .item {
-  padding: 20px 0;
+  padding: 10px 0;
+  width: 240PX;
+  position: relative;
+  background-color:var(--color-black);
+  opacity: .9;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 10px;
+box-shadow: 0px 0 10px 10px;
 }
 
 .movieShow .information .col1 .genres-summary .item .title {
@@ -339,17 +377,23 @@ a {
   font-size: 20px;
   font-family: monospace;
   font-weight: 900;
+  
 }
 .movieShow .information .col1 .genres-summary .item .line {
   border: 2px solid var(--color-orange-light);
   border-radius: 20px;
   width: 80%;
   margin: 5px 0;
+  
 }
 .movieShow .information .col1 .genres-summary .item .text {
-  color: var(--color-white);
+  color: rgb(255, 255, 255);
+  font-weight: 900;
   font-size: 18px;
   font-family: monospace;
+  width: 220px !important;
+  display: flex;
+  overflow: hidden;
 }
 
 .movieShow .Picture {
@@ -357,19 +401,24 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-left: 30px;
 }
 
 .movieShow .Picture img {
   border-radius: 10px;
-  width: 200px;
-  height: 300px;
-  object-fit: cover;
+  width: 150px;
+  object-fit: contain;
 }
-/* Movie show */
 
-#movie {
+/* Movie show */
+.body-movie{
+  display: flex;
   width: 100%;
-  padding-top: 60px;
+  justify-content: center;
+}
+#movie {
+  width: 1260px;
+  padding-top: 20px;
   background-color: inherit;
   height: fit-content;
 }
@@ -381,11 +430,11 @@ a {
   display: flex;
   justify-content: flex-start;
   background-color: inherit;
-  color: var(--color-black);
   width: 100%;
 }
 #movie #name span {
-  color: var(--color-black);
+  color: var(--color-white);
+  font-family: cursive;
   font-size: 25px;
   font-weight: 900;
   margin: 0 50px;
@@ -396,40 +445,39 @@ a {
   border-radius: 10%;
   object-fit: cover;
   margin: 20px;
+  box-shadow: 0px 0px 20px 10px;
 }
 #movie .main .column2 {
   display: grid;
   grid-template-columns: 2fr 1fr;
   background-color: inherit;
   justify-items: center;
-  align-items: center;
+  align-items: start;
 }
 #movie .main .column2 .col1 {
   margin: 0 10px;
+  height: 400px;
 }
 
-#movie .main .column2 .col1 p {
+
+#movie .main .column2 .col1 .summary {
   background-color: inherit;
-  font-size: 25px;
-  color: var(--color-black);
+  font-size: 20px;
+  color: var(--color-white);
+  font-family: monospace;
   cursor: context-menu;
   text-align: justify;
+  padding: 10px;
 }
-#movie .main .column2 .col1 p span {
-  padding-left: 10px;
-  background-color: inherit;
-  font-size: 25px;
-}
+
 #movie .main .column2 .col2 {
-  background-color: var(--background-Header);
-  border-radius: 10px;
   margin: 5px 10px;
   height: fit-content;
   width: fit-content;
 }
 #movie .main .column2 .col2 p {
-  background-color: inherit;
   font-size: 20px;
+  font-family: cursive;
   color: var(--color-orange);
   cursor: context-menu;
   padding: 0 10px;
@@ -438,27 +486,27 @@ a {
   padding-left: 10px;
   background-color: inherit;
   font-size: 20px;
-  color: var(--color-black);
+  color: var(--color-white);
+font-family: monospace;
 }
 
 #movie .main .column2 .links {
-  display: flex;
-  background-color: inherit;
-  justify-content: space-around;
+  display: grid;  
 }
 #movie .main .column2 .link {
-  margin: 0px 15px;
+  margin: 5px 0px;
   border: 3px solid var(--color-orange);
   padding: 5px;
   border-radius: 20px;
   font-size: 15px;
   text-decoration: none;
-  color: var(--color-orange);
+  color: var(--color-white);
   background-color: inherit;
   width: 100px;
   display: flex;
   align-content: center;
   justify-content: center;
+  font-family: cursive;
 }
 
 /* vpn */
@@ -495,6 +543,7 @@ a {
   color: var(--color-orange);
   font-size: 20px;
   height: 30px;
+  cursor: context-menu;
 }
 
 .paginationShow {
@@ -526,7 +575,7 @@ a {
   border-radius: 50%;
   margin: 0px 10px;
 }
-.active {
+.active ,.numbers:hover {
   background-color: inherit;
   cursor: pointer;
   padding: 0 6px;

@@ -55,7 +55,7 @@ export const nextPage = () => {
       if (numbers[j].className === "numbers active") {
         for (let i = 0; i < moviesShow.length; i++) {
           moviesShow[i].style =
-            "translate : -3000px 0px; transition : all .8s ease-in-out";
+            "translate : -3000px 0px; transition : all .6s ease-in-out";
           setTimeout(() => {
             moviesShow[i].setAttribute("id", "displayOff");
           }, 1000);
@@ -73,7 +73,7 @@ export const nextPage = () => {
             movie[result].style = "translate : +3000px 0px";
             setTimeout(() => {
               movie[result].style =
-                "translate :0px 0px; transition : all .8s ease-in-out";
+                "translate :0px 0px; transition : all .6s ease-in-out";
             }, 200);
           }, 500);
         }
@@ -103,7 +103,7 @@ export const previousPage = () => {
       if (numbers[j].className === "numbers active") {
         for (let i = 0; i < moviesShow.length; i++) {
           moviesShow[i].style =
-            "translate : +3000px 0px; transition : all .8s ease-in-out";
+            "translate : +3000px 0px; transition : all .6s ease-in-out";
           setTimeout(() => {
             moviesShow[i].setAttribute("id", "displayOff");
           }, 1000);
@@ -118,7 +118,7 @@ export const previousPage = () => {
             movie[result].style = "translate : -3000px 0px";
             setTimeout(() => {
               movie[result].style =
-                "translate :0px 0px; transition : all .8s ease-in-out";
+                "translate :0px 0px; transition : all .6s ease-in-out";
             }, 200);
           }, 500);
         }
@@ -147,9 +147,9 @@ export const showPages = (e) => {
     for (let j = 0; j < numbers.length; j++) {
       if (numbers[j].className === "numbers active") {
         moviesShow[0].style =
-          "translate : -3000px 0px; transition : all .8s ease-in-out";
+          "translate : -3000px 0px; transition : all .6s ease-in-out";
         moviesShow[1].style =
-          "translate : +3000px 0px; transition : all .8s ease-in-out";
+          "translate : +3000px 0px; transition : all .6s ease-in-out";
         setTimeout(() => {
           moviesShow[0].setAttribute("id", "displayOff");
           moviesShow[1].setAttribute("id", "displayOff");
@@ -172,7 +172,7 @@ export const showPages = (e) => {
             }
             setTimeout(() => {
               movie[result].style =
-                "translate :0px 0px; ; transition : all .8s ease-in-out";
+                "translate :0px 0px; ; transition : all .6s ease-in-out";
             }, 200);
           }, 500);
         }
