@@ -17,8 +17,13 @@ import {
   scrollTo,
   hiddenBtn,
   visibleBtn,
-} from "./functionality";
+  goDown,
+  goUp,
+  restSearchBoxItem,
+  itemActive,
+  itemInactive
 
+} from "./functionality";
 
 const GetDataMovie = () => {
   // Movie Data
@@ -144,13 +149,18 @@ const GetDataMovie = () => {
                   onKeyDown={pressEnter}
                   onChange={searchWithWord}
                 />
-                <div id="ShowSearchMoviesOff">
+                <div id="SearchMovies">
+                  <button onClick={goUp} className="up">
+                    <i className="fa-solid fa-arrow-up"></i>
+                  </button>
                   {showMoviesInSearch.map((i, index) => (
-                    <Link key={index} id="hover">
+                    <Link key={index} id="hover"  onMouseEnter={itemActive}
+                    onMouseLeave={itemInactive}>
                       <div
                         key={index}
                         className="items"
                         onClick={showItem}
+                      
                         id={index}
                       >
                         <img src={i.imageOriginal} alt="" />
@@ -160,7 +170,9 @@ const GetDataMovie = () => {
                       </div>
                     </Link>
                   ))}
-                  <button>ssasasss</button>
+                  <button onClick={goDown} className="down">
+                    <i className="fa-solid fa-arrow-down"></i>
+                  </button>
                 </div>
               </div>
               <div className="searchIcon">
@@ -394,7 +406,6 @@ const GetDataMovie = () => {
       movies[1].style = "translate: 0px 0px ; transition:all .8s ease-in-out";
     }
     paginationReload();
-    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   // search
@@ -432,6 +443,7 @@ const GetDataMovie = () => {
     scrollTo();
   }
   function searchWithWord(e) {
+    restSearchBoxItem();
     let input = e.currentTarget;
     let url = fetch("https://api.tvmaze.com/search/shows?q=" + input.value);
     url
@@ -456,31 +468,42 @@ const GetDataMovie = () => {
       setShowSearchMovies([]);
     }
   }
+
   function pressEnter(e) {
     let key = e.key;
     let hover = document.querySelectorAll("#hover");
-    let ShowSearchMoviesOn = document.getElementById("ShowSearchMoviesOn");
     if (key === "ArrowDown") {
       if (showSearchMovies.length > 1) {
         for (let i = 0; i <= hover.length - 1; i++) {
           if (hover[i].lastChild.className === "items") {
             if (i === hover.length - 1) {
-              hover[0].lastChild.className = "items-active";
+              if(hover[0].style.translate === ""){
+                hover[0].lastChild.className = "items-active";
+              }
+              else if(hover[0].style.translate === "0px -255px"){
+                hover[3].lastChild.className = "items-active";
+              }
+              else if(hover[0].style.translate === "0px -510px"){
+                hover[6].lastChild.className = "items-active";
+              }
+              else if(hover[0].style.translate === "0px -760px"){
+                hover[9].lastChild.className = "items-active";
+              }
+              
             }
           }
           if (hover[i].lastChild.className === "items-active") {
             if (hover[i + 1] !== undefined) {
               hover[i].lastChild.className = "items";
               hover[i + 1].lastChild.className = "items-active";
-              // console.log(i);
-              if(i === 2){
-              ShowSearchMoviesOn.scrollTo(0,240);
+              if (i === 2) {
+                goDown();
               }
-              if(i === 5){
-              ShowSearchMoviesOn.scrollTo(0,480);
+              if (i === 5) {
+                goDown();
               }
-              if(i === 8){
-              ShowSearchMoviesOn.scrollTo(0,720);
+              if (i === 8) {
+                goDown();
               }
             }
             break;
@@ -498,40 +521,49 @@ const GetDataMovie = () => {
             }
           }
           if (hover[0].lastChild.className === "items-active") {
-            break
+            break;
           }
-          if (hover[i + 1].lastChild.className === "items-active") {
+          if (hover[i + 1].lastChild.className === "items-active"){
             hover[i].lastChild.className = "items-active";
-            hover[i+1].lastChild.className = "items";
-            console.log(i);
-            if(i === 0){
-              ShowSearchMoviesOn.scrollTo(0,0);
-              }
-              if(i === 2){
-                ShowSearchMoviesOn.scrollTo(0,0);
-                }
-            if(i === 3){
-              ShowSearchMoviesOn.scrollTo(0,80);
-              }
-            if(i === 5){
-              ShowSearchMoviesOn.scrollTo(0,80);
-              }
-              if(i === 6){
-              ShowSearchMoviesOn.scrollTo(0,320);
-              }
+            hover[i + 1].lastChild.className = "items";
+            if (i === 2) {
+              goUp();
+            }
+            if (i === 5) {
+              goUp();
+            }
+            if (i === 8) {
+              goUp();
+            }
           }
         }
       }
     }
 
     if (key === "Enter") {
-      search();
-      refresh();
-      ShowSearchMoviesOff();
-      if (showSearchMoviesItem !== undefined) {
-        setShowSearchMoviesItem(undefined);
+      let itemsActive = document.querySelector(".items-active");
+      if (itemsActive === null) {
+        search();
+        refresh();
+        ShowSearchMoviesOff();
+        setTimeout(()=>{
+          scrollTo()
+        },20)
+        if (showSearchMoviesItem !== undefined) {
+          setShowSearchMoviesItem(undefined);
+        }
+      } else {
+        if (showSearchMoviesItem !== undefined) {
+          setShowSearchMoviesItem(undefined);
+        }
+        console.log(itemsActive.id);
+        setShowSearchMoviesItem(itemsActive.id);
+        let input = document.getElementById("input");
+        input.value = "";
+        ShowSearchMoviesOff();
+        let saveData = [...showSearchMovies];
+        setShowSearchMoviesItemData(saveData);
       }
-      scrollTo();
     }
   }
 
@@ -542,6 +574,7 @@ const GetDataMovie = () => {
     let item = e.currentTarget;
     let input = document.getElementById("input");
     input.value = "";
+    console.log(item);
     setShowSearchMoviesItem(item.id);
     ShowSearchMoviesOff();
     let saveData = [...showSearchMovies];

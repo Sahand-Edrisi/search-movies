@@ -1,24 +1,98 @@
 // search
-export const ShowSearchMoviesOff = () => {
+export function ShowSearchMoviesOff() {
   setTimeout(() => {
-    let notFindMovieDisplayOn = document.getElementById("ShowSearchMoviesOn");
+    let notFindMovieDisplayOn = document.getElementById("SearchMovies");
     if (notFindMovieDisplayOn !== null) {
-      notFindMovieDisplayOn.setAttribute("id", "ShowSearchMoviesOff");
+      notFindMovieDisplayOn.style = "  width: 0px ;  height: 0px;";
     }
   }, 1);
-};
-export const ShowSearchMoviesOn = () => {
-  setTimeout(() => {
-    let notFindMovieDisplayOff = document.getElementById("ShowSearchMoviesOff");
-    if (notFindMovieDisplayOff !== null) {
-      notFindMovieDisplayOff.setAttribute("id", "ShowSearchMoviesOn");
-      notFindMovieDisplayOff.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  }, 1);
-};
+}
 
+export function ShowSearchMoviesOn() {
+  setTimeout(() => {
+    let notFindMovieDisplayOff = document.getElementById("SearchMovies");
+
+    if (notFindMovieDisplayOff !== null) {
+      notFindMovieDisplayOff.style = "  width: 210px ;  height: 280px;";
+    }
+  }, 1);
+}
+
+export function goDown() {
+  let hover = document.querySelectorAll("#hover");
+  let input = document.getElementById("input")
+  input.focus()
+  // restActiveItem()
+  if (hover[0].style.translate === "" && hover.length > 3) {
+    for (let i = 0; i <= hover.length - 1; i++) {
+      hover[i].style = "  translate: 0px -255px;";
+    }
+  } else if (
+    hover[0].style.cssText === "translate: 0px -255px;" &&
+    hover.length > 6
+  ) {
+    for (let i = 0; i <= hover.length - 1; i++) {
+      hover[i].style = "  translate: 0px -510px;";
+    }
+  } else if (
+    hover[0].style.cssText === "translate: 0px -510px;" &&
+    hover.length > 9
+  ) {
+    for (let i = 0; i <= hover.length - 1; i++) {
+      hover[i].style = "  translate: 0px -760px;";
+    }
+  }
+}
+function restActiveItem(){
+  let itemsActive = document.querySelector(".items-active");
+  setTimeout(() => {
+    if (itemsActive !== null) {
+      itemsActive.setAttribute("class", "items");
+    }
+  }, 1);
+}
+export function restSearchBoxItem() {
+  restActiveItem()
+  let hover = document.querySelectorAll("#hover");
+  for (let i = 0; i <= hover.length - 1; i++) {
+    hover[i].style = "";
+  }
+  
+}
+
+export function goUp() {
+  let input = document.getElementById("input")
+  input.focus()
+  let hover = document.querySelectorAll("#hover");
+  if (hover[0].style.cssText === "translate: 0px -760px;") {
+    for (let i = 0; i <= hover.length - 1; i++) {
+      hover[i].style = "  translate: 0px -510px;";
+    }
+  } else if (hover[0].style.cssText === "translate: 0px -510px;") {
+    for (let i = 0; i <= hover.length - 1; i++) {
+      hover[i].style = "  translate: 0px -255px;";
+    }
+  } else if (hover[0].style.cssText === "translate: 0px -255px;") {
+    for (let i = 0; i <= hover.length - 1; i++) {
+      hover[i].style.translate = "";
+    }
+  }
+}
+export function itemActive(e){
+let item = e.currentTarget
+restActiveItem()
+if(item.lastChild.className !== "items-active"){
+  item.lastChild.className = "items-active"
+}
+}
+export function itemInactive(e){
+  let item = e.currentTarget
+  if(item.lastChild.className === "items-active"){
+    item.lastChild.className = "items"
+  }
+}
 // Pagination
-export const paginationReload = () => {
+export function paginationReload() {
   let numbers = document.querySelectorAll(".numbers");
   let moviesShow = document.querySelectorAll("#displayOn");
   let movie = document.querySelectorAll(".movie");
@@ -37,8 +111,8 @@ export const paginationReload = () => {
       }
     }
   }, 20);
-};
-export const nextPage = () => {
+}
+export function nextPage() {
   let numbers = document.querySelectorAll(".numbers");
   let moviesShow = document.querySelectorAll("#displayOn");
   let movie = document.querySelectorAll(".movie");
@@ -84,8 +158,8 @@ export const nextPage = () => {
   setTimeout(() => {
     enableBtn();
   }, 1500);
-};
-export const previousPage = () => {
+}
+export function previousPage() {
   let numbers = document.querySelectorAll(".numbers");
   let moviesShow = document.querySelectorAll("#displayOn");
   let movie = document.querySelectorAll(".movie");
@@ -129,8 +203,8 @@ export const previousPage = () => {
   setTimeout(() => {
     enableBtn();
   }, 1500);
-};
-export const showPages = (e) => {
+}
+export function showPages(e) {
   let page = e.currentTarget;
   let numbers = document.querySelectorAll(".numbers");
   let moviesShow = document.querySelectorAll("#displayOn");
@@ -180,10 +254,10 @@ export const showPages = (e) => {
     }
     scrollTo();
   }
-};
-export const scrollTo = () => {
+}
+export function scrollTo() {
   window.scrollTo({ top: 700, behavior: "smooth" });
-};
+}
 function disableBtn() {
   document.getElementById("next").disabled = true;
   document.getElementById("previous").disabled = true;
@@ -194,7 +268,7 @@ function enableBtn() {
 }
 
 // Slice name
-export const nameDataSlice = (name) => {
+export function nameDataSlice(name) {
   if (name.length > 35) {
     let slice = name.slice(0, 30);
     let add = (slice += "...");
@@ -202,7 +276,7 @@ export const nameDataSlice = (name) => {
   } else {
     return name;
   }
-};
+}
 
 export function hiddenBtn() {
   document.getElementById("btnLeft").style.visibility = "hidden";
@@ -212,5 +286,3 @@ export function visibleBtn() {
   document.getElementById("btnLeft").style.visibility = "visible";
   document.getElementById("btnRight").style.visibility = "visible";
 }
-
-
