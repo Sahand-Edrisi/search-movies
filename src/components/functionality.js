@@ -7,7 +7,12 @@ export function ShowSearchMoviesOff() {
     }
   }, 1);
 }
-
+export function clearInput(){
+  let input = document.getElementById("input");
+  if(input.value !== ""){
+    input.value = "";
+  }
+}
 export function ShowSearchMoviesOn() {
   setTimeout(() => {
     let notFindMovieDisplayOff = document.getElementById("SearchMovies");
@@ -115,8 +120,8 @@ export function nextPage() {
   let numbers = document.querySelectorAll(".numbers");
   let moviesShow = document.querySelectorAll("#displayOn");
   let movie = document.querySelectorAll(".movie");
-  disableBtn();
   if (numbers[numbers.length - 1].className !== "numbers active") {
+    hiddenBtnNext();
     for (let i = 0; i < numbers.length; i++) {
       if (numbers[i].className === "numbers active") {
         numbers[i].setAttribute("class", "numbers");
@@ -128,10 +133,10 @@ export function nextPage() {
       if (numbers[j].className === "numbers active") {
         for (let i = 0; i < moviesShow.length; i++) {
           moviesShow[i].style =
-            "translate : -3000px 0px; transition : all .6s ease-in-out";
+            "translate : -3000px 0px; transition : all .4s ease-in-out";
           setTimeout(() => {
             moviesShow[i].setAttribute("id", "displayOff");
-          }, 1000);
+          }, 300);
         }
 
         for (let i = j - 1; i < numbers[j].id; i++) {
@@ -146,24 +151,24 @@ export function nextPage() {
             movie[result].style = "translate : +3000px 0px";
             setTimeout(() => {
               movie[result].style =
-                "translate :0px 0px; transition : all .6s ease-in-out";
-            }, 200);
-          }, 500);
+                "translate :0px 0px; transition : all .4s ease-in-out";
+            }, 150);
+          }, 300);
         }
       }
     }
   }
   scrollTo();
   setTimeout(() => {
-    enableBtn();
-  }, 1500);
+    visibleBtnNext();
+  }, 1000);
 }
 export function previousPage() {
   let numbers = document.querySelectorAll(".numbers");
   let moviesShow = document.querySelectorAll("#displayOn");
   let movie = document.querySelectorAll(".movie");
-  disableBtn();
   if (numbers[0].className !== "numbers active") {
+    enableBtnPrevious();
     for (let i = 0; i < numbers.length; i++) {
       if (numbers[i].className === "numbers active") {
         numbers[i].setAttribute("class", "numbers");
@@ -176,10 +181,10 @@ export function previousPage() {
       if (numbers[j].className === "numbers active") {
         for (let i = 0; i < moviesShow.length; i++) {
           moviesShow[i].style =
-            "translate : +3000px 0px; transition : all .6s ease-in-out";
+            "translate : +3000px 0px; transition : all .4s ease-in-out";
           setTimeout(() => {
             moviesShow[i].setAttribute("id", "displayOff");
-          }, 1000);
+          }, 300);
         }
 
         for (let i = j - 1; i < numbers[j].id; i++) {
@@ -191,17 +196,17 @@ export function previousPage() {
             movie[result].style = "translate : -3000px 0px";
             setTimeout(() => {
               movie[result].style =
-                "translate :0px 0px; transition : all .6s ease-in-out";
-            }, 200);
-          }, 500);
+                "translate :0px 0px; transition : all .4s ease-in-out";
+            }, 150);
+          }, 300);
         }
       }
     }
     scrollTo();
   }
   setTimeout(() => {
-    enableBtn();
-  }, 1500);
+    visibleBtnPrevious();
+  }, 1000);
 }
 export function showPages(e) {
   let page = e.currentTarget;
@@ -257,13 +262,18 @@ export function showPages(e) {
 export function scrollTo() {
   window.scrollTo({ top: 700, behavior: "smooth" });
 }
-function disableBtn() {
-  document.getElementById("next").disabled = true;
-  document.getElementById("previous").disabled = true;
+function hiddenBtnNext() {
+  document.getElementById("next").style.visibility = "hidden";
 }
-function enableBtn() {
-  document.getElementById("next").disabled = false;
-  document.getElementById("previous").disabled = false;
+function visibleBtnNext() {
+  document.getElementById("next").style.visibility = "visible";
+}
+
+function enableBtnPrevious() {
+  document.getElementById("previous").style.visibility = "hidden";
+}
+function visibleBtnPrevious() {
+  document.getElementById("previous").style.visibility = "visible";
 }
 
 // Slice name

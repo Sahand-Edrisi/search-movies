@@ -21,7 +21,8 @@ import {
   goUp,
   restSearchBoxItem,
   itemActive,
-  itemInactive
+  itemInactive,
+  clearInput
 
 } from "./functionality";
 
@@ -386,6 +387,8 @@ const GetDataMovie = () => {
 
   // refresh
   function refresh() {
+    clearInput()
+    ShowSearchMoviesOff()
     let movies = document.querySelectorAll(".movie");
     if (showBestMovies !== undefined) {
       setShowBestMovies(undefined);
@@ -413,7 +416,7 @@ const GetDataMovie = () => {
     let input = document.getElementById("input");
     let url = fetch("https://api.tvmaze.com/search/shows?q=" + input.value);
     if (input.value !== "") {
-      input.value = "";
+      clearInput()
       if (showBestMovies !== undefined) {
         setShowBestMovies(undefined);
       }
@@ -577,8 +580,7 @@ const GetDataMovie = () => {
         }
         console.log(itemsActive.id);
         setShowSearchMoviesItem(itemsActive.id);
-        let input = document.getElementById("input");
-        input.value = "";
+        clearInput()
         ShowSearchMoviesOff();
         let saveData = [...showSearchMovies];
         setShowSearchMoviesItemData(saveData);
@@ -591,9 +593,7 @@ const GetDataMovie = () => {
       setShowSearchMoviesItem(undefined);
     }
     let item = e.currentTarget;
-    let input = document.getElementById("input");
-    input.value = "";
-    console.log(item);
+    clearInput()
     setShowSearchMoviesItem(item.id);
     ShowSearchMoviesOff();
     let saveData = [...showSearchMovies];
@@ -632,8 +632,12 @@ const GetDataMovie = () => {
   function bestMovieShow(e) {
     let item = e.currentTarget;
     setShowBestMovies(item.id);
+    clearInput()
+    ShowSearchMoviesOff()
   }
 
+
+  // movies
   function addListener() {
     setTimeout(() => {
       let movieShow = document.querySelectorAll(".movieShow");
@@ -642,11 +646,13 @@ const GetDataMovie = () => {
       }
     }, 10);
   }
-
   function MovieShow(e) {
     let movie = e.currentTarget;
     setShowMovie(movie.id);
+    clearInput()
+    ShowSearchMoviesOff()
   }
+
   // btn for best movie
 
   function btnRight() {
