@@ -2,7 +2,7 @@ import "../style/style.css";
 import "../style/responsive.css";
 import "../fontAwesome-free-6.2.1-web/css/all.min.css";
 import imageNotFound from "../image/notPicture.jpg";
-import backgroundImageMovies from "../image/cinema-background-csjrmkuhfvvumb2q.jpg";
+import backgroundImageMovies from "../image/background-moviesShow.jpg";
 import background from "../image/Background.jpg";
 import { useEffect, useState } from "react";
 

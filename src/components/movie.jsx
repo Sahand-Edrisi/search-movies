@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import background from "../image/cinema-background-wlaz2mnpctje2d9l.jpg"
+import background from "../image/background-movie.jpg"
 const Movie = ({
   name,
   image,
