@@ -22,8 +22,7 @@ import {
   restSearchBoxItem,
   itemActive,
   itemInactive,
-  clearInput
-
+  clearInput,
 } from "./functionality";
 
 const GetDataMovie = () => {
@@ -155,13 +154,16 @@ const GetDataMovie = () => {
                     <i className="fa-solid fa-arrow-up"></i>
                   </button>
                   {showMoviesInSearch.map((i, index) => (
-                    <Link key={index} id="hover"  onMouseEnter={itemActive}
-                    onMouseLeave={itemInactive}>
+                    <Link
+                      key={index}
+                      id="hover"
+                      onMouseEnter={itemActive}
+                      onMouseLeave={itemInactive}
+                    >
                       <div
                         key={index}
                         className="items"
                         onClick={showItem}
-                      
                         id={index}
                       >
                         <img src={i.imageOriginal} alt="" />
@@ -200,7 +202,11 @@ const GetDataMovie = () => {
                           </button>
                           <div id="images">
                             <img
-                              src={bestMoviesData[0].imageOriginal ? bestMoviesData[0].imageOriginal : notPicture}
+                              src={
+                                bestMoviesData[0].imageOriginal
+                                  ? bestMoviesData[0].imageOriginal
+                                  : notPicture
+                              }
                               id={bestMoviesData[0].id}
                               className="imgShow"
                               alt=""
@@ -387,8 +393,8 @@ const GetDataMovie = () => {
 
   // refresh
   function refresh() {
-    clearInput()
-    ShowSearchMoviesOff()
+    clearInput();
+    ShowSearchMoviesOff();
     let movies = document.querySelectorAll(".movie");
     if (showBestMovies !== undefined) {
       setShowBestMovies(undefined);
@@ -416,7 +422,7 @@ const GetDataMovie = () => {
     let input = document.getElementById("input");
     let url = fetch("https://api.tvmaze.com/search/shows?q=" + input.value);
     if (input.value !== "") {
-      clearInput()
+      clearInput();
       if (showBestMovies !== undefined) {
         setShowBestMovies(undefined);
       }
@@ -476,31 +482,27 @@ const GetDataMovie = () => {
   function pressKey(e) {
     let key = e.key;
     let hover = document.querySelectorAll("#hover");
-    let item = document.querySelectorAll(".items")
+    let item = document.querySelectorAll(".items");
 
     if (key === "ArrowDown") {
       if (showSearchMovies.length > 1) {
         for (let i = 0; i <= hover.length - 1; i++) {
-     
-            if (hover.length === item.length) {
-              if(hover[0].style.translate === ""){
-                hover[0].lastChild.className = "items-active";
-              break
-              }
-              else if(hover[0].style.translate === "0px -255px"){
-                hover[3].lastChild.className = "items-active";
-                break
-              }
-              else if(hover[0].style.translate === "0px -510px"){
-                hover[6].lastChild.className = "items-active";
-              break
-              }
-              else if(hover[0].style.translate === "0px -760px"){
-                hover[9].lastChild.className = "items-active";
-              break
-              }
+          if (hover.length === item.length) {
+            if (hover[0].style.translate === "") {
+              hover[0].lastChild.className = "items-active";
+              break;
+            } else if (hover[0].style.translate === "0px -255px") {
+              hover[3].lastChild.className = "items-active";
+              break;
+            } else if (hover[0].style.translate === "0px -510px") {
+              hover[6].lastChild.className = "items-active";
+              break;
+            } else if (hover[0].style.translate === "0px -760px") {
+              hover[9].lastChild.className = "items-active";
+              break;
             }
-  
+          }
+
           if (hover[i].lastChild.className === "items-active") {
             if (hover[i + 1] !== undefined) {
               hover[i].lastChild.className = "items";
@@ -522,30 +524,26 @@ const GetDataMovie = () => {
     }
 
     if (key === "ArrowUp") {
-
       if (showSearchMovies.length > 1) {
         for (let i = 0; i <= hover.length - 1; i++) {
-          if (hover.length === item.length) {  
-              if(hover[0].style.translate === "" ){
-                hover[0].lastChild.className = "items-active"
-                break
-              }
-              else if(hover[0].style.translate === "0px -255px"){
-                hover[5].lastChild.className = "items-active";
-                break
-              }
-              else if(hover[0].style.translate === "0px -510px"){
-                hover[8].lastChild.className = "items-active";
-                break
-              }
-              else if(hover[0].style.translate === "0px -760px"){
-                hover[9].lastChild.className = "items-active";
-                break
-              }
+          if (hover.length === item.length) {
+            if (hover[0].style.translate === "") {
+              hover[0].lastChild.className = "items-active";
+              break;
+            } else if (hover[0].style.translate === "0px -255px") {
+              hover[5].lastChild.className = "items-active";
+              break;
+            } else if (hover[0].style.translate === "0px -510px") {
+              hover[8].lastChild.className = "items-active";
+              break;
+            } else if (hover[0].style.translate === "0px -760px") {
+              hover[9].lastChild.className = "items-active";
+              break;
+            }
           }
-          if (hover[i].lastChild.className === "items-active"){
-            if(hover[i - 1] !== undefined){
-              hover[i -1 ].lastChild.className = "items-active";
+          if (hover[i].lastChild.className === "items-active") {
+            if (hover[i - 1] !== undefined) {
+              hover[i - 1].lastChild.className = "items-active";
               hover[i].lastChild.className = "items";
               if (i === 3) {
                 goUp();
@@ -568,9 +566,9 @@ const GetDataMovie = () => {
         search();
         refresh();
         ShowSearchMoviesOff();
-        setTimeout(()=>{
-          scrollTo()
-        },20)
+        setTimeout(() => {
+          scrollTo();
+        }, 20);
         if (showSearchMoviesItem !== undefined) {
           setShowSearchMoviesItem(undefined);
         }
@@ -580,7 +578,7 @@ const GetDataMovie = () => {
         }
         console.log(itemsActive.id);
         setShowSearchMoviesItem(itemsActive.id);
-        clearInput()
+        clearInput();
         ShowSearchMoviesOff();
         let saveData = [...showSearchMovies];
         setShowSearchMoviesItemData(saveData);
@@ -593,7 +591,7 @@ const GetDataMovie = () => {
       setShowSearchMoviesItem(undefined);
     }
     let item = e.currentTarget;
-    clearInput()
+    clearInput();
     setShowSearchMoviesItem(item.id);
     ShowSearchMoviesOff();
     let saveData = [...showSearchMovies];
@@ -632,10 +630,9 @@ const GetDataMovie = () => {
   function bestMovieShow(e) {
     let item = e.currentTarget;
     setShowBestMovies(item.id);
-    clearInput()
-    ShowSearchMoviesOff()
+    clearInput();
+    ShowSearchMoviesOff();
   }
-
 
   // movies
   function addListener() {
@@ -649,8 +646,8 @@ const GetDataMovie = () => {
   function MovieShow(e) {
     let movie = e.currentTarget;
     setShowMovie(movie.id);
-    clearInput()
-    ShowSearchMoviesOff()
+    clearInput();
+    ShowSearchMoviesOff();
   }
 
   // btn for best movie
@@ -661,12 +658,68 @@ const GetDataMovie = () => {
     let imgShowCenter = document.querySelectorAll(".imgShowCenter");
 
     function translate() {
-      imgShow[0].style =
-        "  translate: -3000px 0px;transition: all .5s  ease-in-out;";
-      imgShowCenter[0].style =
-        "  translate: -400px 0px;transition: all .5s  ease-in-out;";
-      imgShow[1].style =
-        " translate: -400px 0px;transition: all .5s  ease-in-out;";
+      if (window.screen.availWidth > 1300) {
+        imgShow[0].style =
+          "  translate: -3000px 0px;transition: all .5s  ease-in-out;";
+        imgShowCenter[0].style =
+          "  translate: -400px 0px;transition: all .5s  ease-in-out;";
+        imgShow[1].style =
+          " translate: -400px 0px;transition: all .5s  ease-in-out;";
+      } else if (window.screen.availWidth > 1150) {
+        imgShow[0].style =
+          "  translate: -3000px 0px;transition: all .5s  ease-in-out;";
+        imgShowCenter[0].style =
+          "  translate: -350px 0px;transition: all .5s  ease-in-out;";
+        imgShow[1].style =
+          " translate: -350px 0px;transition: all .5s  ease-in-out;";
+      }
+       else if (window.screen.availWidth > 950) {
+        imgShow[0].style =
+          "  translate: -2000px 0px;transition: all .5s  ease-in-out;";
+        imgShowCenter[0].style =
+          "  translate: -300px 0px;transition: all .5s  ease-in-out;";
+        imgShow[1].style =
+          " translate: -300px 0px;transition: all .5s  ease-in-out;";
+      }
+       else if (window.screen.availWidth > 800) {
+        imgShow[0].style =
+          "  translate: -1500px 0px;transition: all .5s  ease-in-out;";
+        imgShowCenter[0].style =
+          "  translate: -250px 0px;transition: all .5s  ease-in-out;";
+        imgShow[1].style =
+          " translate: -250px 0px;transition: all .5s  ease-in-out;";
+      }
+    }
+
+    function imageIndexZeroTranslate() {
+      if (window.screen.availWidth > 1300) {
+        imgShow[0].style =
+          "translate: 750px 0px ;transition: all .5s  ease-in-out";
+      } else if (window.screen.availWidth > 1150) {
+        imgShow[0].style =
+          "translate: 650px 0px ;transition: all .5s  ease-in-out";
+      }
+       else if (window.screen.availWidth > 950) {
+        imgShow[0].style =
+          "translate: 550px 0px ;transition: all .5s  ease-in-out";
+      }
+       else if (window.screen.availWidth > 800) {
+        imgShow[0].style =
+          "translate: 450px 0px ;transition: all .5s  ease-in-out";
+      }
+    }
+    function NewImageIndexZeroTranslate() {
+      if (window.screen.availWidth > 1300) {
+        imgShow[0].style = "translate: 3000px 0px";
+      } else if (window.screen.availWidth > 1150) {
+        imgShow[0].style = "translate: 2000px 0px";
+      }
+       else if (window.screen.availWidth > 950) {
+        imgShow[0].style = "translate: 1500px 0px";
+      }
+       else if (window.screen.availWidth > 800) {
+        imgShow[0].style = "translate: 1000px 0px";
+      }
     }
     for (let i = 0; i <= 6; i++) {
       if (imgShow[0].currentSrc === Data[i].imageOriginal) {
@@ -676,11 +729,10 @@ const GetDataMovie = () => {
           imgShowCenter[0].setAttribute("class", "imgShow");
           imgShow[1].setAttribute("class", "imgShowCenter");
           setTimeout(() => {
-            imgShow[0].style = "translate: 3000px 0px";
+            NewImageIndexZeroTranslate();
             imgShow[0].setAttribute("src", Data[i + 3].imageOriginal);
             setTimeout(() => {
-              imgShow[0].style =
-                "translate: 750px 0px ;transition: all .5s  ease-in-out";
+              imageIndexZeroTranslate();
               imgShow[0].setAttribute("id", Data[i + 3].id);
             }, 150);
           }, 200);
@@ -708,11 +760,10 @@ const GetDataMovie = () => {
           imgShowCenter[0].setAttribute("class", "imgShow");
           imgShow[1].setAttribute("class", "imgShowCenter");
           setTimeout(() => {
-            imgShow[0].style = "translate: 3000px 0px";
+            NewImageIndexZeroTranslate();
             imgShow[0].setAttribute("src", Data[0].imageOriginal);
             setTimeout(() => {
-              imgShow[0].style =
-                "translate: 750px 0px ;transition: all .5s ease-in-out";
+              imageIndexZeroTranslate();
               imgShow[0].setAttribute("id", Data[0].id);
             }, 150);
           }, 200);
@@ -741,11 +792,10 @@ const GetDataMovie = () => {
           imgShowCenter[0].setAttribute("class", "imgShow");
           imgShow[1].setAttribute("class", "imgShowCenter");
           setTimeout(() => {
-            imgShow[0].style = "translate: 3000px 0px";
+            NewImageIndexZeroTranslate();
             imgShow[0].setAttribute("src", Data[1].imageOriginal);
             setTimeout(() => {
-              imgShow[0].style =
-                "translate: 750px 0px ;transition: all .5s ease-in-out";
+              imageIndexZeroTranslate();
               imgShow[0].setAttribute("id", Data[1].id);
             }, 150);
           }, 200);
@@ -774,11 +824,10 @@ const GetDataMovie = () => {
           imgShowCenter[0].setAttribute("class", "imgShow");
           imgShow[1].setAttribute("class", "imgShowCenter");
           setTimeout(() => {
-            imgShow[0].style = "translate: 3000px 0px";
+            NewImageIndexZeroTranslate();
             imgShow[0].setAttribute("src", Data[2].imageOriginal);
             setTimeout(() => {
-              imgShow[0].style =
-                "translate: 750px 0px ;transition: all .5s ease-in-out";
+              imageIndexZeroTranslate();
               imgShow[0].setAttribute("id", Data[2].id);
             }, 150);
           }, 200);
@@ -807,14 +856,72 @@ const GetDataMovie = () => {
     let Data = bestMoviesData;
     let imgShow = document.querySelectorAll(".imgShow");
     let imgShowCenter = document.querySelectorAll(".imgShowCenter");
+
     function translate() {
-      imgShow[1].style =
-        "  translate: +3000px 0px;transition: all .5s  ease-in-out;";
-      imgShowCenter[0].style =
-        "  translate: +400px 0px;transition: all .5s  ease-in-out;";
-      imgShow[0].style =
-        " translate: +400px 0px;transition: all .5s  ease-in-out;";
+      if (window.screen.availWidth > 1300) {
+        imgShow[1].style =
+          "  translate: +3000px 0px;transition: all .5s  ease-in-out;";
+        imgShowCenter[0].style =
+          "  translate: +400px 0px;transition: all .5s  ease-in-out;";
+        imgShow[0].style =
+          " translate: +400px 0px;transition: all .5s  ease-in-out;";
+      } else if (window.screen.availWidth > 1150) {
+        imgShow[1].style =
+          "  translate: +3000px 0px;transition: all .5s  ease-in-out;";
+        imgShowCenter[0].style =
+          "  translate: +350px 0px;transition: all .5s  ease-in-out;";
+        imgShow[0].style =
+          " translate: +350px 0px;transition: all .5s  ease-in-out;";
+      } 
+      else if (window.screen.availWidth > 950) {
+        imgShow[1].style =
+          "  translate: +2000px 0px ;transition: all .5s  ease-in-out;";
+        imgShowCenter[0].style =
+          "  translate: +300px 0px;transition: all .5s  ease-in-out;";
+        imgShow[0].style =
+          " translate: +300px 0px;transition: all .5s  ease-in-out;";
+      }
+      else if (window.screen.availWidth > 800) {
+        imgShow[1].style =
+          "  translate: +1500px 0px ;transition: all .5s  ease-in-out;";
+        imgShowCenter[0].style =
+          "  translate: +250px 0px;transition: all .5s  ease-in-out;";
+        imgShow[0].style =
+          " translate: +250px 0px;transition: all .5s  ease-in-out;";
+      }
     }
+
+    function imageIndexZeroTranslate() {
+      if (window.screen.availWidth > 1300) {
+        imgShow[1].style =
+          "translate: -750px 0px ;transition: all .5s  ease-in-out";
+      } else if (window.screen.availWidth > 1150) {
+        imgShow[1].style =
+          "translate: -650px 0px ;transition: all .5s  ease-in-out";
+      }
+       else if (window.screen.availWidth > 950) {
+        imgShow[1].style =
+          "translate: -550px 0px ;transition: all .5s  ease-in-out";
+      }
+       else if (window.screen.availWidth > 800) {
+        imgShow[1].style =
+          "translate: -450px 0px ;transition: all .5s  ease-in-out";
+      }
+    }
+    function NewImageIndexZeroTranslate() {
+      if (window.screen.availWidth > 1300) {
+        imgShow[1].style = "translate: -3000px 0px";
+      } else if (window.screen.availWidth > 1150) {
+        imgShow[1].style = "translate: -2000px 0px";
+      } 
+      else if (window.screen.availWidth > 950) {
+        imgShow[1].style = "translate: -1500px 0px";
+      }
+      else if (window.screen.availWidth > 800) {
+        imgShow[1].style = "translate: -1000px 0px";
+      }
+    }
+
     for (let i = 7; i >= 0; i--) {
       if (imgShow[0].currentSrc === Data[i].imageOriginal) {
         hiddenBtn();
@@ -823,11 +930,10 @@ const GetDataMovie = () => {
           imgShowCenter[0].setAttribute("class", "imgShow");
           imgShow[0].setAttribute("class", "imgShowCenter");
           setTimeout(() => {
-            imgShow[1].style = "translate: -3000px 0px";
+            NewImageIndexZeroTranslate();
             imgShow[1].setAttribute("src", Data[i - 1].imageOriginal);
             setTimeout(() => {
-              imgShow[1].style =
-                "translate: -750px 0px ;transition: all .5s ease-in-out";
+              imageIndexZeroTranslate();
               imgShow[1].setAttribute("id", Data[i - 1].id);
             }, 200);
           }, 200);
@@ -859,11 +965,10 @@ const GetDataMovie = () => {
           imgShowCenter[0].setAttribute("class", "imgShow");
           imgShow[0].setAttribute("class", "imgShowCenter");
           setTimeout(() => {
-            imgShow[1].style = "translate: -3000px 0px";
+            NewImageIndexZeroTranslate();
             imgShow[1].setAttribute("src", Data[7].imageOriginal);
             setTimeout(() => {
-              imgShow[1].style =
-                "translate: -750px 0px ;transition: all .5s ease-in-out";
+              imageIndexZeroTranslate();
               imgShow[1].setAttribute("id", Data[7].id);
             }, 200);
           }, 200);
@@ -895,11 +1000,10 @@ const GetDataMovie = () => {
           imgShowCenter[0].setAttribute("class", "imgShow");
           imgShow[0].setAttribute("class", "imgShowCenter");
           setTimeout(() => {
-            imgShow[1].style = "translate: -3000px 0px";
+            NewImageIndexZeroTranslate();
             imgShow[1].setAttribute("src", Data[8].imageOriginal);
             setTimeout(() => {
-              imgShow[1].style =
-                "translate: -750px 0px ;transition: all .5s ease-in-out";
+              imageIndexZeroTranslate();
               imgShow[1].setAttribute("id", Data[8].id);
             }, 200);
           }, 200);
@@ -930,11 +1034,10 @@ const GetDataMovie = () => {
           imgShowCenter[0].setAttribute("class", "imgShow");
           imgShow[0].setAttribute("class", "imgShowCenter");
           setTimeout(() => {
-            imgShow[1].style = "translate: -3000px 0px";
+            NewImageIndexZeroTranslate();
             imgShow[1].setAttribute("src", Data[9].imageOriginal);
             setTimeout(() => {
-              imgShow[1].style =
-                "translate: -750px 0px ;transition: all .5s ease-in-out";
+              imageIndexZeroTranslate();
               imgShow[1].setAttribute("id", Data[9].id);
             }, 150);
           }, 200);

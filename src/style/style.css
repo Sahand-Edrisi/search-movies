@@ -294,7 +294,8 @@ a {
 /* Movies Show */
 
 #MoviesShow {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto;
   width: 100%;
   height: 500px;
   justify-content: center;
@@ -389,7 +390,7 @@ a {
   font-weight: 900;
   font-size: 18px;
   font-family: monospace;
-  width: 220px !important;
+  width: 220px;
   display: flex;
   overflow: hidden;
 }

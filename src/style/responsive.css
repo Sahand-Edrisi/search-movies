@@ -1,0 +1,108 @@
+/* 1300px */
+
+@media screen and (max-width : 1300px) {
+    #bestMovies #images .imgShow {
+        width: 250px;
+        height: 400px;
+      }
+      
+      #bestMovies #images .imgShowCenter {
+        width: 300px;
+        height: 450px;
+      }
+      #bestMovies {
+        height: 550px;
+      }
+}
+/* 1150 */
+@media screen and (max-width : 1150px) {
+    #bestMovies #images .imgShow {
+        width: 200px;
+        height: 300px;
+      }
+      
+      #bestMovies #images .imgShowCenter {
+        width: 250px;
+        height: 350px;
+      }
+      #bestMovies {
+        height: 500px;
+      }
+}
+/* 1050 */
+@media screen and (max-width : 1050px) {
+
+    #MoviesShow {
+        grid-template-columns: auto;
+        height: 1000px;
+      }
+    /* #bestMovies #images .imgShow {
+        width: 200px;
+        height: 350px;
+      }
+      
+      #bestMovies #images .imgShowCenter {
+        width: 250px;
+        height: 400px;
+      }
+
+      .movieShow #backgroundImage {
+        width: 480px;
+        height: 450px;
+      }
+      
+      .movieShow .information {
+        width: 500px;
+      }
+      .movieShow .information .col1 {
+        width: 250px;
+      }
+      .movieShow .information .col2 {
+        width: 250px;
+      }
+      .movieShow .information .col1 .item-lan-rat {
+        font-size: 30px;
+
+        height: 70px;
+      }
+
+
+
+      .movieShow .information .col1 .genres-summary .item {
+
+        width: 240px;
+
+
+      }
+      
+      .movieShow .information .col1 .genres-summary .item .title {
+        font-size: 20px;
+      }
+      .movieShow .information .col1 .genres-summary .item .line {
+        width: 80%;
+      }
+      .movieShow .information .col1 .genres-summary .item .text {
+        width: 220px;
+      }
+    
+      
+      .movieShow .Picture img {
+        width: 150px;
+      } */
+}
+
+/* 550 */
+@media screen and (max-width : 950px) {
+    #bestMovies {
+      height: 300px;
+    }
+    #bestMovies #images .imgShow {
+        width: 150px;
+        height: 200px;
+      }
+      #bestMovies #images .imgShowCenter {
+        width: 200px;
+        height: 250px;
+      }
+
+    }
