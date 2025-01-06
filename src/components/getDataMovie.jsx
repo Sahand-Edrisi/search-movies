@@ -146,7 +146,7 @@ const GetDataMovie = () => {
                   autoComplete="off"
                   id="input"
                   type="search"
-                  onKeyDown={pressEnter}
+                  onKeyDown={pressKey}
                   onChange={searchWithWord}
                 />
                 <div id="SearchMovies">
@@ -199,7 +199,7 @@ const GetDataMovie = () => {
                           </button>
                           <div id="images">
                             <img
-                              src={bestMoviesData[0].imageOriginal}
+                              src={bestMoviesData[0].imageOriginal ? bestMoviesData[0].imageOriginal : notPicture}
                               id={bestMoviesData[0].id}
                               className="imgShow"
                               alt=""
@@ -442,6 +442,7 @@ const GetDataMovie = () => {
     }
     scrollTo();
   }
+
   function searchWithWord(e) {
     restSearchBoxItem();
     let input = e.currentTarget;
@@ -469,29 +470,34 @@ const GetDataMovie = () => {
     }
   }
 
-  function pressEnter(e) {
+  function pressKey(e) {
     let key = e.key;
     let hover = document.querySelectorAll("#hover");
+    let item = document.querySelectorAll(".items")
+
     if (key === "ArrowDown") {
       if (showSearchMovies.length > 1) {
         for (let i = 0; i <= hover.length - 1; i++) {
-          if (hover[i].lastChild.className === "items") {
-            if (i === hover.length - 1) {
+     
+            if (hover.length === item.length) {
               if(hover[0].style.translate === ""){
                 hover[0].lastChild.className = "items-active";
+              break
               }
               else if(hover[0].style.translate === "0px -255px"){
                 hover[3].lastChild.className = "items-active";
+                break
               }
               else if(hover[0].style.translate === "0px -510px"){
                 hover[6].lastChild.className = "items-active";
+              break
               }
               else if(hover[0].style.translate === "0px -760px"){
                 hover[9].lastChild.className = "items-active";
+              break
               }
-              
             }
-          }
+  
           if (hover[i].lastChild.className === "items-active") {
             if (hover[i + 1] !== undefined) {
               hover[i].lastChild.className = "items";
@@ -513,27 +519,40 @@ const GetDataMovie = () => {
     }
 
     if (key === "ArrowUp") {
+
       if (showSearchMovies.length > 1) {
         for (let i = 0; i <= hover.length - 1; i++) {
-          if (hover[i].lastChild.className === "items") {
-            if (i === hover.length - 1) {
-              break;
-            }
+          if (hover.length === item.length) {  
+              if(hover[0].style.translate === "" ){
+                hover[0].lastChild.className = "items-active"
+                break
+              }
+              else if(hover[0].style.translate === "0px -255px"){
+                hover[5].lastChild.className = "items-active";
+                break
+              }
+              else if(hover[0].style.translate === "0px -510px"){
+                hover[8].lastChild.className = "items-active";
+                break
+              }
+              else if(hover[0].style.translate === "0px -760px"){
+                hover[9].lastChild.className = "items-active";
+                break
+              }
           }
-          if (hover[0].lastChild.className === "items-active") {
-            break;
-          }
-          if (hover[i + 1].lastChild.className === "items-active"){
-            hover[i].lastChild.className = "items-active";
-            hover[i + 1].lastChild.className = "items";
-            if (i === 2) {
-              goUp();
-            }
-            if (i === 5) {
-              goUp();
-            }
-            if (i === 8) {
-              goUp();
+          if (hover[i].lastChild.className === "items-active"){
+            if(hover[i - 1] !== undefined){
+              hover[i -1 ].lastChild.className = "items-active";
+              hover[i].lastChild.className = "items";
+              if (i === 3) {
+                goUp();
+              }
+              if (i === 6) {
+                goUp();
+              }
+              if (i === 9) {
+                goUp();
+              }
             }
           }
         }

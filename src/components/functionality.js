@@ -22,7 +22,6 @@ export function goDown() {
   let hover = document.querySelectorAll("#hover");
   let input = document.getElementById("input")
   input.focus()
-  // restActiveItem()
   if (hover[0].style.translate === "" && hover.length > 3) {
     for (let i = 0; i <= hover.length - 1; i++) {
       hover[i].style = "  translate: 0px -255px;";
@@ -62,8 +61,8 @@ export function restSearchBoxItem() {
 
 export function goUp() {
   let input = document.getElementById("input")
-  input.focus()
   let hover = document.querySelectorAll("#hover");
+  input.focus()
   if (hover[0].style.cssText === "translate: 0px -760px;") {
     for (let i = 0; i <= hover.length - 1; i++) {
       hover[i].style = "  translate: 0px -510px;";
