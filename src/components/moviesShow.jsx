@@ -3,7 +3,6 @@ import "../style/responsive.css";
 import "../fontAwesome-free-6.2.1-web/css/all.min.css";
 import imageNotFound from "../image/notPicture.jpg";
 import backgroundImageMovies from "../image/background-moviesShow.jpg";
-import background from "../image/Background.jpg";
 import { useEffect, useState } from "react";
 
 const MoviesShow = ({ name, image, genres, language, rating, id, summary }) => {
@@ -25,10 +24,8 @@ const MoviesShow = ({ name, image, genres, language, rating, id, summary }) => {
         }
       }
     }
-  }, []);
+  }, [genres,language,rating]);
 
-  let bac = document.querySelector(".bac");
-  bac.src = background;
   return (
     <>
       {id === 0 || id === 1 ? (

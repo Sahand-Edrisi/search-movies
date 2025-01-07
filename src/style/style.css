@@ -2,7 +2,7 @@
   --background-items: rgb(61, 28, 22);
   --background: rgb(211, 208, 205);
   --background-Header: rgb(114, 103, 103);
-  --color-orange: rgb(250, 165, 7);
+  --color-orange: rgb(243, 159, 50);
   --color-orange-light: rgb(206, 158, 70);
   --color-white: rgb(255, 255, 255);
   --color-black: rgb(17, 16, 16);
@@ -13,9 +13,17 @@ a {
 }
 
 .body {
+  background: linear-gradient(
+    to bottom,
+    #333333,
+    #794a03
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  position: fixed;
   width: 100%;
-  display: flex;
-  justify-content: center;
+  height: 100%;
+  margin: -8px;
+  z-index: -1;
 }
 
 .container {
@@ -24,15 +32,15 @@ a {
   overflow-y: hidden;
 }
 
-.bac {
-  position: fixed;
-  width: 100%;
-  height: 100%;
+/* .bac {
+position: absolute;
+    width: 5500px; 
+   height: 100%; 
   top: 0;
   right: 0;
   object-fit: cover;
   z-index: -10;
-}
+} */
 
 /* search-box */
 
@@ -83,12 +91,10 @@ a {
   height: 0px;
   width: 0px;
   margin-left: 10px;
+  margin-top: 2px;
   overflow: hidden;
   overflow-x: hidden;
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
+  border-radius: 20px;
   z-index: 100;
   background-color: var(--background-Header);
   opacity: 0.9;
@@ -101,11 +107,26 @@ a {
   z-index: 100;
   width: 210px;
   bottom: 0px;
+  border: 0;
+  background-color: var(--color-orange);
+  padding: 2px 0;
+}
+#SearchMovies .down i {
+  color: var(--color-white);
+  font-size: 15px;
 }
 #SearchMovies .up {
   position: absolute;
   z-index: 100;
   width: 210px;
+  border: 0;
+  background-color: var(--color-orange);
+  padding: 2px 0;
+}
+#SearchMovies .up i {
+  color: var(--color-orange);
+  color: var(--color-white);
+  font-size: 15px;
 }
 
 #SearchMovies a {
@@ -120,14 +141,12 @@ a {
   margin-top: 25px;
   overflow: hidden;
   transition: all 0.8s ease-in-out;
-  
 }
 
-#SearchMovies .items .names{
+#SearchMovies .items .names {
   margin: 0 5px;
   font-size: 20px;
   color: var(--color-orange);
-  
 }
 
 #SearchMovies .items img {
@@ -321,7 +340,6 @@ a {
 .movieShow #backgroundImage {
   box-shadow: 0px 0px 50px 10px;
   position: absolute;
-  z-index: -1;
   object-fit: cover;
   width: 480px;
   height: 450px;
@@ -334,6 +352,7 @@ a {
   display: flex;
   justify-content: center;
   font-family: cursive;
+  z-index: 1;
 }
 .movieShow .information {
   width: 500px;
@@ -341,6 +360,7 @@ a {
   grid-template-columns: auto auto;
 }
 .movieShow .information .col1 {
+  z-index: 1;
   width: 250px;
 }
 .movieShow .information .col2 {
@@ -408,6 +428,7 @@ a {
   border-radius: 10px;
   width: 150px;
   object-fit: contain;
+  z-index: 5;
 }
 
 /* Movie show */
@@ -538,7 +559,7 @@ a {
 .titlePagination {
   display: flex;
   align-items: center;
-  color: var(--color-orange);
+  color: var(--color-white);
   font-size: 20px;
   height: 30px;
   cursor: context-menu;
@@ -551,7 +572,7 @@ a {
 .paginationShow #next {
   padding: 0 8px;
   background-color: inherit;
-  color: var(--color-orange);
+  color: var(--color-white);
   border: 0px;
   cursor: pointer;
 }
@@ -559,7 +580,7 @@ a {
   background-color: inherit;
   cursor: pointer;
   padding: 0 8px;
-  color: var(--color-orange);
+  color: var(--color-white);
   border: 0px;
 }
 #pages {

@@ -3,7 +3,6 @@ import axios from "axios";
 import MoviesShow from "./moviesShow";
 import Movie from "./movie";
 import NotFound from "./notFound";
-import Background from "../image/Background.jpg";
 import notPicture from "../image/notPicture.jpg";
 import { Link } from "react-router-dom";
 import {
@@ -137,8 +136,8 @@ const GetDataMovie = () => {
   if (Movies.length > 0 || vpn === false || vpn === true) {
     return (
       <>
-        <img className="bac" src={Background} alt="" />
         <div className="body">
+        </div>
           <div className="container">
             <div className="search">
               <div className="search-box">
@@ -386,7 +385,7 @@ const GetDataMovie = () => {
               <NotFound />
             )}
           </div>
-        </div>
+      
       </>
     );
   }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import background from "../image/background-movie.jpg"
+
 const Movie = ({
   name,
   image,
@@ -21,11 +21,7 @@ const Movie = ({
   const [statusTypeOf, setStatus] = useState(true);
   let IMDbWebSite = `https://www.imdb.com/title/${IMDb}/`
     ? `https://www.imdb.com/title/${IMDb}/`
-    : undefined;
-
-    let bac = document.querySelector(".bac")
-    bac.src = background
-    
+    : undefined;    
     useEffect(() => {
     let data = [genres, language, rating, country, status];
      for (let i = 0; i < data.length; i++) {

@@ -260,7 +260,12 @@ export function showPages(e) {
   }
 }
 export function scrollTo() {
-  window.scrollTo({ top: 700, behavior: "smooth" });
+  if (window.screen.availWidth > 1070) {
+    window.scrollTo({ top: 600, behavior: "smooth" });
+  }
+  if (window.screen.availWidth > 100) {
+    window.scrollTo({ top: 350, behavior: "smooth" });
+  }
 }
 function hiddenBtnNext() {
   document.getElementById("next").style.visibility = "hidden";
