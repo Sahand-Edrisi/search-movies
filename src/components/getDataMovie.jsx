@@ -672,22 +672,32 @@ const GetDataMovie = () => {
           "  translate: -350px 0px;transition: all .5s  ease-in-out;";
         imgShow[1].style =
           " translate: -350px 0px;transition: all .5s  ease-in-out;";
-      }
-       else if (window.screen.availWidth > 950) {
+      } else if (window.screen.availWidth > 950) {
         imgShow[0].style =
           "  translate: -2000px 0px;transition: all .5s  ease-in-out;";
         imgShowCenter[0].style =
           "  translate: -300px 0px;transition: all .5s  ease-in-out;";
         imgShow[1].style =
           " translate: -300px 0px;transition: all .5s  ease-in-out;";
-      }
-       else if (window.screen.availWidth > 800) {
+      } else if (window.screen.availWidth > 730) {
         imgShow[0].style =
           "  translate: -1500px 0px;transition: all .5s  ease-in-out;";
         imgShowCenter[0].style =
-          "  translate: -250px 0px;transition: all .5s  ease-in-out;";
+          "  translate: -220px 0px;transition: all .5s  ease-in-out;";
         imgShow[1].style =
-          " translate: -250px 0px;transition: all .5s  ease-in-out;";
+          " translate: -220px 0px;transition: all .5s  ease-in-out;";
+      } 
+      else if (window.screen.availWidth > 490) {
+        imgShowCenter[0].style =
+          "  translate: -900px 0px;transition: all .5s  ease-in-out;";
+        imgShow[1].style =
+          " translate: +900px 0px;transition: all .5s  ease-in-out";
+      }
+      else if (window.screen.availWidth > 340) {
+        imgShowCenter[0].style =
+          "  translate: -900px 0px;transition: all .5s  ease-in-out;";
+        imgShow[1].style =
+          " translate: +900px 0px;transition: all .5s  ease-in-out";
       }
     }
 
@@ -698,14 +708,19 @@ const GetDataMovie = () => {
       } else if (window.screen.availWidth > 1150) {
         imgShow[0].style =
           "translate: 650px 0px ;transition: all .5s  ease-in-out";
-      }
-       else if (window.screen.availWidth > 950) {
+      } else if (window.screen.availWidth > 950) {
         imgShow[0].style =
           "translate: 550px 0px ;transition: all .5s  ease-in-out";
-      }
-       else if (window.screen.availWidth > 800) {
+      } else if (window.screen.availWidth > 730) {
         imgShow[0].style =
-          "translate: 450px 0px ;transition: all .5s  ease-in-out";
+          "translate: 400px 0px ;transition: all .5s  ease-in-out";
+      } else if (window.screen.availWidth > 490) {
+        imgShow[1].style =
+          "translate: -100px 0px ;transition: all .5s  ease-in-out";
+      }
+      else if (window.screen.availWidth > 340) {
+        imgShow[1].style =
+          "translate: -100px 0px ;transition: all .5s  ease-in-out";
       }
     }
     function NewImageIndexZeroTranslate() {
@@ -713,12 +728,16 @@ const GetDataMovie = () => {
         imgShow[0].style = "translate: 3000px 0px";
       } else if (window.screen.availWidth > 1150) {
         imgShow[0].style = "translate: 2000px 0px";
-      }
-       else if (window.screen.availWidth > 950) {
+      } else if (window.screen.availWidth > 950) {
         imgShow[0].style = "translate: 1500px 0px";
+      } else if (window.screen.availWidth > 730) {
+        imgShow[0].style = "translate: 900px 0px";
+      } 
+      else if (window.screen.availWidth > 490) {
+        imgShow[1].style = "translate: 900px 0px";
       }
-       else if (window.screen.availWidth > 800) {
-        imgShow[0].style = "translate: 1000px 0px";
+      else if (window.screen.availWidth > 340) {
+        imgShow[1].style = "translate: 900px 0px";
       }
     }
     for (let i = 0; i <= 6; i++) {
@@ -872,22 +891,32 @@ const GetDataMovie = () => {
           "  translate: +350px 0px;transition: all .5s  ease-in-out;";
         imgShow[0].style =
           " translate: +350px 0px;transition: all .5s  ease-in-out;";
-      } 
-      else if (window.screen.availWidth > 950) {
+      } else if (window.screen.availWidth > 950) {
         imgShow[1].style =
           "  translate: +2000px 0px ;transition: all .5s  ease-in-out;";
         imgShowCenter[0].style =
           "  translate: +300px 0px;transition: all .5s  ease-in-out;";
         imgShow[0].style =
           " translate: +300px 0px;transition: all .5s  ease-in-out;";
-      }
-      else if (window.screen.availWidth > 800) {
+      } else if (window.screen.availWidth > 730) {
         imgShow[1].style =
           "  translate: +1500px 0px ;transition: all .5s  ease-in-out;";
         imgShowCenter[0].style =
-          "  translate: +250px 0px;transition: all .5s  ease-in-out;";
+          "  translate: +220px 0px;transition: all .5s  ease-in-out;";
         imgShow[0].style =
-          " translate: +250px 0px;transition: all .5s  ease-in-out;";
+          " translate: +220px 0px;transition: all .5s  ease-in-out;";
+      } 
+      else if (window.screen.availWidth > 490) {
+        imgShowCenter[0].style =
+          "  translate: +900px 0px;transition: all .5s  ease-in-out;";
+        imgShow[0].style =
+          "  translate: -900px 0px ;transition: all .5s  ease-in-out;";
+      }
+      else if (window.screen.availWidth > 340) {
+        imgShowCenter[0].style =
+          "  translate: +900px 0px;transition: all .5s  ease-in-out;";
+        imgShow[0].style =
+          "  translate: -900px 0px ;transition: all .5s  ease-in-out;";
       }
     }
 
@@ -898,14 +927,20 @@ const GetDataMovie = () => {
       } else if (window.screen.availWidth > 1150) {
         imgShow[1].style =
           "translate: -650px 0px ;transition: all .5s  ease-in-out";
-      }
-       else if (window.screen.availWidth > 950) {
+      } else if (window.screen.availWidth > 950) {
         imgShow[1].style =
           "translate: -550px 0px ;transition: all .5s  ease-in-out";
-      }
-       else if (window.screen.availWidth > 800) {
+      } else if (window.screen.availWidth > 730) {
         imgShow[1].style =
-          "translate: -450px 0px ;transition: all .5s  ease-in-out";
+          "translate: -400px 0px ;transition: all .5s  ease-in-out";
+      } 
+      else if (window.screen.availWidth > 490) {
+        imgShow[0].style =
+          "translate: +100px 0px ;transition: all .5s  ease-in-out";
+      }
+      else if (window.screen.availWidth > 340) {
+        imgShow[0].style =
+          "translate: +100px 0px ;transition: all .5s  ease-in-out";
       }
     }
     function NewImageIndexZeroTranslate() {
@@ -913,12 +948,16 @@ const GetDataMovie = () => {
         imgShow[1].style = "translate: -3000px 0px";
       } else if (window.screen.availWidth > 1150) {
         imgShow[1].style = "translate: -2000px 0px";
-      } 
-      else if (window.screen.availWidth > 950) {
+      } else if (window.screen.availWidth > 950) {
         imgShow[1].style = "translate: -1500px 0px";
+      } else if (window.screen.availWidth > 800) {
+        imgShow[1].style = "translate: -900px 0px";
+      } 
+      else if (window.screen.availWidth > 490) {
+        imgShow[0].style = "translate: -900px 0px";
       }
-      else if (window.screen.availWidth > 800) {
-        imgShow[1].style = "translate: -1000px 0px";
+      else if (window.screen.availWidth > 340) {
+        imgShow[0].style = "translate: -900px 0px";
       }
     }
 

@@ -1,108 +1,263 @@
 /* 1300px */
 
-@media screen and (max-width : 1300px) {
-    #bestMovies #images .imgShow {
-        width: 250px;
-        height: 400px;
-      }
-      
-      #bestMovies #images .imgShowCenter {
-        width: 300px;
-        height: 450px;
-      }
-      #bestMovies {
-        height: 550px;
-      }
+@media screen and (max-width: 1300px) {
+  #bestMovies #images .imgShow {
+    width: 250px;
+    height: 400px;
+  }
+
+  #bestMovies #images .imgShowCenter {
+    width: 300px;
+    height: 450px;
+  }
+  #bestMovies {
+    height: 550px;
+  }
 }
 /* 1150 */
-@media screen and (max-width : 1150px) {
-    #bestMovies #images .imgShow {
-        width: 200px;
-        height: 300px;
-      }
-      
-      #bestMovies #images .imgShowCenter {
-        width: 250px;
-        height: 350px;
-      }
-      #bestMovies {
-        height: 500px;
-      }
+@media screen and (max-width: 1150px) {
+  #bestMovies #images .imgShow {
+    width: 200px;
+    height: 300px;
+  }
+
+  #bestMovies #images .imgShowCenter {
+    width: 250px;
+    height: 350px;
+  }
+  #bestMovies {
+    height: 500px;
+  }
 }
 /* 1050 */
-@media screen and (max-width : 1050px) {
-
-    #MoviesShow {
-        grid-template-columns: auto;
-        height: 1000px;
-      }
-    /* #bestMovies #images .imgShow {
-        width: 200px;
-        height: 350px;
-      }
-      
-      #bestMovies #images .imgShowCenter {
-        width: 250px;
-        height: 400px;
-      }
-
-      .movieShow #backgroundImage {
-        width: 480px;
-        height: 450px;
-      }
-      
-      .movieShow .information {
-        width: 500px;
-      }
-      .movieShow .information .col1 {
-        width: 250px;
-      }
-      .movieShow .information .col2 {
-        width: 250px;
-      }
-      .movieShow .information .col1 .item-lan-rat {
-        font-size: 30px;
-
-        height: 70px;
-      }
-
-
-
-      .movieShow .information .col1 .genres-summary .item {
-
-        width: 240px;
-
-
-      }
-      
-      .movieShow .information .col1 .genres-summary .item .title {
-        font-size: 20px;
-      }
-      .movieShow .information .col1 .genres-summary .item .line {
-        width: 80%;
-      }
-      .movieShow .information .col1 .genres-summary .item .text {
-        width: 220px;
-      }
-    
-      
-      .movieShow .Picture img {
-        width: 150px;
-      } */
+@media screen and (max-width: 1050px) {
+  #MoviesShow {
+    grid-template-columns: auto;
+    height: 1100px;
+  }
+  #movie .column1 img {
+    width: 200px;
+    height: 290px;
+  }
+  #movie .main .column2 .col1 .summary {
+    font-size: 16px;
+  }
 }
 
-/* 550 */
-@media screen and (max-width : 950px) {
-    #bestMovies {
-      height: 300px;
-    }
-    #bestMovies #images .imgShow {
-        width: 150px;
-        height: 200px;
-      }
-      #bestMovies #images .imgShowCenter {
-        width: 200px;
-        height: 250px;
-      }
+/* 900 */
+@media screen and (max-width: 900px) {
+  #movie #name span {
+    font-size: 20px;
+  }
+  #movie .column1 img {
+    width: 180px;
+    height: 250px;
+  }
+  #movie .main .column2 .col1 .summary {
+    font-size: 14px;
+  }
+  #movie .main .column2 .col2 p {
+    font-size: 15px;
+  }
+  #movie .main .column2 .col2 p span {
+    font-size: 15px;
+  }
+}
+/* 950 */
+@media screen and (max-width: 950px) {
+  #bestMovies {
+    height: 300px;
+  }
+  #bestMovies #images .imgShow {
+    width: 120px;
+    height: 200px;
+  }
+  #bestMovies #images .imgShowCenter {
+    width: 180px;
+    height: 250px;
+  }
+}
+/* 730 */
+@media screen and (max-width: 730px) {
+  #bestMovies {
+    height: 300px;
+  }
+  #bestMovies #images .imgShow {
+    width: 0;
+    height: 0;
+  }
+  #bestMovies #images .imgShowCenter {
+    width: 180px;
+    height: 250px;
+  }
+  #displayOn {
+    width: 445px;
+    height: 420px;
+  }
+  #MoviesShow {
+    height: 900px;
+  }
+  .movieShow #backgroundImage {
+    width: 400px;
+    height: 400px;
+  }
 
-    }
+  .movieShow .information {
+    width: 400px;
+  }
+  .movieShow .information .col1 {
+    width: 220px;
+  }
+  .movieShow .information .col2 {
+    width: 180px;
+  }
+
+  .movieShow .information .col1 .item-lan-rat {
+    font-size: 20px;
+    height: 60px;
+  }
+
+  .movieShow .information .col1 .genres-summary .item {
+    width: 150px;
+  }
+
+  .movieShow .information .col1 .genres-summary .item .title {
+    font-size: 15px;
+  }
+  .movieShow .information .col1 .genres-summary .item .line {
+    width: 60%;
+  }
+  .movieShow .information .col1 .genres-summary .item .text {
+    width: 150px;
+    font-size: 13px;
+  }
+  .movieShow .Picture img {
+    width: 120px;
+  }
+}
+/* 750 */
+@media screen and (max-width: 750px) {
+  #movie #name span {
+    font-size: 16px;
+  }
+  #movie .column1 img {
+    width: 150px;
+    height: 200px;
+  }
+  #movie .main .column2 .col1 .summary {
+    font-size: 12px;
+  }
+  #movie .main .column2 .col2 p {
+    font-size: 13px;
+  }
+  #movie .main .column2 .col2 p span {
+    font-size: 13px;
+  }
+  #movie .main .column2 .link {
+    font-size: 13px;
+  }
+}
+/* 750 */
+@media screen and (max-width: 750px) {
+  #movie .main {
+    display: grid;
+  }
+
+  #movie .main .column2 {
+    grid-template-columns: auto;
+  }
+  #movie .main .column2 .col1 {
+    margin: 0 10px;
+    height: 130px;
+  }
+  #movie .main .column2 .links {
+    display: grid;
+    justify-items: center;
+  }
+  #movie .column1  {
+    display: flex;
+    justify-content: center;
+  }
+  #movie #name {
+    justify-content: center;
+  }
+}
+/* 500 */
+@media screen and (max-width: 500px) {
+  #movie .main .column2 .col1 {
+ 
+    height: 190px;
+  }
+}
+/* 400 */
+@media screen and (max-width: 400px) {
+  #movie .main .column2 .col1 {
+ 
+    height: 210px;
+  }
+}
+/* 350 */
+@media screen and (max-width: 350px) {
+  #movie .main .column2 .col1 {
+ 
+    height: 230px;
+  }
+}
+/* 300 */
+@media screen and (max-width: 300px) {
+  #movie .main .column2 .col1 {
+ 
+    height: 250px;
+  }
+}
+/* 270 */
+@media screen and (max-width: 270px) {
+  #movie .main .column2 .col1 {
+ 
+    height: 280px;
+  }
+}
+
+
+
+
+/* 490 */
+@media screen and (max-width: 490px) {
+  #bestMovies #images {
+    width: 250px;
+  }
+}
+/* 425 */
+@media screen and (max-width: 425px) {
+  #bestMovies #images {
+    width: 200px;
+  }
+
+  #displayOn {
+    width: 400px;
+    height: 420px;
+  }
+  #MoviesShow {
+    height: 900px;
+  }
+  .movieShow .name {
+    font-size: 12px;
+    height: 80px;
+  }
+  .movieShow #backgroundImage {
+    width: 350px;
+    height: 380px;
+  }
+  .movieShow .information {
+    width: 350px;
+  }
+  .movieShow .information .col1 {
+    width: 200px;
+  }
+  .movieShow .information .col2 {
+    width: 150px;
+  }
+  .movieShow .Picture img {
+    width: 110px;
+  }
+}
