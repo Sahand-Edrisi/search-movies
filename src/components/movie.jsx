@@ -127,6 +127,9 @@ const Movie = ({
         return slice;
       }
       return removeTILast;
+    }else{
+      let col1 = document.querySelector(".col1")
+      col1.style = "height:0px" 
     }
   }
 };

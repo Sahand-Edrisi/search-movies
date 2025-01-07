@@ -22,6 +22,7 @@ import {
   itemActive,
   itemInactive,
   clearInput,
+  scrollToTop
 } from "./functionality";
 
 const GetDataMovie = () => {
@@ -595,6 +596,7 @@ const GetDataMovie = () => {
     ShowSearchMoviesOff();
     let saveData = [...showSearchMovies];
     setShowSearchMoviesItemData(saveData);
+    scrollToTop()
   }
   // other function in js file
 
@@ -631,6 +633,7 @@ const GetDataMovie = () => {
     setShowBestMovies(item.id);
     clearInput();
     ShowSearchMoviesOff();
+    scrollToTop()
   }
 
   // movies
@@ -647,6 +650,7 @@ const GetDataMovie = () => {
     setShowMovie(movie.id);
     clearInput();
     ShowSearchMoviesOff();
+    scrollToTop()
   }
 
   // btn for best movie

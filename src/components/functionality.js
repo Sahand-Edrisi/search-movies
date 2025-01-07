@@ -259,6 +259,9 @@ export function showPages(e) {
     scrollTo();
   }
 }
+export function scrollToTop(){
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
 export function scrollTo() {
   if (window.screen.availWidth > 1070) {
     window.scrollTo({ top: 600, behavior: "smooth" });
