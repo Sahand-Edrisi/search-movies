@@ -1,6 +1,7 @@
 Search-movies
 
 To view the demo click on the link : [https://sahand-edrisi.github.io/sahand-Edrisi/](https://sahand-edrisi.github.io/search-movies/)
+
 ![sample-search-movies](https://github.com/user-attachments/assets/248efb9a-50bd-4d7d-a85e-4c900f2361c2)
 
 
