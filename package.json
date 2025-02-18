@@ -1,6 +1,6 @@
 {
   "homepage": "https://Sahand-Edrisi.github.io/search-movies",
-  "name": "search-box",
+  "name": "search-movies",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

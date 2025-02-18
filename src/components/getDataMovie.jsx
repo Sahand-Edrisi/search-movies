@@ -4,7 +4,7 @@ import MoviesShow from "./moviesShow";
 import Movie from "./movie";
 import NotFound from "./notFound";
 import notPicture from "../image/notPicture.jpg";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import {
   ShowSearchMoviesOff,
   nameDataSlice,
@@ -133,7 +133,6 @@ const GetDataMovie = () => {
         console.log(e.message);
       });
   }, []);
-
   if (Movies.length > 0 || vpn === false || vpn === true) {
     return (
       <>
@@ -321,7 +320,28 @@ const GetDataMovie = () => {
                     )
                   ) : (
                     data.map((i, index) =>
-                      `'${showMovie}'` === `'${i.id}'` ? (
+                      `'${showMovie}'` === `'${i.id}'`? (
+                        <Movie
+                          key={index}
+                          name={i.name}
+                          image={i.imageOriginal ? i.imageOriginal : i.image}
+                          genres={i.genres}
+                          visitSite={i.visitSite}
+                          officialSite={i.officialSite}
+                          language={i.language}
+                          rating={i.rating}
+                          id={i.id}
+                          summary={i.summary}
+                          country={i.country}
+                          status={i.status}
+                          IMDb={i.externals}
+                          />
+                      ) : undefined
+                    )
+                  )
+                ) : (
+                  bestMoviesData.map((i, index) =>
+                    `"${showBestMovies}"` === `"${i.id}"` ? (
                         <Movie
                           key={index}
                           name={i.name}
@@ -337,27 +357,6 @@ const GetDataMovie = () => {
                           status={i.status}
                           IMDb={i.externals}
                         />
-                      ) : undefined
-                    )
-                  )
-                ) : (
-                  bestMoviesData.map((i, index) =>
-                    `"${showBestMovies}"` === `"${i.id}"` ? (
-                      <Movie
-                        key={index}
-                        name={i.name}
-                        image={i.imageOriginal ? i.imageOriginal : i.image}
-                        genres={i.genres}
-                        visitSite={i.visitSite}
-                        officialSite={i.officialSite}
-                        language={i.language}
-                        rating={i.rating}
-                        id={i.id}
-                        summary={i.summary}
-                        country={i.country}
-                        status={i.status}
-                        IMDb={i.externals}
-                      />
                     ) : undefined
                   )
                 )
@@ -365,9 +364,9 @@ const GetDataMovie = () => {
                 SaveSearchMoviesItemData.map((i, index) =>
                   `"${showSearchMoviesItem}"` === `"${i.id}"` ? (
                     <Movie
-                      key={index}
-                      name={i.name}
-                      image={i.imageOriginal ? i.imageOriginal : i.image}
+                    key={index}
+                    name={i.name}
+                    image={i.imageOriginal ? i.imageOriginal : i.image}
                       genres={i.genres}
                       visitSite={i.visitSite}
                       officialSite={i.officialSite}
@@ -378,8 +377,8 @@ const GetDataMovie = () => {
                       country={i.country}
                       status={i.status}
                       IMDb={i.externals}
-                    />
-                  ) : undefined
+                      />
+                    ) : undefined
                 )
               )
             ) : (

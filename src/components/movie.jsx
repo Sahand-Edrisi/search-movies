@@ -21,10 +21,10 @@ const Movie = ({
   const [statusTypeOf, setStatus] = useState(true);
   let IMDbWebSite = `https://www.imdb.com/title/${IMDb}/`
     ? `https://www.imdb.com/title/${IMDb}/`
-    : undefined;    
-    useEffect(() => {
+    : undefined;
+  useEffect(() => {
     let data = [genres, language, rating, country, status];
-     for (let i = 0; i < data.length; i++) {
+    for (let i = 0; i < data.length; i++) {
       if (data[i] === undefined || data[i] === null || data[i] === "") {
         if (i === 0) {
           setGenres(false);
@@ -39,76 +39,74 @@ const Movie = ({
         }
       }
     }
-  },[genres, language, rating, country, status]);
-
-
+  }, [genres, language, rating, country, status]);
 
   return (
     <>
       <div className="body-movie">
-      <div id="movie">
-        <div id="name">
-          <span>{name}</span>
-        </div>
-        <div className="main">
-          <div className="column1">
-            <img src={image} alt="" />
+        <div id="movie">
+          <div id="name">
+            <span>{name}</span>
           </div>
-          <div className="column2">
-            <div className="col1">
-              <p className="summary">{summaryDataSlice()}</p>
+          <div className="main">
+            <div className="column1">
+              <img src={image} alt="" />
             </div>
-            <div className="col2">
-              {languageTypeOf === true ? (
-                <p>
-                  language : <span>{language}</span>
-                </p>
-              ) : (
-                ""
-              )}
-              {ratingTypeOf === true ? (
-                <p>
-                  rating : <span>{rating}</span>
-                </p>
-              ) : (
-                ""
-              )}
-              {genresTypeOf === true ? (
-                <p>
-                  genres : <span>{genres}</span>
-                </p>
-              ) : (
-                ""
-              )}
-              {countryTypeOf === true ? (
-                <p>
-                  country : <span>{country}</span>
-                </p>
-              ) : (
-                ""
-              )}
-              {statusTypeOf === true ? (
-                <p>
-                  status : <span>{status}</span>
-                </p>
-              ) : (
-                ""
-              )}
-                        <div className="links">
-                <Link className="link" target="_blank" to={visitSite}>
-                  visitSite
-                </Link>
-                <Link className="link" target="_blank" to={IMDbWebSite}>
-                  IMDb
-                </Link>
-                <Link className="link" target="_blank" to={officialSite}>
-                  officialSite
-                </Link>
+            <div className="column2">
+              <div className="col1">
+                <p className="summary">{summaryDataSlice()}</p>
+              </div>
+              <div className="col2">
+                {languageTypeOf === true ? (
+                  <p>
+                    language : <span>{language}</span>
+                  </p>
+                ) : (
+                  ""
+                )}
+                {ratingTypeOf === true ? (
+                  <p>
+                    rating : <span>{rating}</span>
+                  </p>
+                ) : (
+                  ""
+                )}
+                {genresTypeOf === true ? (
+                  <p>
+                    genres : <span>{genres}</span>
+                  </p>
+                ) : (
+                  ""
+                )}
+                {countryTypeOf === true ? (
+                  <p>
+                    country : <span>{country}</span>
+                  </p>
+                ) : (
+                  ""
+                )}
+                {statusTypeOf === true ? (
+                  <p>
+                    status : <span>{status}</span>
+                  </p>
+                ) : (
+                  ""
+                )}
+                <div className="links">
+                  <Link className="link" target="_blank" to={visitSite}>
+                    visitSite
+                  </Link>
+                  <Link className="link" target="_blank" to={IMDbWebSite}>
+                    IMDb
+                  </Link>
+                  <Link className="link" target="_blank" to={officialSite}>
+                    officialSite
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
       </div>
     </>
   );
@@ -127,9 +125,9 @@ const Movie = ({
         return slice;
       }
       return removeTILast;
-    }else{
-      let col1 = document.querySelector(".col1")
-      col1.style = "height:0px" 
+    } else {
+      let col1 = document.querySelector(".col1");
+      col1.style = "height:0px";
     }
   }
 };

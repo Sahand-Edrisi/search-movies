@@ -92,6 +92,7 @@ const MoviesShow = ({ name, image, genres, language, rating, id, summary }) => {
             </div>
           </div>
         </div>
+    
       ) : (
         <div id="displayOff" className="movie">
           <div className="movieShow" id={id}>
